@@ -5,8 +5,10 @@
 use Faker\Generator as Faker;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
-$factory->define(NextEngineApi::class, function (Faker $faker) {
-    return [
+$factory->define(
+    NextEngineApi::class,
+    function (Faker $faker) {
+        return [
         'pic_mail_address' => config('nextengine.pic_mail_address'),
         'password' => config('nextengine.password'),
         'client_id' => config('nextengine.account.client_id'),
@@ -18,5 +20,6 @@ $factory->define(NextEngineApi::class, function (Faker $faker) {
         'refresh_token' => null,
         'access_token_end_date' => null,
         'refresh_token_end_date' => null
-    ];
-});
+        ];
+    }
+);

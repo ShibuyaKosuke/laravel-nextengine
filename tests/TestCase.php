@@ -29,14 +29,17 @@ abstract class TestCase extends OrchestraTestCase
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'mysql');
-        $app['config']->set('database.connections.mysql', [
-            'driver' => 'mysql',
-            'host' => '127.0.0.1',
-            'port' => '3306',
-            'database' => 'homestead',
-            'username' => 'homestead',
-            'password' => 'secret',
-        ]);
+        $app['config']->set(
+            'database.connections.mysql',
+            [
+                'driver' => 'mysql',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'database' => 'homestead',
+                'username' => 'homestead',
+                'password' => 'secret',
+            ]
+        );
     }
 
     /**

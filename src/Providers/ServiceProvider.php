@@ -19,15 +19,23 @@ class ServiceProvider extends ServiceProviderBase
      */
     public function boot(): void
     {
-        $this->loadFactoriesFrom(__DIR__ . '/../../factories');
+        /**
+         * @deprecated loadFactoriesFrom() は Laravel8 以上で削除される。
+         * その場合 laravel/legacy-factories パッケージをつかうこと。
+         *
+         * @see https://github.com/laravel/legacy-factories
+         */
+        $this->loadFactoriesFrom(__DIR__ . '/../../database/factories');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../../migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
         $this->publishes(
             [
                 __DIR__ . '/../../config/nextengine.php' => config_path('nextengine.php'),
-                __DIR__ . '/../../migrations' => database_path('migrations'),
-            ]
+                __DIR__ . '/../../database/migrations' => database_path('migrations'),
+                __DIR__ . '/../../database/factories' => database_path('factories'),
+            ],
+            'nextengine'
         );
 
         $this->app->singleton(
