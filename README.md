@@ -18,6 +18,12 @@ composer でインストールしてください。
 composer require laravel-nextengine
 ```
 
+Laravel バージョン 8 以上を使う場合は、別途 laravel/legacy-factories をインストールしてください。
+
+```bash
+composer require laravel/legacy-factories
+```
+
 ## 設定
 
 `.env` に以下の項目を追加します。
