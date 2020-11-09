@@ -1,0 +1,418 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ShibuyaKosuke\LaravelNextEngine;
+
+use Carbon\Carbon;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Log;
+use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
+use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
+use ShibuyaKosuke\LaravelNextEngine\Services\HttpClient;
+
+/**
+ * Class Base
+ * @package ShibuyaKosuke\LaravelNextEngine
+ */
+abstract class Base
+{
+    /**
+     * NextEngine 認証サーバー
+     */
+    public const BASE_SERVER_DOMAIN = 'https://base.next-engine.org';
+
+    /**
+     * NextEngine APIサーバー
+     */
+    public const API_SERVER_DOMAIN = 'https://api.next-engine.org';
+
+    /**
+     * NextEngine ログイン
+     */
+    public const PATH_LOGIN = '/users/sign_in/';
+
+    /**
+     * API認証
+     */
+    public const PATH_OAUTH = '/api_neauth/';
+
+    /**
+     * 成功
+     */
+    public const RESULT_SUCCESS = 'success';
+
+    /**
+     * 失敗
+     */
+    public const RESULT_ERROR = 'error';
+
+    /**
+     * 要リダイレクト
+     */
+    public const RESULT_REDIRECT = 'redirect';
+
+    /**
+     * NextEngineApi モデル
+     *
+     * @var NextEngineApi
+     */
+    protected $nextEngineApi;
+
+    /**
+     * config
+     *
+     * @var Repository
+     */
+    protected $config;
+
+    /**
+     * route
+     *
+     * @var Router
+     */
+    protected $router;
+
+    /**
+     * Request
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * デバッグ
+     *
+     * @var boolean
+     */
+    protected $debug = false;
+
+    /**
+     * クライアントID
+     *
+     * @var string
+     */
+    protected $client_id;
+
+    /**
+     * クライアントシークレット
+     *
+     * @var string
+     */
+    protected $client_secret;
+
+    /**
+     * リダイレクトURL
+     *
+     * @var string
+     */
+    protected $redirect_uri;
+
+    /**
+     * アクセストークン
+     *
+     * @var string
+     */
+    protected $access_token;
+
+    /**
+     * リフレッシュトークン
+     *
+     * @var string
+     */
+    protected $refresh_token;
+
+    /**
+     * アクセストークン期限
+     *
+     * @var Carbon
+     */
+    protected $access_token_end_date;
+
+    /**
+     * リフレッシュトークン期限
+     *
+     * @var Carbon
+     */
+    protected $refresh_token_end_date;
+
+    /**
+     * UID
+     *
+     * @var string
+     */
+    protected $uid;
+
+    /**
+     * State
+     *
+     * @var  string
+     */
+    protected $state;
+
+    /**
+     * NextEngine constructor.
+     * @param Application $app
+     * @return void
+     */
+    public function __construct(Application $app)
+    {
+        $this->config = $app['config'];
+        $this->router = $app['router'];
+        $this->request = $app['request'];
+
+        $this->debug = $this->config->get('nextengine.debug');
+
+        $this->setUidAndState();
+    }
+
+    /**
+     * URLパラメータから、UID・state をセットする
+     *
+     * @return void
+     */
+    protected function setUidAndState(): void
+    {
+        if ($current = $this->router->getCurrentRequest()) {
+            $this->uid = $current->query('uid');
+            $this->state = $current->query('state');
+        }
+    }
+
+    /**
+     * Config を読み込み
+     *
+     * @param NextEngineApi $nextEngineApi
+     * @return void
+     * @throws NextEngineException
+     */
+    protected function parseConfig(NextEngineApi $nextEngineApi): void
+    {
+        $this->nextEngineApi = $nextEngineApi;
+
+        $this->uid = $this->nextEngineApi->uid;
+        $this->state = $this->nextEngineApi->state;
+        $this->client_id = $this->nextEngineApi->client_id;
+        $this->client_secret = $this->nextEngineApi->client_secret;
+        $this->redirect_uri = $this->nextEngineApi->redirect_uri;
+
+        $this->checkConfig();
+    }
+
+    /**
+     * 「待機フラグ」の値を取得する
+     *
+     * @return integer
+     */
+    public function getWaitFlag(): int
+    {
+        return $this->config->get('nextengine.wait_flag') === 1 ? 1 : 0;
+    }
+
+    /**
+     * 設定値をチェックする
+     *
+     * @return bool
+     * @throws NextEngineException
+     */
+    protected function checkConfig(): bool
+    {
+        if (empty($this->nextEngineApi)) {
+            throw new NextEngineException('NextEngineApi Setting is not defined.');
+        }
+        if (empty($this->client_id)) {
+            throw new NextEngineException('client_id is not defined.');
+        }
+        if (empty($this->client_secret)) {
+            throw new NextEngineException('client_secret is not defined.');
+        }
+        if (empty($this->redirect_uri)) {
+            throw new NextEngineException('redirect_uri is not defined.');
+        }
+        return true;
+    }
+
+    /**
+     * APIにリクエストする
+     *
+     * @param string $path URI
+     * @param array $params パラメータ
+     * @param string|null $redirect_uri リダイレクトURI
+     * @return array
+     * @throws NextEngineException
+     */
+    public function execute(string $path, array $params = [], string $redirect_uri = null): array
+    {
+        $this->setRedirectUri($redirect_uri);
+        $this->setUidAndState();
+        return $this->httpRequest($path, $params);
+    }
+
+    /**
+     * リクエストを実行する
+     *
+     * @param string $path
+     * @param array $params
+     * @return mixed
+     * @throws NextEngineException
+     */
+    private function httpRequest(string $path, array $params = [])
+    {
+        try {
+            $this->checkConfig();
+
+            $params = array_merge(
+                $params,
+                [
+                    'access_token' => $this->access_token,
+                    'refresh_token' => $this->refresh_token,
+                ]
+            );
+
+            $content = (new HttpClient())->post(self::API_SERVER_DOMAIN . $path, $params)
+                ->getBody()
+                ->getContents();
+
+            $this->checkResponse($content);
+
+            $response = json_decode($content, true);
+
+            $this->updateAccount($response);
+
+            $this->debugLog($response);
+
+            return $response;
+        } catch (GuzzleException $e) {
+            throw new NextEngineException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * アカウント情報を更新する
+     *
+     * @param array $response
+     * @return void
+     */
+    protected function updateAccount(array $response): void
+    {
+        if ($current_request = $this->router->getCurrentRequest()) {
+            $this->nextEngineApi->state = $current_request->query->get('state');
+        }
+
+        if (array_key_exists('uid', $response)) {
+            $this->nextEngineApi->uid = $response['uid'];
+        }
+        if (array_key_exists('pic_mail_address', $response)) {
+            $this->nextEngineApi->pic_mail_address = $response['pic_mail_address'];
+        }
+        if (array_key_exists('access_token', $response)) {
+            $this->nextEngineApi->access_token = $response['access_token'];
+        }
+        if (array_key_exists('access_token_end_date', $response)) {
+            $this->nextEngineApi->access_token_end_date = new Carbon($response['access_token_end_date']);
+        }
+        if (array_key_exists('refresh_token', $response)) {
+            $this->nextEngineApi->refresh_token = $response['refresh_token'];
+        }
+        if (array_key_exists('refresh_token_end_date', $response)) {
+            $this->nextEngineApi->refresh_token_end_date = new Carbon($response['refresh_token_end_date']);
+        }
+
+        $this->nextEngineApi->save();
+
+        $this->uid = $this->nextEngineApi->uid;
+        $this->state = $this->nextEngineApi->state;
+        $this->access_token = $this->nextEngineApi->access_token;
+        $this->access_token_end_date = $this->nextEngineApi->access_token_end_date;
+        $this->refresh_token = $this->nextEngineApi->refresh_token;
+        $this->refresh_token_end_date = $this->nextEngineApi->refresh_token_end_date;
+    }
+
+    /**
+     * レスポンスをチェックする
+     *
+     * @param string $content レスポンス
+     * @return boolean
+     * @throws NextEngineException
+     */
+    protected function checkResponse(string $content): bool
+    {
+        $response = json_decode($content, true);
+
+        if (!array_key_exists('result', $response)) {
+            throw new NextEngineException('Invalid Response returned.');
+        }
+
+        if ($response['result'] === self::RESULT_SUCCESS) {
+            return true;
+        }
+
+        if ($response['result'] === self::RESULT_REDIRECT && !is_null($this->redirect_uri)) {
+            $this->redirect();
+        }
+
+        throw new NextEngineException(sprintf('API Error: %s %s', $response['code'], $response['message']));
+    }
+
+    /**
+     * リダイレクトURI を設定する
+     *
+     * @param string|null $redirect_uri
+     * @throws NextEngineException
+     */
+    protected function setRedirectUri(string $redirect_uri = null): void
+    {
+        if (!is_null($redirect_uri) && !filter_var($redirect_uri, FILTER_VALIDATE_URL)) {
+            throw new NextEngineException(
+                sprintf('Invalid argument: %s(%s)', __METHOD__, $redirect_uri)
+            );
+        }
+        $this->redirect_uri = (is_null($redirect_uri)) ? $this->request->fullUrl() : $redirect_uri;
+    }
+
+    /**
+     * リダイレクト
+     *
+     * @return void
+     * @throws NextEngineException
+     */
+    protected function redirect(): void
+    {
+        $params = [];
+        if ($this->client_id) {
+            $params['client_id'] = $this->client_id;
+        }
+        if ($this->redirect_uri) {
+            $params['redirect_uri'] = $this->redirect_uri;
+        }
+
+        $path = self::BASE_SERVER_DOMAIN . self::PATH_LOGIN;
+        $targetUrl = implode('?', [$path, http_build_query($params)]);
+
+        if (php_sapi_name() !== 'cli') {
+            if (!headers_sent($filename, $line)) {
+                header("Location: {$targetUrl}");
+                exit;
+            }
+
+            $message = sprintf('Already sent headers!: File: %s, Line: %s', $filename, $line);
+            throw new NextEngineException($message);
+        }
+    }
+
+    /**
+     * デバッグ・ログを出力する
+     *
+     * @param mixed $message
+     */
+    protected function debugLog($message): void
+    {
+        if ($this->debug) {
+            Log::debug($message);
+        }
+    }
+}
