@@ -57,6 +57,12 @@ abstract class Base
     public const RESULT_REDIRECT = 'redirect';
 
     /**
+     * Cli環境かどうか
+     * @var boolean
+     */
+    protected $isCli;
+
+    /**
      * NextEngineApi モデル
      *
      * @var NextEngineApi
@@ -161,6 +167,8 @@ abstract class Base
      */
     public function __construct(Application $app)
     {
+        $this->isCli = (PHP_SAPI === 'cli');
+
         $this->config = $app['config'];
         $this->router = $app['router'];
         $this->request = $app['request'];
@@ -210,7 +218,7 @@ abstract class Base
      */
     public function getWaitFlag(): int
     {
-        return $this->config->get('nextengine.wait_flag') === 1 ? 1 : 0;
+        return ($this->isCli || $this->config->get('nextengine.wait_flag')) === 1 ? 1 : 0;
     }
 
     /**
@@ -242,10 +250,10 @@ abstract class Base
      * @param string $path URI
      * @param array $params パラメータ
      * @param string|null $redirect_uri リダイレクトURI
-     * @return array
+     * @return array|string
      * @throws NextEngineException
      */
-    public function execute(string $path, array $params = [], string $redirect_uri = null): array
+    public function execute(string $path, array $params = [], string $redirect_uri = null)
     {
         $this->setRedirectUri($redirect_uri);
         $this->setUidAndState();
@@ -257,7 +265,7 @@ abstract class Base
      *
      * @param string $path
      * @param array $params
-     * @return mixed
+     * @return string|null
      * @throws NextEngineException
      */
     private function httpRequest(string $path, array $params = [])
@@ -277,27 +285,31 @@ abstract class Base
                 ->getBody()
                 ->getContents();
 
-            $this->checkResponse($content);
-
             $response = json_decode($content, true);
-
-            $this->updateAccount($response);
-
             $this->debugLog($response);
 
-            return $response;
+            $checked = $this->checkResponse($content);
+            if (is_string($checked)) {
+                return $checked;
+            }
+
+            if ($this->updateAccount($response)) {
+                return $response;
+            }
+
+            return null;
         } catch (GuzzleException $e) {
             throw new NextEngineException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
     /**
-     * アカウント情報を更新する
+     * APIアカウント情報を更新する
      *
      * @param array $response
-     * @return void
+     * @return boolean
      */
-    protected function updateAccount(array $response): void
+    protected function updateAccount(array $response): bool
     {
         if ($current_request = $this->router->getCurrentRequest()) {
             $this->nextEngineApi->state = $current_request->query->get('state');
@@ -322,24 +334,24 @@ abstract class Base
             $this->nextEngineApi->refresh_token_end_date = new Carbon($response['refresh_token_end_date']);
         }
 
-        $this->nextEngineApi->save();
-
         $this->uid = $this->nextEngineApi->uid;
         $this->state = $this->nextEngineApi->state;
         $this->access_token = $this->nextEngineApi->access_token;
         $this->access_token_end_date = $this->nextEngineApi->access_token_end_date;
         $this->refresh_token = $this->nextEngineApi->refresh_token;
         $this->refresh_token_end_date = $this->nextEngineApi->refresh_token_end_date;
+
+        return $this->nextEngineApi->save();
     }
 
     /**
      * レスポンスをチェックする
      *
      * @param string $content レスポンス
-     * @return boolean
+     * @return boolean|string
      * @throws NextEngineException
      */
-    protected function checkResponse(string $content): bool
+    protected function checkResponse(string $content)
     {
         $response = json_decode($content, true);
 
@@ -352,7 +364,7 @@ abstract class Base
         }
 
         if ($response['result'] === self::RESULT_REDIRECT && !is_null($this->redirect_uri)) {
-            $this->redirect();
+            return $this->redirect();
         }
 
         throw new NextEngineException(sprintf('API Error: %s %s', $response['code'], $response['message']));
@@ -367,20 +379,19 @@ abstract class Base
     protected function setRedirectUri(string $redirect_uri = null): void
     {
         if (!is_null($redirect_uri) && !filter_var($redirect_uri, FILTER_VALIDATE_URL)) {
-            throw new NextEngineException(
-                sprintf('Invalid argument: %s(%s)', __METHOD__, $redirect_uri)
-            );
+            throw new NextEngineException(sprintf('Invalid argument: %s(%s)', __METHOD__, $redirect_uri));
         }
+
         $this->redirect_uri = (is_null($redirect_uri)) ? $this->request->fullUrl() : $redirect_uri;
     }
 
     /**
      * リダイレクト
      *
-     * @return void
+     * @return string
      * @throws NextEngineException
      */
-    protected function redirect(): void
+    protected function redirect(): string
     {
         $params = [];
         if ($this->client_id) {
@@ -393,15 +404,16 @@ abstract class Base
         $path = self::BASE_SERVER_DOMAIN . self::PATH_LOGIN;
         $targetUrl = implode('?', [$path, http_build_query($params)]);
 
-        if (php_sapi_name() !== 'cli') {
-            if (!headers_sent($filename, $line)) {
-                header("Location: {$targetUrl}");
-                exit;
-            }
-
-            $message = sprintf('Already sent headers!: File: %s, Line: %s', $filename, $line);
-            throw new NextEngineException($message);
+        if (PHP_SAPI === 'cli') {
+            return $targetUrl;
         }
+
+        if (!headers_sent($filename, $line)) {
+            header("Location: {$targetUrl}");
+            exit;
+        }
+
+        throw new NextEngineException(sprintf('Already sent headers!: File: %s, Line: %s', $filename, $line));
     }
 
     /**

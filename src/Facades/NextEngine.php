@@ -16,6 +16,7 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  * @method static array getAccessToken()
  * @method static integer getWaitFlag()
  * @method static NextEngineApi login(string $redirect_uri = null)
+ * @method static array|string loginForCli(string $redirect_uri = null)
  * @method static array loginCompany()
  * @method static array loginUser()
  * @method static NextEngineApi setAccount(NextEngineApi $nextEngineApi)

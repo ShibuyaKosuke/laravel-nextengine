@@ -36,6 +36,20 @@ class NextEngine extends Base
      */
     public function login(string $redirect_uri = null): self
     {
+        $this->loginForCli($redirect_uri);
+        return $this;
+    }
+
+    /**
+     * ログイン(for Cli)
+     *
+     * @param string|null $redirect_uri リダイレクトURI
+     * @return array|string
+     * @throws NextEngineException
+     * @category 認証系エンドポイント
+     */
+    public function loginForCli(string $redirect_uri = null)
+    {
         $this->setRedirectUri($redirect_uri);
 
         $this->setUidAndState();
@@ -47,9 +61,7 @@ class NextEngine extends Base
             'client_secret' => $this->client_secret
         ];
 
-        $this->execute(self::PATH_OAUTH, $params);
-
-        return $this;
+        return $this->execute(self::PATH_OAUTH, $params, $redirect_uri);
     }
 
     /**

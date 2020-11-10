@@ -6,6 +6,9 @@ namespace ShibuyaKosuke\LaravelNextEngine\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Collection;
+use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
+use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
  * Class NextEngineCommand
@@ -47,6 +50,39 @@ class NextEngineCommand extends Command
      */
     public function handle(): void
     {
-        // @todo
+        $this->info('======== START TOKEN REFRESH ========');
+
+        /** @var NextEngineApi[]|Collection $nextEngineApis */
+        $nextEngineApis = NextEngineApi::query()->refresh()->get();
+
+        if ($nextEngineApis->count() === 0) {
+            $this->info('=   No Account is need to update.   =');
+            $this->info('========  END TOKEN REFRESH  ========');
+            return;
+        }
+
+        $accounts = $nextEngineApis->filter(function (NextEngineApi $nextEngineApi) {
+
+            /** @var \ShibuyaKosuke\LaravelNextEngine\NextEngine $nextEngine */
+            $nextEngine = NextEngine::setAccount($nextEngineApi);
+
+            $response = $nextEngine->loginForCli($nextEngineApi->redirect_uri);
+
+            if (!is_array($response)) {
+                return false;
+            }
+
+            /** @var string $content */
+            $content = $nextEngine->loginUser();
+
+            $this->info(sprintf('更新: ID %d', $nextEngineApi->id));
+
+            return true;
+        });
+
+        $this->info(
+            sprintf('========  %d / %d Success!  ========', $accounts->count(), $nextEngineApis->count())
+        );
+        $this->info('========  END TOKEN REFRESH  ========');
     }
 }

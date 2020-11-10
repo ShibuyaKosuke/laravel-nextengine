@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShibuyaKosuke\LaravelNextEngine\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string refresh_token
  * @property Carbon access_token_end_date
  * @property Carbon refresh_token_end_date
+ *
+ * @method Builder refresh()
  */
 class NextEngineApi extends Model
 {
@@ -57,6 +60,15 @@ class NextEngineApi extends Model
         'access_token_end_date' => 'datetime:Y-m-d H:i:d',
         'refresh_token_end_date' => 'datetime:Y-m-d H:i:d',
     ];
+
+    /**
+     * トークンリフレッシュが必要なもの
+     */
+    public function scopeRefresh(Builder $query)
+    {
+        return $query->whereRaw('access_token_end_date <= now()')
+            ->whereRaw('refresh_token_end_date > now()');
+    }
 
     /**
      * User リレーション
