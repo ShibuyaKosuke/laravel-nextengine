@@ -15,11 +15,11 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  * @method static array execute(string $path, array $params = [], string $redirect_uri = null)
  * @method static array getAccessToken()
  * @method static integer getWaitFlag()
- * @method static NextEngineApi login(string $redirect_uri = null)
+ * @method static NextEngine login(string $redirect_uri = null)
  * @method static array|string loginForCli(string $redirect_uri = null)
  * @method static array loginCompany()
  * @method static array loginUser()
- * @method static NextEngineApi setAccount(NextEngineApi $nextEngineApi)
+ * @method static NextEngine setAccount(NextEngineApi $nextEngineApi)
  * @extends \ShibuyaKosuke\LaravelNextEngine\NextEngine
  */
 class NextEngine extends Facade
