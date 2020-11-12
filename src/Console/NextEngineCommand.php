@@ -27,10 +27,10 @@ class NextEngineCommand extends Command
      * The console command description.
      *
      * @var string
-     */
-    protected $description = 'Refresh access token for NextEngine.';
-
-    /**
+     *
+     * protected $description = 'Refresh access token for NextEngine.';
+     *
+     * /**
      * @var Application
      */
     protected $app;
@@ -50,6 +50,7 @@ class NextEngineCommand extends Command
      */
     public function handle(): void
     {
+        \Log::info('TOKEN REFRESH BATCH');
         $this->info('======== START TOKEN REFRESH ========');
 
         /** @var NextEngineApi[]|Collection $nextEngineApis */
@@ -83,6 +84,8 @@ class NextEngineCommand extends Command
         $this->info(
             sprintf('========  %d / %d Success!  ========', $accounts->count(), $nextEngineApis->count())
         );
+
+        \Log::info(sprintf('Success: %d / %d', $accounts->count(), $nextEngineApis->count()));
         $this->info('========  END TOKEN REFRESH  ========');
     }
 }
