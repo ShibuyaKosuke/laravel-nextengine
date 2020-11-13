@@ -2,7 +2,7 @@
 
 ## Overview
 
-ネクストエンジン API の Laravel プラグイン です。
+ネクストエンジン API の Laravel プラグイン(非公式)です。
 ネクストエンジン API に関してのリファレンスやコミュニティは [Developer Network](https://developer.next-engine.com/) をご利用ください。
 
 ## Overview
