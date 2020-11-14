@@ -38,3 +38,40 @@ NEXT_ENGINE_CLIENT_SECRET=(ネクストエンジンの管理者 CLIENT_SECRET)
 NEXT_ENGINE_REDIRECT_URI=(ネクストエンジンの管理者 REDIRECT_URI)
 ```
 
+# アクセストークンの更新
+
+アクセストークンの更新のためのコマンドが利用可能になっています。
+
+```bash
+php artisan nextengine:refresh-tokens
+```
+
+# アクセストークンの更新の自動化
+
+アクセストークンの更新を cron などの仕組みを利用して、自動化することも可能です。
+
+`app/Console/Kernel.php` の `schedule`　メソッドを 以下のように編集します。
+
+```php
+<?php
+
+namespace App\Console;
+
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
+class Kernel extends ConsoleKernel
+{
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('nextengine:refresh-tokens')->everyThirtyMinutes(); // <- 追加
+    }
+}
+```
+
+このスケジュルが実行されるために、cron に以下のタスクを追加します。
+
+```bash
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+

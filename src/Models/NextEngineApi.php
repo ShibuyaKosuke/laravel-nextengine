@@ -63,8 +63,10 @@ class NextEngineApi extends Model
 
     /**
      * トークンリフレッシュが必要なもの
+     * @param Builder $query
+     * @return Builder
      */
-    public function scopeRefresh(Builder $query)
+    public function scopeRefresh(Builder $query): Builder
     {
         return $query->whereRaw('access_token_end_date <= now()')
             ->whereRaw('refresh_token_end_date > now()');
