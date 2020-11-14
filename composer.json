@@ -26,7 +26,7 @@
     }
   },
   "require": {
-    "php": "^7.1",
+    "php": "^7.0",
     "ext-json": "*",
     "guzzlehttp/guzzle": "^5.0 | ^6.0 | ^7.0",
     "illuminate/support": "^6.0 | ^7.0",

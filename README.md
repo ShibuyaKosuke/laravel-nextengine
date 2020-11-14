@@ -84,8 +84,8 @@ class OrderController extends Controller
     public function index()
     {
         $parameters = [];
-        $orders = NextEngine::orderBaseSearch($parameters);        
-        return view('orders.index', compact('orders'));
+        $receiveOrder = NextEngine::receiveOrderBaseSearch($parameters);        
+        return view('orders.index', compact('receiveOrder'));
     }
 }
 ```
