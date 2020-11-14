@@ -38,6 +38,24 @@ NEXT_ENGINE_CLIENT_SECRET=(ネクストエンジンの管理者 CLIENT_SECRET)
 NEXT_ENGINE_REDIRECT_URI=(ネクストエンジンの管理者 REDIRECT_URI)
 ```
 
+### User モデルへのリレーション追加
+
+以下のように、`NextEngineApi` トレイトを追加すると、`hasOne` で `NextEngineApi` モデルへのリレーションを追加できます。
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use ShibuyaKosuke\LaravelNextEngine\Traits\NextEngineApi;
+
+class User extends Authenticatable
+{
+    use NextEngineApi; // 追加
+}
+```
+
 # 設定ファイルの出力
 
 以下のコマンドで、
