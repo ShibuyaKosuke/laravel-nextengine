@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ShibuyaKosuke\LaravelNextEngine;
 
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
-use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
  * Class NextEngine
@@ -13,19 +12,6 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  */
 class NextEngine extends Base
 {
-    /**
-     * NextEngineApi モデルを設定する
-     *
-     * @param NextEngineApi $nextEngineApi
-     * @return $this
-     * @throws NextEngineException
-     */
-    public function setAccount(NextEngineApi $nextEngineApi): self
-    {
-        $this->parseConfig($nextEngineApi);
-        return $this;
-    }
-
     /**
      * ログイン
      *
@@ -68,7 +54,6 @@ class NextEngine extends Base
      * NEログインaccess_token取得
      *
      * @return array
-     * @throws NextEngineException
      * @category 認証系エンドポイント
      */
     public function getAccessToken(): array
@@ -81,15 +66,13 @@ class NextEngine extends Base
             'client_id' => $this->client_id,
             'client_secret' => $this->client_secret
         ];
-
-        return $this->execute('/api_neauth', $params);
+        return $this->apiExecute('/api_neauth', $params);
     }
 
     /**
      * アプリ利用企業一覧
      *
      * @return array
-     * @throws NextEngineException
      * @category 認証系エンドポイント
      */
     public function company(): array
@@ -98,8 +81,7 @@ class NextEngine extends Base
             'client_id' => $this->client_id,
             'client_secret' => $this->client_secret
         ];
-
-        return $this->execute('/api_app/company', $params);
+        return $this->apiExecute('/api_app/company', $params);
     }
 
 
@@ -107,7 +89,6 @@ class NextEngine extends Base
      * ログインユーザー情報取得
      *
      * @return array
-     * @throws NextEngineException
      * @category 認証系エンドポイント
      */
     public function loginUser(): array
@@ -117,14 +98,13 @@ class NextEngine extends Base
             'refresh_token' => $this->refresh_token,
             'wait_flag' => $this->getWaitFlag(),
         ];
-        return $this->execute('/api_v1_login_user/info', $params);
+        return $this->apiExecute('/api_v1_login_user/info', $params);
     }
 
     /**
      * 企業情報取得
      *
      * @return array
-     * @throws NextEngineException
      * @category 認証系エンドポイント
      */
     public function loginCompany(): array
@@ -134,7 +114,6 @@ class NextEngine extends Base
             'refresh_token' => $this->refresh_token,
             'wait_flag' => $this->getWaitFlag(),
         ];
-
-        return $this->execute('/api_v1_login_company/info', $params);
+        return $this->apiExecute('/api_v1_login_company/info', $params);
     }
 }

@@ -24,37 +24,42 @@ abstract class Base
     /**
      * NextEngine 認証サーバー
      */
-    public const BASE_SERVER_DOMAIN = 'https://base.next-engine.org';
+    const BASE_SERVER_DOMAIN = 'https://base.next-engine.org';
 
     /**
      * NextEngine APIサーバー
      */
-    public const API_SERVER_DOMAIN = 'https://api.next-engine.org';
+    const API_SERVER_DOMAIN = 'https://api.next-engine.org';
 
     /**
      * NextEngine ログイン
      */
-    public const PATH_LOGIN = '/users/sign_in/';
+    const PATH_LOGIN = '/users/sign_in/';
 
     /**
      * API認証
      */
-    public const PATH_OAUTH = '/api_neauth/';
+    const PATH_OAUTH = '/api_neauth/';
 
     /**
      * 成功
      */
-    public const RESULT_SUCCESS = 'success';
+    const RESULT_SUCCESS = 'success';
 
     /**
      * 失敗
      */
-    public const RESULT_ERROR = 'error';
+    const RESULT_ERROR = 'error';
 
     /**
      * 要リダイレクト
      */
-    public const RESULT_REDIRECT = 'redirect';
+    const RESULT_REDIRECT = 'redirect';
+
+    /**
+     * @var boolean
+     */
+    protected $isLogin = false;
 
     /**
      * Cli環境かどうか
@@ -164,6 +169,7 @@ abstract class Base
      * NextEngine constructor.
      * @param Application $app
      * @return void
+     * @throws NextEngineException
      */
     public function __construct(Application $app)
     {
@@ -176,6 +182,24 @@ abstract class Base
         $this->debug = $this->config->get('nextengine.debug');
 
         $this->setUidAndState();
+
+        $this->setAccount();
+    }
+
+    /**
+     * NextEngineApi モデルを設定する
+     *
+     * @param NextEngineApi $nextEngineApi
+     * @return $this
+     * @throws NextEngineException
+     */
+    public function setAccount(NextEngineApi $nextEngineApi = null): self
+    {
+        if (is_null($nextEngineApi)) {
+            $nextEngineApi = $this->request->user()->nextEngineApi;
+        }
+        $this->parseConfig($nextEngineApi);
+        return $this;
     }
 
     /**
@@ -183,7 +207,7 @@ abstract class Base
      *
      * @return void
      */
-    protected function setUidAndState(): void
+    protected function setUidAndState()
     {
         if ($current = $this->router->getCurrentRequest()) {
             $this->uid = $current->query('uid');
@@ -198,7 +222,7 @@ abstract class Base
      * @return void
      * @throws NextEngineException
      */
-    protected function parseConfig(NextEngineApi $nextEngineApi): void
+    protected function parseConfig(NextEngineApi $nextEngineApi)
     {
         $this->nextEngineApi = $nextEngineApi;
 
@@ -245,7 +269,7 @@ abstract class Base
     }
 
     /**
-     * APIにリクエストする
+     * ログインAPIにリクエストする
      *
      * @param string $path URI
      * @param array $params パラメータ
@@ -253,11 +277,24 @@ abstract class Base
      * @return array|string
      * @throws NextEngineException
      */
-    public function execute(string $path, array $params = [], string $redirect_uri = null)
+    protected function execute(string $path, array $params = [], string $redirect_uri = null)
     {
         $this->setRedirectUri($redirect_uri);
         $this->setUidAndState();
         return $this->httpRequest($path, $params);
+    }
+
+    /**
+     * ログイン以外のAPIにリクエストする
+     *
+     * @param string $path
+     * @param array $params
+     * @param string|null $redirect_uri
+     * @return array|string
+     */
+    public function apiExecute(string $path, array $params = [], string $redirect_uri = null)
+    {
+        return $this->login()->execute($path, $params, $redirect_uri);
     }
 
     /**
@@ -376,7 +413,7 @@ abstract class Base
      * @param string|null $redirect_uri
      * @throws NextEngineException
      */
-    protected function setRedirectUri(string $redirect_uri = null): void
+    protected function setRedirectUri(string $redirect_uri = null)
     {
         if (!is_null($redirect_uri) && !filter_var($redirect_uri, FILTER_VALIDATE_URL)) {
             throw new NextEngineException(sprintf('Invalid argument: %s(%s)', __METHOD__, $redirect_uri));
@@ -421,7 +458,7 @@ abstract class Base
      *
      * @param mixed $message
      */
-    protected function debugLog($message): void
+    protected function debugLog($message)
     {
         if ($this->debug) {
             Log::debug($message);

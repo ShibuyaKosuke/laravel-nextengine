@@ -38,6 +38,40 @@ NEXT_ENGINE_CLIENT_SECRET=(ネクストエンジンの管理者 CLIENT_SECRET)
 NEXT_ENGINE_REDIRECT_URI=(ネクストエンジンの管理者 REDIRECT_URI)
 ```
 
+# 設定ファイルの出力
+
+以下のコマンドで、
+
+- `config/nextengine.php`
+- `database/migrations/2020_01_01_000000_create_next_engine_apis_table.php`
+- `database/factories/NextEngineApiFactory.php`
+
+が出力されます。適宜編集してください。
+
+```bash
+php artisan vendor:publish --tag=nextengine
+```
+
+## 利用方法
+
+OrderController から、受注伝票を取得する例
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+class OrderController extends Controller
+{
+    public function index()
+    {
+        $parameters = [];
+        $orders = NextEngine::orderBaseSearch($parameters);        
+        return view('orders.index', compact('orders'));
+    }
+}
+```
+
 ## アクセストークンの更新
 
 アクセストークンの更新のためのコマンドが利用可能になっています。
