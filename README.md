@@ -38,7 +38,7 @@ NEXT_ENGINE_CLIENT_SECRET=(ネクストエンジンの管理者 CLIENT_SECRET)
 NEXT_ENGINE_REDIRECT_URI=(ネクストエンジンの管理者 REDIRECT_URI)
 ```
 
-# アクセストークンの更新
+## アクセストークンの更新
 
 アクセストークンの更新のためのコマンドが利用可能になっています。
 
@@ -46,7 +46,7 @@ NEXT_ENGINE_REDIRECT_URI=(ネクストエンジンの管理者 REDIRECT_URI)
 php artisan nextengine:refresh-tokens
 ```
 
-# アクセストークンの更新の自動化
+### アクセストークンの更新の自動化
 
 アクセストークンの更新を cron などの仕組みを利用して、自動化することも可能です。
 
