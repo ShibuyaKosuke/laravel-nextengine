@@ -2,15 +2,17 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\MasterMailTag\MasterMailTag;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterStock\MasterStock;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
- * Class MasterMailTagTest
+ * 在庫マスタ
+ *
+ * Class MasterStockTest
  * @package ShibuyaKosuke\LaravelNextEngine\Tests
  */
-class MasterMailTagTest extends TestCase
+class MasterStockTest extends TestCase
 {
     private $object;
 
@@ -38,23 +40,23 @@ class MasterMailTagTest extends TestCase
     /**
      * 商品検索
      */
-    public function testMasterMailTagSearch()
+    public function testMasterStockSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterMailTagSearch();
+        $apiResultEntity = $this->object->receiveMasterStockSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
         foreach ($apiResultEntity->data as $data) {
-            self::assertInstanceOf(MasterMailTag::class, $data);
+            self::assertInstanceOf(MasterStock::class, $data);
         }
     }
 
     /**
      * 商品件数
      */
-    public function testMasterMailTagCount()
+    public function testMasterStockCount()
     {
-        $apiResultEntity = $this->object->receiveMasterMailTagCount();
+        $apiResultEntity = $this->object->receiveMasterStockCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
