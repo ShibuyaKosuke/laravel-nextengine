@@ -17,6 +17,7 @@ class NextEngine extends Base
     use MasterMailTag;
     use MasterStock;
     use MasterKeepStock;
+    use MasterSupplier;
 
     /**
      * ログイン
