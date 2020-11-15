@@ -330,12 +330,14 @@ class ReceiveOrderBase extends EntityCommon
 
         $root = $dom->appendChild($dom->createElement('root'));
 
+        // OrderBase
         $receiveorder_base = $dom->createElement('receiveorder_base');
         foreach ($receiveOrderBase->getDirties() as $key => $value) {
             $receiveorder_base->appendChild($dom->createElement($key, $value));
         }
         $root->appendChild($receiveorder_base);
 
+        // OrderOption
         if ($receiveOrderOption && $receiveOrderOption->getDirties()) {
             $receiveorder_option = $dom->createElement('receiveorder_option');
             foreach ($receiveOrderOption->getDirties() as $key => $value) {
@@ -344,6 +346,7 @@ class ReceiveOrderBase extends EntityCommon
             $root->appendChild($receiveorder_option);
         }
 
+        // OrderRow
         $isDirty = false;
         foreach ($receiveOrderRows as $receiveOrderRow) {
             if ($receiveOrderRow->getDirties()) {

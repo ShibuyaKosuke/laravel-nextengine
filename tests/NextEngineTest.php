@@ -37,7 +37,16 @@ class NextEngineTest extends TestCase
         $this->nextEngineApi = factory(NextEngineApi::class)->make();
 
         $this->nextEngineApi->uid = '379559016b83bfafda8d9f5c5f2f48a138e4e4e6fd19ee549f787b7dd2fadcab24bac978e6a0b7e63cbb8076ced0ccab8725560ad416ffc08aca936e138f7e7e';
-        $this->nextEngineApi->state = 'vdWiXV3IhoZt8jaTGAqSsf14FLyzEC7Q';
+        $this->nextEngineApi->state = 'MwoXyqRv2t7IFBTCYxGL36kWASZsKhpE';
+    }
+
+    /**
+     * @throws NextEngineException
+     */
+    public function testLoginUser()
+    {
+        $this->expectException(NextEngineException::class);
+        NextEngine::setAccount($this->nextEngineApi)->loginUser();
     }
 
     /**
@@ -46,6 +55,12 @@ class NextEngineTest extends TestCase
     public function testGetAccessToken()
     {
         $response = NextEngine::setAccount($this->nextEngineApi)->getAccessToken();
+
+        if (array_key_exists('redirect', $response)) {
+            self::assertArrayHasKey('redirect', $response);
+            return;
+        }
+
         self::assertArrayHasKey('access_token', $response);
         self::assertArrayHasKey('company_app_header', $response);
         self::assertArrayHasKey('company_ne_id', $response);
@@ -63,18 +78,9 @@ class NextEngineTest extends TestCase
     /**
      * @throws NextEngineException
      */
-    public function testLoginUser()
-    {
-        $this->expectException(NextEngineException::class);
-        NextEngine::setAccount(factory(NextEngineApi::class)->make())->loginUser();
-    }
-
-    /**
-     * @throws NextEngineException
-     */
     public function testCompany()
     {
-        $response = NextEngine::setAccount(factory(NextEngineApi::class)->make())->company();
+        $response = NextEngine::setAccount($this->nextEngineApi)->company();
         self::assertArrayHasKey('count', $response);
         self::assertArrayHasKey('data', $response);
         self::assertArrayHasKey('result', $response);

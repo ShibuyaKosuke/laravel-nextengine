@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder;
 
 use Carbon\Carbon;
+use DOMDocument;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 
 /**

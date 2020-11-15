@@ -329,7 +329,7 @@ abstract class Base
 
             $checked = $this->checkResponse($content);
             if (is_string($checked)) {
-                return $checked;
+                return ['redirect' => $checked];
             }
 
             if ($this->updateAccount($response)) {
@@ -463,7 +463,9 @@ abstract class Base
     protected function debugLog($message): void
     {
         if ($this->debug) {
-            \Debugbar::info($message);
+            if (function_exists('\Debugbar')) {
+                \Debugbar::info($message);
+            }
         }
     }
 }
