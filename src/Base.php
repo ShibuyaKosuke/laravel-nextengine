@@ -10,6 +10,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
@@ -55,11 +56,6 @@ abstract class Base
      * 要リダイレクト
      */
     const RESULT_REDIRECT = 'redirect';
-
-    /**
-     * @var User
-     */
-    protected $user;
 
     /**
      * @var boolean
@@ -173,14 +169,11 @@ abstract class Base
     /**
      * NextEngine constructor.
      * @param Application $app
-     * @param App\User|App\Models\User $user
      * @throws NextEngineException
      */
-    public function __construct(Application $app, $user = null)
+    public function __construct(Application $app)
     {
         $this->isCli = (PHP_SAPI === 'cli');
-
-        $this->user = $user;
 
         $this->config = $app['config'];
         $this->router = $app['router'];
@@ -190,9 +183,9 @@ abstract class Base
 
         $this->setUidAndState();
 
-        $this->setAccount();
-
-        $this->debugLog($this);
+        if (!$this->isCli) {
+            $this->setAccount();
+        }
     }
 
     /**
@@ -204,7 +197,7 @@ abstract class Base
      */
     public function setAccount(NextEngineApi $nextEngineApi = null): self
     {
-        if (is_null($nextEngineApi)) {
+        if (Auth::check()) {
             $nextEngineApi = $this->request->user()->nextEngineApi;
         }
         $this->parseConfig($nextEngineApi);

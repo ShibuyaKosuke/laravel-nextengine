@@ -58,7 +58,7 @@ class NextEngine extends Base
      * @return array
      * @category 認証系エンドポイント
      */
-    public function getAccessToken(): array
+    public function getAccessToken()
     {
         $this->setUidAndState();
 
