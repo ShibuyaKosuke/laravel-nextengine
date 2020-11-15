@@ -2,17 +2,17 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\MasterStock\MasterStock;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterKeepStock\MasterKeepStock;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
- * 在庫マスタ
+ * 区分け在庫マスタ
  *
  * Class MasterStockTest
  * @package ShibuyaKosuke\LaravelNextEngine\Tests
  */
-class MasterStockTest extends TestCase
+class MasterKeepStockTest extends TestCase
 {
     private $object;
 
@@ -38,25 +38,25 @@ class MasterStockTest extends TestCase
     }
 
     /**
-     * 在庫検索
+     * 区分け在庫マスタ検索
      */
-    public function testMasterStockSearch()
+    public function testMasterKeepStockSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterStockSearch();
+        $apiResultEntity = $this->object->receiveMasterKeepStockSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
         foreach ($apiResultEntity->data as $data) {
-            self::assertInstanceOf(MasterStock::class, $data);
+            self::assertInstanceOf(MasterKeepStock::class, $data);
         }
     }
 
     /**
-     * 在庫件数
+     * 区分け在庫マスタ件数
      */
-    public function testMasterStockCount()
+    public function testMasterKeepStockCount()
     {
-        $apiResultEntity = $this->object->receiveMasterStockCount();
+        $apiResultEntity = $this->object->receiveMasterKeepStockCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
