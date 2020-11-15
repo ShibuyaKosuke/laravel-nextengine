@@ -13,6 +13,7 @@ use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 class NextEngine extends Base
 {
     use ReceiveOrder;
+    use MasterGoods;
 
     /**
      * ログイン
