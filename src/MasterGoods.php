@@ -79,6 +79,7 @@ trait MasterGoods
         $response = $this->apiExecute(MasterGoodsBase::$endpoint_upload, $params);
         return new ApiResultEntity(MasterGoodsBase::setData($response));
     }
+
     /**
      * 商品検索
      *
