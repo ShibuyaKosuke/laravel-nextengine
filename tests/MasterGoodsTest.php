@@ -7,6 +7,10 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsTag;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
+/**
+ * Class MasterGoodsTest
+ * @package ShibuyaKosuke\LaravelNextEngine\Tests
+ */
 class MasterGoodsTest extends TestCase
 {
     private $object;

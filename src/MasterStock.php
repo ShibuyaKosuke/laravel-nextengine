@@ -2,15 +2,15 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\MasterMailTag\MasterMailTag as MasterMailTagBase;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterStock\MasterStock as MasterStockBase;
 
 /**
- * メールタグ
+ * 在庫マスタ
  *
- * Trait MasterMailTag
+ * Trait MasterStock
  * @package ShibuyaKosuke\LaravelNextEngine
  */
-trait MasterMailTag
+trait MasterStock
 {
     /**
      * メールタグ検索
@@ -18,11 +18,11 @@ trait MasterMailTag
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterMailTagSearch(array $params = []): ApiResultEntity
+    public function receiveMasterStockSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
-                'fields' => MasterMailTagBase::getPropertiesString(),
+                'fields' => MasterStockBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -30,8 +30,8 @@ trait MasterMailTag
             $params
         );
 
-        $response = $this->apiExecute(MasterMailTagBase::$endpoint_search, $params);
-        return new ApiResultEntity(MasterMailTagBase::setData($response));
+        $response = $this->apiExecute(MasterStockBase::$endpoint_search, $params);
+        return new ApiResultEntity(MasterStockBase::setData($response));
     }
 
     /**
@@ -40,11 +40,11 @@ trait MasterMailTag
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterMailTagCount(array $params = []): ApiResultEntity
+    public function receiveMasterStockCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
-                'fields' => MasterMailTagBase::getPropertiesString(),
+                'fields' => MasterStockBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -52,7 +52,7 @@ trait MasterMailTag
             $params
         );
 
-        $response = $this->apiExecute(MasterMailTagBase::$endpoint_count, $params);
-        return new ApiResultEntity(MasterMailTagBase::setData($response));
+        $response = $this->apiExecute(MasterStockBase::$endpoint_count, $params);
+        return new ApiResultEntity(MasterStockBase::setData($response));
     }
 }

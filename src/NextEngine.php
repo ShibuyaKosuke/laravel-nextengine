@@ -15,6 +15,7 @@ class NextEngine extends Base
     use ReceiveOrder;
     use MasterGoods;
     use MasterMailTag;
+    use MasterStock;
 
     /**
      * ログイン
