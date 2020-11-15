@@ -81,6 +81,19 @@ abstract class EntityCommon implements EntityContract
     }
 
     /**
+     * @param array $items
+     * @return string
+     */
+    protected static function toXmlElement(array $items): string
+    {
+        $result = [];
+        foreach ($items as $key => $value) {
+            $result[] = sprintf('<%s>%s</%s>', $key, $value, $key);
+        }
+        return implode(PHP_EOL, $result);
+    }
+
+    /**
      * 日付型かどうか
      *
      * @param string $name
@@ -98,7 +111,7 @@ abstract class EntityCommon implements EntityContract
      */
     public function getDirties(): array
     {
-        return array_diff_assoc($this->original, $this->attributes);
+        return array_diff_assoc($this->attributes, $this->original);
     }
 
     /**

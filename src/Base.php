@@ -184,12 +184,14 @@ abstract class Base
         $this->setUidAndState();
 
         $this->setAccount();
+
+        $this->debugLog($this);
     }
 
     /**
      * NextEngineApi モデルを設定する
      *
-     * @param NextEngineApi $nextEngineApi
+     * @param NextEngineApi|null $nextEngineApi
      * @return $this
      * @throws NextEngineException
      */
@@ -207,7 +209,7 @@ abstract class Base
      *
      * @return void
      */
-    protected function setUidAndState()
+    protected function setUidAndState(): void
     {
         if ($current = $this->router->getCurrentRequest()) {
             $this->uid = $current->query('uid');
@@ -222,7 +224,7 @@ abstract class Base
      * @return void
      * @throws NextEngineException
      */
-    protected function parseConfig(NextEngineApi $nextEngineApi)
+    protected function parseConfig(NextEngineApi $nextEngineApi): void
     {
         $this->nextEngineApi = $nextEngineApi;
 
@@ -302,7 +304,7 @@ abstract class Base
      *
      * @param string $path
      * @param array $params
-     * @return string|null
+     * @return array|string|null
      * @throws NextEngineException
      */
     private function httpRequest(string $path, array $params = [])
@@ -413,7 +415,7 @@ abstract class Base
      * @param string|null $redirect_uri
      * @throws NextEngineException
      */
-    protected function setRedirectUri(string $redirect_uri = null)
+    protected function setRedirectUri(string $redirect_uri = null): void
     {
         if (!is_null($redirect_uri) && !filter_var($redirect_uri, FILTER_VALIDATE_URL)) {
             throw new NextEngineException(sprintf('Invalid argument: %s(%s)', __METHOD__, $redirect_uri));
@@ -458,10 +460,10 @@ abstract class Base
      *
      * @param mixed $message
      */
-    protected function debugLog($message)
+    protected function debugLog($message): void
     {
         if ($this->debug) {
-            Log::debug($message);
+            \Debugbar::info($message);
         }
     }
 }

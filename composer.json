@@ -28,10 +28,7 @@
   "require": {
     "php": "^7.0",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "^5.0 | ^6.0 | ^7.0",
-    "illuminate/support": "^6.0 | ^7.0",
-    "illuminate/database": "^6.0 | ^7.0",
-    "nesbot/carbon": "^1.0 | ^2.0"
+    "laravel/laravel": "^5.0 | ^6.0 | ^7.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5",
