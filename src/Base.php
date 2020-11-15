@@ -209,7 +209,7 @@ abstract class Base
      *
      * @return void
      */
-    protected function setUidAndState()
+    protected function setUidAndState(): void
     {
         if ($current = $this->router->getCurrentRequest()) {
             $this->uid = $current->query('uid');
@@ -304,7 +304,7 @@ abstract class Base
      *
      * @param string $path
      * @param array $params
-     * @return string|null
+     * @return array|string|null
      * @throws NextEngineException
      */
     private function httpRequest(string $path, array $params = [])
@@ -329,7 +329,7 @@ abstract class Base
 
             $checked = $this->checkResponse($content);
             if (is_string($checked)) {
-                return $checked;
+                return ['redirect' => $checked];
             }
 
             if ($this->updateAccount($response)) {
@@ -415,7 +415,7 @@ abstract class Base
      * @param string|null $redirect_uri
      * @throws NextEngineException
      */
-    protected function setRedirectUri(string $redirect_uri = null)
+    protected function setRedirectUri(string $redirect_uri = null): void
     {
         if (!is_null($redirect_uri) && !filter_var($redirect_uri, FILTER_VALIDATE_URL)) {
             throw new NextEngineException(sprintf('Invalid argument: %s(%s)', __METHOD__, $redirect_uri));
@@ -460,10 +460,12 @@ abstract class Base
      *
      * @param mixed $message
      */
-    protected function debugLog($message)
+    protected function debugLog($message): void
     {
         if ($this->debug) {
-            Log::debug($message);
+            if (function_exists('\Debugbar')) {
+                \Debugbar::info($message);
+            }
         }
     }
 }

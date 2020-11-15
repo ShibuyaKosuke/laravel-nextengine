@@ -12,6 +12,8 @@ use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
  */
 class NextEngine extends Base
 {
+    use ReceiveOrder;
+
     /**
      * ログイン
      *
@@ -56,7 +58,7 @@ class NextEngine extends Base
      * @return array
      * @category 認証系エンドポイント
      */
-    public function getAccessToken()
+    public function getAccessToken(): array
     {
         $this->setUidAndState();
 
@@ -83,7 +85,6 @@ class NextEngine extends Base
         ];
         return $this->apiExecute('/api_app/company', $params);
     }
-
 
     /**
      * ログインユーザー情報取得

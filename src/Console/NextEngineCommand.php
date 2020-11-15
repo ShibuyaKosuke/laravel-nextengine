@@ -62,24 +62,26 @@ class NextEngineCommand extends Command
             return;
         }
 
-        $accounts = $nextEngineApis->filter(function (NextEngineApi $nextEngineApi) {
+        $accounts = $nextEngineApis->filter(
+            function (NextEngineApi $nextEngineApi) {
 
             /** @var \ShibuyaKosuke\LaravelNextEngine\NextEngine $nextEngine */
-            $nextEngine = NextEngine::setAccount($nextEngineApi);
+                $nextEngine = NextEngine::setAccount($nextEngineApi);
 
-            $response = $nextEngine->loginForCli($nextEngineApi->redirect_uri);
+                $response = $nextEngine->loginForCli($nextEngineApi->redirect_uri);
 
-            if (!is_array($response)) {
-                return false;
-            }
+                if (!is_array($response)) {
+                    return false;
+                }
 
             /** @var string $content */
-            $content = $nextEngine->loginUser();
+                $content = $nextEngine->loginUser();
 
-            $this->info(sprintf('更新: ID %d', $nextEngineApi->id));
+                $this->info(sprintf('更新: ID %d', $nextEngineApi->id));
 
-            return true;
-        });
+                return true;
+            }
+        );
 
         $this->info(
             sprintf('========  %d / %d Success!  ========', $accounts->count(), $nextEngineApis->count())

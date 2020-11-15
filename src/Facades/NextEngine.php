@@ -20,7 +20,7 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  * @method static array loginCompany()
  * @method static array loginUser()
  * @method static NextEngine setAccount(NextEngineApi $nextEngineApi)
- * @extends \ShibuyaKosuke\LaravelNextEngine\NextEngine
+ * @extends ShibuyaKosuke\LaravelNextEngine\NextEngine
  */
 class NextEngine extends Facade
 {
