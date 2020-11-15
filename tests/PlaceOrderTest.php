@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\PlaceOrder\PlaceOrderBase;
+use ShibuyaKosuke\LaravelNextEngine\Entities\PlaceOrder\PlaceOrderRow;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -57,6 +58,30 @@ class PlaceOrderTest extends TestCase
     public function testPlaceOrderBaseCount()
     {
         $apiResultEntity = $this->object->receivePlaceOrderBaseCount();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * 発注伝票検索
+     */
+    public function testPlaceOrderRowSearch()
+    {
+        $apiResultEntity = $this->object->receivePlaceOrderRowSearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(PlaceOrderRow::class, $data);
+        }
+    }
+
+    /**
+     * 発注伝票件数
+     */
+    public function testPlaceOrderRowCount()
+    {
+        $apiResultEntity = $this->object->receivePlaceOrderRowCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

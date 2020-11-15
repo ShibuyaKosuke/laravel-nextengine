@@ -38,7 +38,7 @@ class PlaceOrderBase extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'supplier_id';
+    public const KEY = 'place_order_id';
 
     /**
      * @var string 検索エンドポイント
