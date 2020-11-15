@@ -57,6 +57,11 @@ abstract class Base
     const RESULT_REDIRECT = 'redirect';
 
     /**
+     * @var User
+     */
+    protected $user;
+
+    /**
      * @var boolean
      */
     protected $isLogin = false;
@@ -168,12 +173,14 @@ abstract class Base
     /**
      * NextEngine constructor.
      * @param Application $app
-     * @return void
+     * @param App\User|App\Models\User $user
      * @throws NextEngineException
      */
-    public function __construct(Application $app)
+    public function __construct(Application $app, $user = null)
     {
         $this->isCli = (PHP_SAPI === 'cli');
+
+        $this->user = $user;
 
         $this->config = $app['config'];
         $this->router = $app['router'];
