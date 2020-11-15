@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoods;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsTag;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -32,7 +33,7 @@ class MasterGoodsTest extends TestCase
     }
 
     /**
-     * 受注伝票検索
+     * 商品検索
      */
     public function testMasterGoodsSearch()
     {
@@ -46,7 +47,7 @@ class MasterGoodsTest extends TestCase
     }
 
     /**
-     * 受注伝票件数
+     * 商品件数
      */
     public function testMasterGoodsCount()
     {
@@ -56,11 +57,35 @@ class MasterGoodsTest extends TestCase
     }
 
     /**
-     * 受注伝票件数
+     * 商品アップロード
      */
     public function testMasterGoodsUpload()
     {
         $apiResultEntity = $this->object->receiveMasterGoodsUpload();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * 商品タグ検索
+     */
+    public function testMasterGoodsTagSearch()
+    {
+        $apiResultEntity = $this->object->receiveMasterGoodsTagSearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(MasterGoodsTag::class, $data);
+        }
+    }
+
+    /**
+     * 商品タグ件数
+     */
+    public function testMasterGoodsTagCount()
+    {
+        $apiResultEntity = $this->object->receiveMasterGoodsTagCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
