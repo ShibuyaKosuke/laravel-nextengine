@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\SupplyOrder\SupplyOrder;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SupplyOrder\SupplyOrderRow;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -38,7 +39,7 @@ class SupplyOrderTest extends TestCase
     }
 
     /**
-     * 在庫検索
+     * 仕入伝票検索
      */
     public function testSupplyOrderSearch()
     {
@@ -52,11 +53,35 @@ class SupplyOrderTest extends TestCase
     }
 
     /**
-     * 在庫件数
+     * 仕入伝票件数
      */
     public function testSupplyOrderCount()
     {
         $apiResultEntity = $this->object->receiveSupplyOrderCount();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * 仕入明細検索
+     */
+    public function testSupplyOrderRowSearch()
+    {
+        $apiResultEntity = $this->object->receiveSupplyOrderRowSearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(SupplyOrderRow::class, $data);
+        }
+    }
+
+    /**
+     * 仕入明細件数
+     */
+    public function testSupplyOrderRowCount()
+    {
+        $apiResultEntity = $this->object->receiveSupplyOrderRowCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
