@@ -30,10 +30,20 @@
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
 
+        <env name="DB_CONNECTION" value="testing"/>
+        <env name="DB_HOST" value="127.0.0.1"/>
+        <env name="DB_PORT" value="5432"/>
+        <env name="DB_DATABASE" value="nextengine_test"/>
+        <env name="DB_USERNAME" value="homestead"/>
+        <env name="DB_PASSWORD" value="secret"/>
+
         <env name="NEXT_ENGINE_USERNAME" value=""/>
         <env name="NEXT_ENGINE_PASSWORD" value=""/>
         <env name="NEXT_ENGINE_CLIENT_ID" value=""/>
         <env name="NEXT_ENGINE_CLIENT_SECRET" value=""/>
         <env name="NEXT_ENGINE_REDIRECT_URI" value=""/>
+
+        <env name="NEXT_ENGINE_UID" value=""/>
+        <env name="NEXT_ENGINE_STATE" value=""/>
     </php>
 </phpunit>

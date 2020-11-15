@@ -77,4 +77,22 @@ abstract class TestCase extends OrchestraTestCase
             'NextEngine' => NextEngine::class
         ];
     }
+
+    protected function assertEqualsApiResponseSearch($apiResultEntity)
+    {
+        self::assertEquals('success', $apiResultEntity->result);
+        self::assertNotNull($apiResultEntity->count);
+        self::assertNotNull($apiResultEntity->data);
+        self::assertNotNull($apiResultEntity->access_token);
+        self::assertNotNull($apiResultEntity->refresh_token);
+    }
+
+    protected function assertEqualsApiResponseCount($apiResultEntity)
+    {
+        self::assertEquals('success', $apiResultEntity->result);
+        self::assertNotNull($apiResultEntity->count);
+        self::assertNull($apiResultEntity->data);
+        self::assertNotNull($apiResultEntity->access_token);
+        self::assertNotNull($apiResultEntity->refresh_token);
+    }
 }

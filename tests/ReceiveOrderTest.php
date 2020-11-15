@@ -20,9 +20,6 @@ class ReceiveOrderTest extends TestCase
 {
     private $object;
 
-    private $uid = '379559016b83bfafda8d9f5c5f2f48a138e4e4e6fd19ee549f787b7dd2fadcab24bac978e6a0b7e63cbb8076ced0ccab8725560ad416ffc08aca936e138f7e7e';
-    private $state = 'UThkdmlB78COL410KzSpJiA2QYnRPfHt';
-
     /**
      * @return void
      */
@@ -36,30 +33,12 @@ class ReceiveOrderTest extends TestCase
 
         $this->nextEngineApi = factory(NextEngineApi::class)->make();
 
-        $this->nextEngineApi->uid = $this->uid;
-        $this->nextEngineApi->state = $this->state;
+        $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
+        $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
 
         $response = NextEngine::setAccount($this->nextEngineApi)->getAccessToken();
 
         $this->object = NextEngine::setAccount($this->nextEngineApi);
-    }
-
-    private function assertEqualsApiResponseSearch($apiResultEntity)
-    {
-        self::assertEquals('success', $apiResultEntity->result);
-        self::assertNotNull($apiResultEntity->count);
-        self::assertNotNull($apiResultEntity->data);
-        self::assertNotNull($apiResultEntity->access_token);
-        self::assertNotNull($apiResultEntity->refresh_token);
-    }
-
-    private function assertEqualsApiResponseCount($apiResultEntity)
-    {
-        self::assertEquals('success', $apiResultEntity->result);
-        self::assertNotNull($apiResultEntity->count);
-        self::assertNull($apiResultEntity->data);
-        self::assertNotNull($apiResultEntity->access_token);
-        self::assertNotNull($apiResultEntity->refresh_token);
     }
 
     /**
