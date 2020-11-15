@@ -10,7 +10,7 @@ use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 /**
  * 受注伝票
  *
- * Class OrderBase
+ * Class ReceiveOrderBase
  * @package ShibuyaKosuke\LaravelNextEngine\Entities
  *
  * @property integer receive_order_shop_id 店舗コード

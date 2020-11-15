@@ -8,7 +8,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 /**
  * 受注確認内容
  *
- * Class ReceiveOrderRow
+ * Class ReceiveOrderConfirm
  * @package ShibuyaKosuke\LaravelNextEngine\Entities
  * @property string confirm_id 受注確認内容ID
  * @property string confirm_name 受注確認内容
@@ -32,7 +32,7 @@ class ReceiveOrderConfirm extends EntityCommon
     /**
      * 更新用キー
      */
-    const KEY = 'receiveorder_confirm';
+    const KEY = 'confirm_id';
 
     /**
      * @var string エンドポイント

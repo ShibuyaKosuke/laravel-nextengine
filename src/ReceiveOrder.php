@@ -5,7 +5,10 @@ namespace ShibuyaKosuke\LaravelNextEngine;
 use Illuminate\Support\Carbon;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderConfirm;
+use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderForwardingAgent;
+use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderGroupingTag;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderOption;
+use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderPaymentDeliveryConvert;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderRow;
 
 /**
@@ -221,5 +224,115 @@ trait ReceiveOrder
 
         $response = $this->apiExecute(ReceiveOrderConfirm::$endpoint_count, $params);
         return new ApiResultEntity(ReceiveOrderConfirm::setData($response));
+    }
+
+    /**
+     * 受注分類タグ検索
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function receiveOrderGroupingTagSearch(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'fields' => ReceiveOrderGroupingTag::getPropertiesString(),
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(ReceiveOrderGroupingTag::$endpoint_search, $params);
+        return new ApiResultEntity(ReceiveOrderGroupingTag::setData($response));
+    }
+
+    /**
+     * 受注確認内容検索
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function receiveOrderForwardingAgentSearch(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'fields' => ReceiveOrderForwardingAgent::getPropertiesString(),
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(ReceiveOrderForwardingAgent::$endpoint_search, $params);
+        return new ApiResultEntity(ReceiveOrderForwardingAgent::setData($response));
+    }
+
+    /**
+     * 受注確認内容件数
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function receiveOrderForwardingAgentCount(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'fields' => ReceiveOrderForwardingAgent::getPropertiesString(),
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(ReceiveOrderForwardingAgent::$endpoint_count, $params);
+        return new ApiResultEntity(ReceiveOrderForwardingAgent::setData($response));
+    }
+
+    /**
+     * 受注確認内容検索
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function receiveOrderPaymentDeliveryConvertSearch(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'fields' => ReceiveOrderPaymentDeliveryConvert::getPropertiesString(),
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(ReceiveOrderPaymentDeliveryConvert::$endpoint_search, $params);
+        return new ApiResultEntity(ReceiveOrderPaymentDeliveryConvert::setData($response));
+    }
+
+    /**
+     * 受注確認内容件数
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function receiveOrderPaymentDeliveryConvertCount(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'fields' => ReceiveOrderPaymentDeliveryConvert::getPropertiesString(),
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(ReceiveOrderPaymentDeliveryConvert::$endpoint_count, $params);
+        return new ApiResultEntity(ReceiveOrderPaymentDeliveryConvert::setData($response));
     }
 }

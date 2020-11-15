@@ -3,13 +3,12 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder;
 
 use Carbon\Carbon;
-use DOMDocument;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 
 /**
  * 受注オプション
  *
- * Class ReceiveOrderRow
+ * Class ReceiveOrderOption
  * @package ShibuyaKosuke\LaravelNextEngine\Entities
  *
  * @property integer receive_order_option_receive_order_id 伝票番号
