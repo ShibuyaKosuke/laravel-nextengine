@@ -62,7 +62,7 @@ class ServiceProvider extends ServiceProviderBase
         $this->app->singleton(
             'nextengine.client',
             function ($app) {
-                return new NextEngine($app, $app->request->user());
+                return new NextEngine($app);
             }
         );
     }
