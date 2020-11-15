@@ -20,6 +20,7 @@ class NextEngine extends Base
     use MasterSupplier;
     use SupplyOrder;
     use PlaceOrder;
+    use MasterWholesale;
 
     /**
      * ログイン
