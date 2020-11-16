@@ -100,5 +100,4 @@ class MasterStockIoHistory extends EntityCommon
         'stock_io_history_last_modified_date',
         'stock_io_history_last_modified_null_safe_date',
     ];
-
 }

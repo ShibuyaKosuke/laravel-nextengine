@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ShibuyaKosuke\LaravelNextEngine;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterStockIoHistory\MasterStockIoHistory as MasterStockIoHistoryBase;
@@ -56,5 +55,4 @@ trait MasterStockIoHistory
         $response = $this->apiExecute(MasterStockIoHistoryBase::$endpoint_count, $params);
         return new ApiResultEntity(MasterStockIoHistoryBase::setData($response));
     }
-
 }
