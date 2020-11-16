@@ -3,6 +3,8 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoods;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImage;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImageTag;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsTag;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
@@ -90,6 +92,54 @@ class MasterGoodsTest extends TestCase
     public function testMasterGoodsTagCount()
     {
         $apiResultEntity = $this->object->masterGoodsTagCount();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * 商品画像検索
+     */
+    public function testMasterGoodsImageSearch()
+    {
+        $apiResultEntity = $this->object->masterGoodsImageSearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(MasterGoodsImage::class, $data);
+        }
+    }
+
+    /**
+     * 商品画像件数
+     */
+    public function testMasterGoodsImageCount()
+    {
+        $apiResultEntity = $this->object->masterGoodsImageCount();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * 商品画像タグ検索
+     */
+    public function testMasterGoodsImageTagSearch()
+    {
+        $apiResultEntity = $this->object->masterGoodsImageTagSearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(MasterGoodsImageTag::class, $data);
+        }
+    }
+
+    /**
+     * 商品画像タグ件数
+     */
+    public function testMasterGoodsImageTagCount()
+    {
+        $apiResultEntity = $this->object->masterGoodsImageTagCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
