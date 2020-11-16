@@ -44,7 +44,6 @@ trait MasterStock
     {
         $params = array_merge(
             [
-                'fields' => MasterStockBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),

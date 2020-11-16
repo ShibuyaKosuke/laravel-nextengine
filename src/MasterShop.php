@@ -45,7 +45,6 @@ trait MasterShop
     {
         $params = array_merge(
             [
-                'fields' => MasterShopBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),

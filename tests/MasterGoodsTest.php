@@ -143,4 +143,28 @@ class MasterGoodsTest extends TestCase
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
+
+    /**
+     * 商品カテゴリ検索
+     */
+    public function testMasterGoodsCategorySearch()
+    {
+        $apiResultEntity = $this->object->masterGoodsCategorySearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(MasterGoodsImageTag::class, $data);
+        }
+    }
+
+    /**
+     * 商品カテゴリ件数
+     */
+    public function testMasterGoodsCategoryCount()
+    {
+        $apiResultEntity = $this->object->masterGoodsCategoryCount();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
 }

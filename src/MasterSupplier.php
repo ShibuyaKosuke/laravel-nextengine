@@ -44,7 +44,6 @@ trait MasterSupplier
     {
         $params = array_merge(
             [
-                'fields' => MasterSupplierBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
