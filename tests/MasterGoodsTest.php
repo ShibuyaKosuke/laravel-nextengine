@@ -6,6 +6,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoods;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImage;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImageTag;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsTag;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsWholesale;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -67,9 +68,8 @@ class MasterGoodsTest extends TestCase
      */
     public function testMasterGoodsUpload()
     {
-        $apiResultEntity = $this->object->masterGoodsUpload();
-
-        $this->assertEqualsApiResponseCount($apiResultEntity);
+        $this->expectException(\ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException::class);
+        $this->object->masterGoodsUpload();
     }
 
     /**
@@ -164,6 +164,30 @@ class MasterGoodsTest extends TestCase
     public function testMasterGoodsCategoryCount()
     {
         $apiResultEntity = $this->object->masterGoodsCategoryCount();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * 商品別卸先マスタ検索
+     */
+    public function testMasterGoodsWholesalSearch()
+    {
+        $apiResultEntity = $this->object->masterGoodsWholesaleSearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(MasterGoodsWholesale::class, $data);
+        }
+    }
+
+    /**
+     * 商品別卸先マスタ件数
+     */
+    public function testMasterGoodsWholesalCount()
+    {
+        $apiResultEntity = $this->object->masterGoodsWholesaleCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
