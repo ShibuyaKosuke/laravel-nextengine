@@ -23,6 +23,7 @@ class NextEngine extends Base
     use MasterWholesale;
     use MasterStockIoHistory;
     use MasterPage;
+    use MasterShop;
 
     /**
      * ログイン

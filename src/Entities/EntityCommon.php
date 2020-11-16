@@ -60,6 +60,23 @@ abstract class EntityCommon implements EntityContract
     }
 
     /**
+     * data が2次元配列ではないとき
+     *
+     * @param array $response
+     * @return array
+     */
+    public static function setDataRow(array $response)
+    {
+        if (!array_key_exists('data', $response)) {
+            return $response;
+        }
+
+        $response['data'] = new static($response['data']);
+
+        return $response;
+    }
+
+    /**
      * @return string
      */
     public static function getPropertiesString(): string
