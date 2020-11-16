@@ -174,9 +174,13 @@ class MasterShop extends EntityCommon
      */
     public function toXmlForCreate()
     {
-        $properties = array_filter($this->getDirties(), function ($k) {
-            return in_array($k, self::$create_columns, true);
-        }, ARRAY_FILTER_USE_KEY);
+        $properties = array_filter(
+            $this->getDirties(),
+            function ($k) {
+                return in_array($k, self::$create_columns, true);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
 
         return $this->toXml($properties);
     }
@@ -188,9 +192,13 @@ class MasterShop extends EntityCommon
      */
     public function toXmlForUpdate()
     {
-        $properties = array_filter($this->getDirties(), function ($k) {
-            return in_array($k, self::$update_columns, true);
-        }, ARRAY_FILTER_USE_KEY);
+        $properties = array_filter(
+            $this->getDirties(),
+            function ($k) {
+                return in_array($k, self::$update_columns, true);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
 
         return $this->toXml($properties);
     }

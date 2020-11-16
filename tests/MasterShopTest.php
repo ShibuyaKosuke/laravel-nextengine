@@ -91,7 +91,6 @@ class MasterShopTest extends TestCase
 
         $apiResultEntity = $this->object->masterShopCreate($masterShop, 1);
         self::assertGreaterThanOrEqual(1, $apiResultEntity->shop_id);
-
     }
 
     /**
@@ -99,7 +98,8 @@ class MasterShopTest extends TestCase
      */
     public function testMasterShopUpdate()
     {
-        $masterShop = new MasterShop([
+        $masterShop = new MasterShop(
+            [
                 "shop_id" => "2",
                 "shop_name" => "テストAmazon店舗",
                 "shop_abbreviated_name" => "AMZ",
