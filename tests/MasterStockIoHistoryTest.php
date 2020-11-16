@@ -36,7 +36,7 @@ class MasterStockIoHistoryTest extends TestCase
      */
     public function testMasterStockIoHistorySearch()
     {
-        $apiResultEntity = $this->object->receiveMasterStockIoHistorySearch();
+        $apiResultEntity = $this->object->masterStockIoHistorySearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -50,7 +50,7 @@ class MasterStockIoHistoryTest extends TestCase
      */
     public function testMasterStockIoHistoryCount()
     {
-        $apiResultEntity = $this->object->receiveMasterStockIoHistoryCount();
+        $apiResultEntity = $this->object->masterStockIoHistoryCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

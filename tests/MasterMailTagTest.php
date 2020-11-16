@@ -40,7 +40,7 @@ class MasterMailTagTest extends TestCase
      */
     public function testMasterMailTagSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterMailTagSearch();
+        $apiResultEntity = $this->object->masterMailTagSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -54,7 +54,7 @@ class MasterMailTagTest extends TestCase
      */
     public function testMasterMailTagCount()
     {
-        $apiResultEntity = $this->object->receiveMasterMailTagCount();
+        $apiResultEntity = $this->object->masterMailTagCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

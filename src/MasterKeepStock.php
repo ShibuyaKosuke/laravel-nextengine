@@ -18,7 +18,7 @@ trait MasterKeepStock
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterKeepStockSearch(array $params = []): ApiResultEntity
+    public function masterKeepStockSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -40,7 +40,7 @@ trait MasterKeepStock
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterKeepStockCount(array $params = []): ApiResultEntity
+    public function masterKeepStockCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [

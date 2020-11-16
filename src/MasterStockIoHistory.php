@@ -18,7 +18,7 @@ trait MasterStockIoHistory
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterStockIoHistorySearch(array $params = []): ApiResultEntity
+    public function masterStockIoHistorySearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -40,7 +40,7 @@ trait MasterStockIoHistory
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterStockIoHistoryCount(array $params = []): ApiResultEntity
+    public function masterStockIoHistoryCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [

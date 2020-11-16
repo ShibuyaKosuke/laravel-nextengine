@@ -43,7 +43,7 @@ class MasterPageTest extends TestCase
      */
     public function testMasterPageBaseSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterPageBaseSearch();
+        $apiResultEntity = $this->object->masterPageBaseSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -57,7 +57,7 @@ class MasterPageTest extends TestCase
      */
     public function testMasterPageBaseCount()
     {
-        $apiResultEntity = $this->object->receiveMasterPageBaseCount();
+        $apiResultEntity = $this->object->masterPageBaseCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
@@ -67,7 +67,7 @@ class MasterPageTest extends TestCase
      */
     public function testMasterPageBaseVariationOrOptionSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterPageBaseVariationOrOptionSearch();
+        $apiResultEntity = $this->object->masterPageBaseVariationOrOptionSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -81,7 +81,7 @@ class MasterPageTest extends TestCase
      */
     public function tCount()
     {
-        $apiResultEntity = $this->object->receiveMasterPageBaseVariationOrOptionCount();
+        $apiResultEntity = $this->object->masterPageBaseVariationOrOptionCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

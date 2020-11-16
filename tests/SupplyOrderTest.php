@@ -43,7 +43,7 @@ class SupplyOrderTest extends TestCase
      */
     public function testSupplyOrderSearch()
     {
-        $apiResultEntity = $this->object->receiveSupplyOrderSearch();
+        $apiResultEntity = $this->object->supplyOrderSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -57,7 +57,7 @@ class SupplyOrderTest extends TestCase
      */
     public function testSupplyOrderCount()
     {
-        $apiResultEntity = $this->object->receiveSupplyOrderCount();
+        $apiResultEntity = $this->object->supplyOrderCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
@@ -67,7 +67,7 @@ class SupplyOrderTest extends TestCase
      */
     public function testSupplyOrderRowSearch()
     {
-        $apiResultEntity = $this->object->receiveSupplyOrderRowSearch();
+        $apiResultEntity = $this->object->supplyOrderRowSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -81,7 +81,7 @@ class SupplyOrderTest extends TestCase
      */
     public function testSupplyOrderRowCount()
     {
-        $apiResultEntity = $this->object->receiveSupplyOrderRowCount();
+        $apiResultEntity = $this->object->supplyOrderRowCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

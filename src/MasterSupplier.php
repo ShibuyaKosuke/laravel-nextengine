@@ -18,7 +18,7 @@ trait MasterSupplier
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterSupplierSearch(array $params = []): ApiResultEntity
+    public function masterSupplierSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -40,7 +40,7 @@ trait MasterSupplier
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterSupplierCount(array $params = []): ApiResultEntity
+    public function masterSupplierCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [

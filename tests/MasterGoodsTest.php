@@ -41,7 +41,7 @@ class MasterGoodsTest extends TestCase
      */
     public function testMasterGoodsSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterGoodsSearch();
+        $apiResultEntity = $this->object->masterGoodsSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -55,7 +55,7 @@ class MasterGoodsTest extends TestCase
      */
     public function testMasterGoodsCount()
     {
-        $apiResultEntity = $this->object->receiveMasterGoodsCount();
+        $apiResultEntity = $this->object->masterGoodsCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
@@ -65,7 +65,7 @@ class MasterGoodsTest extends TestCase
      */
     public function testMasterGoodsUpload()
     {
-        $apiResultEntity = $this->object->receiveMasterGoodsUpload();
+        $apiResultEntity = $this->object->masterGoodsUpload();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
@@ -75,7 +75,7 @@ class MasterGoodsTest extends TestCase
      */
     public function testMasterGoodsTagSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterGoodsTagSearch();
+        $apiResultEntity = $this->object->masterGoodsTagSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -89,7 +89,7 @@ class MasterGoodsTest extends TestCase
      */
     public function testMasterGoodsTagCount()
     {
-        $apiResultEntity = $this->object->receiveMasterGoodsTagCount();
+        $apiResultEntity = $this->object->masterGoodsTagCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
