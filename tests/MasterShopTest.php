@@ -46,8 +46,6 @@ class MasterShopTest extends TestCase
     {
         $apiResultEntity = $this->object->masterShopSearch();
 
-        dump($apiResultEntity);
-
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
         foreach ($apiResultEntity->data as $data) {

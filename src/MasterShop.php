@@ -140,8 +140,6 @@ trait MasterShop
             'data' => $masterShop->toXmlForUpdate(),
         ];
 
-        dump($params);
-
         $response = $this->apiExecute(MasterShopBase::$endpoint_update, $params);
         return new ApiResultEntity($response);
     }
