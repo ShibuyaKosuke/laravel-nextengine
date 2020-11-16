@@ -2,17 +2,15 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\SystemImage\SystemImage;
-use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemMall\SystemMall;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
+use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
- * 画像分類タグ
- *
- * Class SystemImageTest
+ * Class SystemMallTest
  * @package ShibuyaKosuke\LaravelNextEngine\Tests
  */
-class SystemImageTest extends TestCase
+class SystemMallTest extends TestCase
 {
     private $object;
 
@@ -39,25 +37,25 @@ class SystemImageTest extends TestCase
     }
 
     /**
-     * 画像分類タグ検索
+     * モール検索
      */
-    public function testSystemImageSearch()
+    public function testSystemMallSearch()
     {
-        $apiResultEntity = $this->object->systemImageSearch();
+        $apiResultEntity = $this->object->systemMallSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
         foreach ($apiResultEntity->data as $data) {
-            self::assertInstanceOf(SystemImage::class, $data);
+            self::assertInstanceOf(SystemMall::class, $data);
         }
     }
 
     /**
-     * 画像分類タグ件数
+     * モール件数
      */
-    public function testSystemImageCount()
+    public function testSystemMallCount()
     {
-        $apiResultEntity = $this->object->systemImageCount();
+        $apiResultEntity = $this->object->systemMallCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
