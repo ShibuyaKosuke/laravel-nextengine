@@ -7,6 +7,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsCategory;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImage;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImageTag;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsTag;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsWholesale;
 
 /**
  * 商品マスター系メソッド
@@ -252,5 +253,48 @@ trait MasterGoods
 
         $response = $this->apiExecute(MasterGoodsCategory::$endpoint_count, $params);
         return new ApiResultEntity(MasterGoodsCategory::setData($response));
+    }
+
+    /**
+     * 商品別卸先マスタ検索
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function masterGoodsWholesaleSearch(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'fields' => MasterGoodsWholesale::getPropertiesString(),
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(MasterGoodsWholesale::$endpoint_search, $params);
+        return new ApiResultEntity(MasterGoodsWholesale::setData($response));
+    }
+
+    /**
+     * 商品別卸先マスタ件数
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function masterGoodsWholesaleCount(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(MasterGoodsWholesale::$endpoint_count, $params);
+        return new ApiResultEntity(MasterGoodsWholesale::setData($response));
     }
 }
