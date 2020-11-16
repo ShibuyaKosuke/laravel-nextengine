@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoods as MasterGoodsBase;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsCategory;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImage;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsImageTag;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsTag;
@@ -47,7 +48,6 @@ trait MasterGoods
     {
         $params = array_merge(
             [
-                'fields' => MasterGoodsBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -114,7 +114,6 @@ trait MasterGoods
     {
         $params = array_merge(
             [
-                'fields' => MasterGoodsTag::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -158,7 +157,6 @@ trait MasterGoods
     {
         $params = array_merge(
             [
-                'fields' => MasterGoodsImage::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -202,7 +200,6 @@ trait MasterGoods
     {
         $params = array_merge(
             [
-                'fields' => MasterGoodsImageTag::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -212,5 +209,48 @@ trait MasterGoods
 
         $response = $this->apiExecute(MasterGoodsImageTag::$endpoint_count, $params);
         return new ApiResultEntity(MasterGoodsImageTag::setData($response));
+    }
+
+    /**
+     * 商品画像タグ検索
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function masterGoodsCategorySearch(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'fields' => MasterGoodsCategory::getPropertiesString(),
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(MasterGoodsCategory::$endpoint_search, $params);
+        return new ApiResultEntity(MasterGoodsCategory::setData($response));
+    }
+
+    /**
+     * 商品画像タグ件数
+     *
+     * @param array $params
+     * @return ApiResultEntity
+     */
+    public function masterGoodsCategoryCount(array $params = []): ApiResultEntity
+    {
+        $params = array_merge(
+            [
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+            ],
+            $params
+        );
+
+        $response = $this->apiExecute(MasterGoodsCategory::$endpoint_count, $params);
+        return new ApiResultEntity(MasterGoodsCategory::setData($response));
     }
 }

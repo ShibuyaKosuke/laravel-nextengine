@@ -22,7 +22,6 @@ trait SystemImage
     {
         $params = array_merge(
             [
-                'fields' => SystemImageBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -44,7 +43,6 @@ trait SystemImage
     {
         $params = array_merge(
             [
-                'fields' => SystemImageBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),

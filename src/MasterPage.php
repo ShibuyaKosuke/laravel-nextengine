@@ -45,7 +45,6 @@ trait MasterPage
     {
         $params = array_merge(
             [
-                'fields' => MasterPageBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -89,7 +88,6 @@ trait MasterPage
     {
         $params = array_merge(
             [
-                'fields' => MasterPageBaseVariationOrOption::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),

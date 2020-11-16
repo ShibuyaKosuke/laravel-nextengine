@@ -51,7 +51,6 @@ trait ReceiveOrder
     {
         $params = array_merge(
             [
-                'fields' => ReceiveOrderBase::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -126,7 +125,6 @@ trait ReceiveOrder
     {
         $params = array_merge(
             [
-                'fields' => ReceiveOrderRow::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -170,7 +168,6 @@ trait ReceiveOrder
     {
         $params = array_merge(
             [
-                'fields' => ReceiveOrderOption::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -214,7 +211,6 @@ trait ReceiveOrder
     {
         $params = array_merge(
             [
-                'fields' => ReceiveOrderConfirm::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -280,7 +276,6 @@ trait ReceiveOrder
     {
         $params = array_merge(
             [
-                'fields' => ReceiveOrderForwardingAgent::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -324,7 +319,6 @@ trait ReceiveOrder
     {
         $params = array_merge(
             [
-                'fields' => ReceiveOrderPaymentDeliveryConvert::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
