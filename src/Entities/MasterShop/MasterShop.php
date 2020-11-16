@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop;
 
 use Carbon\Carbon;
+use DOMDocument;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 
 /**
@@ -113,4 +114,111 @@ class MasterShop extends EntityCommon
         'shop_last_modified_date',
         'shop_last_modified_null_safe_date',
     ];
+
+    /**
+     * 作成時に指定可能な可能なカラム
+     *
+     * @var array
+     */
+    public static $create_columns = [
+        'shop_mall_id',
+        'shop_name',
+        'shop_abbreviated_name',
+        'shop_kana',
+        'shop_note',
+        'shop_handling_goods_name',
+        'shop_tax_id',
+        'shop_tax_calculation_sequence_id',
+        'shop_currency_unit_id',
+        'shop_authorization_type_id',
+        'mall_login_id1',
+        'mall_login_id2',
+        'mall_login_id3',
+        'mall_password1',
+        'mall_password2',
+        'mall_password3',
+        'default_delivery_id',
+        'shop_type_id',
+    ];
+
+    /**
+     * 更新時に指定可能な可能なカラム
+     *
+     * @var array
+     */
+    public static $update_columns = [
+        'shop_name',
+        'shop_abbreviated_name',
+        'shop_kana',
+        'shop_note',
+        'shop_handling_goods_name',
+        'shop_tax_id',
+        'shop_tax_calculation_sequence_id',
+        'shop_currency_unit_id',
+        'shop_authorization_type_id',
+        'mall_login_id1',
+        'mall_login_id2',
+        'mall_login_id3',
+        'mall_password1',
+        'mall_password2',
+        'mall_password3',
+        'claim_id_yamato',
+        'claim_id_seinou',
+        'claim_id_fukuyama',
+    ];
+
+    /**
+     * 変更をXMLにする
+     *
+     * @return string
+     */
+    public function toXmlForCreate()
+    {
+        $properties = array_filter($this->getDirties(), function ($k) {
+            return in_array($k, self::$create_columns, true);
+        }, ARRAY_FILTER_USE_KEY);
+
+        return $this->toXml($properties);
+    }
+
+    /**
+     * 変更をXMLにする
+     *
+     * @return string
+     */
+    public function toXmlForUpdate()
+    {
+        $properties = array_filter($this->getDirties(), function ($k) {
+            return in_array($k, self::$update_columns, true);
+        }, ARRAY_FILTER_USE_KEY);
+
+        return $this->toXml($properties);
+    }
+
+    /**
+     * @param array $properties
+     * @return string
+     */
+    public function toXml(array $properties)
+    {
+        // DOMオブジェクト作成
+        $dom = new DomDocument('1.0');
+        $dom->encoding = "UTF-8";
+
+        // 出力XMLを改行
+        $dom->formatOutput = true;
+
+        $root = $dom->appendChild(
+            $dom->createElement('root')
+        );
+
+        // MasterShop
+        $shop = $dom->createElement('shop');
+        foreach ($properties as $key => $value) {
+            $shop->appendChild($dom->createElement($key, $value));
+        }
+        $root->appendChild($shop);
+
+        return $dom->saveXML();
+    }
 }

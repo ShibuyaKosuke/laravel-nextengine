@@ -93,4 +93,56 @@ trait MasterShop
         $response = $this->apiExecute(MasterShopMailAddress::$endpoint_mail_address, $params);
         return new ApiResultEntity(MasterShopMailAddress::setDataRow($response));
     }
+
+    /**
+     * 店舗マスタ店舗作成
+     *
+     * @param MasterShopBase $masterShop
+     * @param int $test_flag
+     * @return ApiResultEntity
+     */
+    public function masterShopCreate(MasterShopBase $masterShop, int $test_flag = 0): ApiResultEntity
+    {
+        if ($test_flag) {
+            $test_flag = 1;
+        } elseif ($this->config->get('app.debug')) {
+            $test_flag = 1;
+        } else {
+            $test_flag = 0;
+        }
+
+        $params = [
+            'access_token' => $this->access_token,
+            'refresh_token' => $this->refresh_token,
+            'wait_flag' => $this->getWaitFlag(),
+            'data' => $masterShop->toXmlForCreate(),
+            'test_flag' => $test_flag,
+        ];
+
+        $response = $this->apiExecute(MasterShopBase::$endpoint_create, $params);
+        return new ApiResultEntity($response);
+    }
+
+    /**
+     * 店舗マスタ店舗更新
+     *
+     * @param MasterShopBase $masterShop
+     * @return ApiResultEntity
+     */
+    public function masterShopUpdate(MasterShopBase $masterShop): ApiResultEntity
+    {
+        $params = [
+            'access_token' => $this->access_token,
+            'refresh_token' => $this->refresh_token,
+            'wait_flag' => $this->getWaitFlag(),
+            'shop_id' => $masterShop->shop_id,
+            'shop_last_modified_date' => $masterShop->shop_last_modified_date->format('Y-m-d H:i:s'),
+            'data' => $masterShop->toXmlForUpdate(),
+        ];
+
+        dump($params);
+
+        $response = $this->apiExecute(MasterShopBase::$endpoint_update, $params);
+        return new ApiResultEntity($response);
+    }
 }
