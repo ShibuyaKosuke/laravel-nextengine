@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop as MasterShopBase;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShopMailAddress;
 
 /**
  * 店舗マスタ
@@ -89,7 +90,7 @@ trait MasterShop
             'refresh_token' => $this->refresh_token,
         ];
 
-        $response = $this->apiExecute(MasterShopBase::$endpoint_mail_address, $params);
-        return new ApiResultEntity($response);
+        $response = $this->apiExecute(MasterShopMailAddress::$endpoint_mail_address, $params);
+        return new ApiResultEntity(MasterShopMailAddress::setDataRow($response));
     }
 }

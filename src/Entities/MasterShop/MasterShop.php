@@ -69,11 +69,6 @@ class MasterShop extends EntityCommon
     public static $endpoint_update = '/api_v1_master_shop/update';
 
     /**
-     * @var string 受注情報取り込み用メールアドレス取得エンドポイント
-     */
-    public static $endpoint_mail_address = '/api_v1_master_shop/mailaddress';
-
-    /**
      * プロパティのリスト
      *
      * @var string[]

@@ -2,7 +2,8 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop as  MasterShopBase;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop as MasterShopBase;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShopMailAddress;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -69,6 +70,7 @@ class MasterShopTest extends TestCase
     public function testMasterShopMailAddress()
     {
         $apiResultEntity = $this->object->masterShopMailAddress(1);
-//        dd($apiResultEntity);
+
+        self::assertInstanceOf(MasterShopMailAddress::class, $apiResultEntity->data);
     }
 }
