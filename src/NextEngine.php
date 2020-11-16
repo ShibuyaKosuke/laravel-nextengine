@@ -24,6 +24,7 @@ class NextEngine extends Base
     use MasterStockIoHistory;
     use MasterPage;
     use MasterShop;
+    use SystemImage;
 
     /**
      * ログイン
