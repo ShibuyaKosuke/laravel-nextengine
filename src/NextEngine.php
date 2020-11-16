@@ -22,6 +22,7 @@ class NextEngine extends Base
     use PlaceOrder;
     use MasterWholesale;
     use MasterStockIoHistory;
+    use MasterPage;
 
     /**
      * ログイン
