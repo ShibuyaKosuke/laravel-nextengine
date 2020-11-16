@@ -19,7 +19,7 @@ trait MasterPage
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterPageBaseSearch(array $params = []): ApiResultEntity
+    public function masterPageBaseSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -41,7 +41,7 @@ trait MasterPage
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterPageBaseCount(array $params = []): ApiResultEntity
+    public function masterPageBaseCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -63,7 +63,7 @@ trait MasterPage
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterPageBaseVariationOrOptionSearch(array $params = []): ApiResultEntity
+    public function masterPageBaseVariationOrOptionSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -85,7 +85,7 @@ trait MasterPage
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterPageBaseVariationOrOptionCount(array $params = []): ApiResultEntity
+    public function masterPageBaseVariationOrOptionCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [

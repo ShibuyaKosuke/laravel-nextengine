@@ -42,7 +42,7 @@ class MasterWholesaleTest extends TestCase
      */
     public function testMasterWholesaleBaseSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterWholesaleBaseSearch();
+        $apiResultEntity = $this->object->masterWholesaleBaseSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -56,7 +56,7 @@ class MasterWholesaleTest extends TestCase
      */
     public function testMasterWholesaleBaseCount()
     {
-        $apiResultEntity = $this->object->receiveMasterWholesaleBaseCount();
+        $apiResultEntity = $this->object->masterWholesaleBaseCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

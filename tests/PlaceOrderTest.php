@@ -43,7 +43,7 @@ class PlaceOrderTest extends TestCase
      */
     public function testPlaceOrderBaseSearch()
     {
-        $apiResultEntity = $this->object->receivePlaceOrderBaseSearch();
+        $apiResultEntity = $this->object->placeOrderBaseSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -57,7 +57,7 @@ class PlaceOrderTest extends TestCase
      */
     public function testPlaceOrderBaseCount()
     {
-        $apiResultEntity = $this->object->receivePlaceOrderBaseCount();
+        $apiResultEntity = $this->object->placeOrderBaseCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
@@ -67,7 +67,7 @@ class PlaceOrderTest extends TestCase
      */
     public function testPlaceOrderRowSearch()
     {
-        $apiResultEntity = $this->object->receivePlaceOrderRowSearch();
+        $apiResultEntity = $this->object->placeOrderRowSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -81,7 +81,7 @@ class PlaceOrderTest extends TestCase
      */
     public function testPlaceOrderRowCount()
     {
-        $apiResultEntity = $this->object->receivePlaceOrderRowCount();
+        $apiResultEntity = $this->object->placeOrderRowCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

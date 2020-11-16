@@ -42,7 +42,7 @@ class MasterSupplierTest extends TestCase
      */
     public function testMasterSupplierSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterSupplierSearch();
+        $apiResultEntity = $this->object->masterSupplierSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -56,7 +56,7 @@ class MasterSupplierTest extends TestCase
      */
     public function testMasterSupplierCount()
     {
-        $apiResultEntity = $this->object->receiveMasterSupplierCount();
+        $apiResultEntity = $this->object->masterSupplierCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

@@ -19,7 +19,7 @@ trait SupplyOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveSupplyOrderSearch(array $params = []): ApiResultEntity
+    public function supplyOrderSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -41,7 +41,7 @@ trait SupplyOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveSupplyOrderCount(array $params = []): ApiResultEntity
+    public function supplyOrderCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -63,7 +63,7 @@ trait SupplyOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveSupplyOrderRowSearch(array $params = []): ApiResultEntity
+    public function supplyOrderRowSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -85,7 +85,7 @@ trait SupplyOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveSupplyOrderRowCount(array $params = []): ApiResultEntity
+    public function supplyOrderRowCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [

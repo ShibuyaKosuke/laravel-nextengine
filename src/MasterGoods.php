@@ -19,7 +19,7 @@ trait MasterGoods
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterGoodsSearch(array $params = []): ApiResultEntity
+    public function masterGoodsSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -41,7 +41,7 @@ trait MasterGoods
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterGoodsCount(array $params = []): ApiResultEntity
+    public function masterGoodsCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -63,7 +63,7 @@ trait MasterGoods
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterGoodsUpload(array $params = []): ApiResultEntity
+    public function masterGoodsUpload(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -86,7 +86,7 @@ trait MasterGoods
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterGoodsTagSearch(array $params = []): ApiResultEntity
+    public function masterGoodsTagSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -108,7 +108,7 @@ trait MasterGoods
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterGoodsTagCount(array $params = []): ApiResultEntity
+    public function masterGoodsTagCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [

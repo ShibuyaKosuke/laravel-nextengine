@@ -18,7 +18,7 @@ trait MasterMailTag
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterMailTagSearch(array $params = []): ApiResultEntity
+    public function masterMailTagSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -40,7 +40,7 @@ trait MasterMailTag
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receiveMasterMailTagCount(array $params = []): ApiResultEntity
+    public function masterMailTagCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [

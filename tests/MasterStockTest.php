@@ -42,7 +42,7 @@ class MasterStockTest extends TestCase
      */
     public function testMasterStockSearch()
     {
-        $apiResultEntity = $this->object->receiveMasterStockSearch();
+        $apiResultEntity = $this->object->masterStockSearch();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
@@ -56,7 +56,7 @@ class MasterStockTest extends TestCase
      */
     public function testMasterStockCount()
     {
-        $apiResultEntity = $this->object->receiveMasterStockCount();
+        $apiResultEntity = $this->object->masterStockCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }

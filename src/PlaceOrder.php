@@ -19,7 +19,7 @@ trait PlaceOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receivePlaceOrderBaseSearch(array $params = []): ApiResultEntity
+    public function placeOrderBaseSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -41,7 +41,7 @@ trait PlaceOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receivePlaceOrderBaseCount(array $params = []): ApiResultEntity
+    public function placeOrderBaseCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -63,7 +63,7 @@ trait PlaceOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receivePlaceOrderRowSearch(array $params = []): ApiResultEntity
+    public function placeOrderRowSearch(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -85,7 +85,7 @@ trait PlaceOrder
      * @param array $params
      * @return ApiResultEntity
      */
-    public function receivePlaceOrderRowCount(array $params = []): ApiResultEntity
+    public function placeOrderRowCount(array $params = []): ApiResultEntity
     {
         $params = array_merge(
             [
