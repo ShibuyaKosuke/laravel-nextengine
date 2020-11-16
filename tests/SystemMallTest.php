@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemMall\SystemMall;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemMall\SystemMallCategory;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -56,6 +57,30 @@ class SystemMallTest extends TestCase
     public function testSystemMallCount()
     {
         $apiResultEntity = $this->object->systemMallCount();
+
+        $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * モールカテゴリ検索
+     */
+    public function testSystemMallCategorySearch()
+    {
+        $apiResultEntity = $this->object->systemMallCategorySearch();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(SystemMallCategory::class, $data);
+        }
+    }
+
+    /**
+     * モールカテゴリ件数
+     */
+    public function testSystemMallCategoryCount()
+    {
+        $apiResultEntity = $this->object->systemMallCategoryCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
     }
