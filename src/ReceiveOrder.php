@@ -10,6 +10,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderGroupingTa
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderOption;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderPaymentDeliveryConvert;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderRow;
+use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderUploadPattern;
 
 /**
  * 受注伝票系メソッド
@@ -328,5 +329,22 @@ trait ReceiveOrder
 
         $response = $this->apiExecute(ReceiveOrderPaymentDeliveryConvert::$endpoint_count, $params);
         return new ApiResultEntity(ReceiveOrderPaymentDeliveryConvert::setData($response));
+    }
+
+    /**
+     * 受注一括登録パターン情報
+     *
+     * @return ApiResultEntity
+     */
+    public function receiveOrderUploadPattern(): ApiResultEntity
+    {
+        $params = [
+            'access_token' => $this->access_token,
+            'refresh_token' => $this->refresh_token,
+            'wait_flag' => $this->getWaitFlag(),
+        ];
+
+        $response = $this->apiExecute(ReceiveOrderUploadPattern::$endpoint_info, $params);
+        return new ApiResultEntity(ReceiveOrderUploadPattern::setData($response));
     }
 }
