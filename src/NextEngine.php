@@ -50,6 +50,7 @@ class NextEngine extends Base
     use SystemTax;
     use SystemItem;
     use SystemPage;
+    use SystemAuthorization;
 
     /**
      * ログイン
