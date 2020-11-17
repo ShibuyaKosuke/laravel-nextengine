@@ -49,6 +49,7 @@ class NextEngine extends Base
     use SystemForwarding;
     use SystemTax;
     use SystemItem;
+    use SystemPage;
 
     /**
      * ログイン
