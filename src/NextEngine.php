@@ -39,6 +39,7 @@ class NextEngine extends Base
     use SystemCustomer;
     use SystemDeposit;
     use SystemIo;
+    use SystemSelect;
 
     /**
      * ログイン
