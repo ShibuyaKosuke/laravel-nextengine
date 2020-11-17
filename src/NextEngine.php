@@ -34,6 +34,7 @@ class NextEngine extends Base
     use SystemFraction;
     use SystemReturned;
     use SystemCancel;
+    use SystemImportant;
 
     /**
      * ログイン
