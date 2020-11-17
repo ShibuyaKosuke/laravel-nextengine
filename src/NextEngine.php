@@ -46,6 +46,7 @@ class NextEngine extends Base
     use SystemGoods;
     use SystemMerchandise;
     use SystemImport;
+    use SystemForwarding;
 
     /**
      * ログイン
