@@ -51,6 +51,7 @@ class NextEngine extends Base
     use SystemItem;
     use SystemPage;
     use SystemAuthorization;
+    use SystemCurrency;
 
     /**
      * ログイン
