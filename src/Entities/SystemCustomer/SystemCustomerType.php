@@ -9,6 +9,9 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
  *
  * Class SystemCustomerType
  * @package ShibuyaKosuke\LaravelNextEngine\Entities\SystemCustomer
+ *
+ * @property string customer_type_id 顧客区分
+ * @property string customer_type_name 顧客名
  */
 class SystemCustomerType extends EntityCommon
 {
