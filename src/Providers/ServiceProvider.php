@@ -10,7 +10,7 @@ use ShibuyaKosuke\LaravelNextEngine\NextEngine;
 
 /**
  * Class ServiceProvider
- * @package ShibuyaKosuke\LaravelNextengine\Providers
+ * @package ShibuyaKosuke\LaravelNextEngine\Providers
  */
 class ServiceProvider extends ServiceProviderBase
 {
