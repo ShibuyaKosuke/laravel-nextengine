@@ -7,6 +7,8 @@ namespace ShibuyaKosuke\LaravelNextEngine\Exceptions;
 use Exception;
 
 /**
+ * NextEngine Api 例外クラス
+ *
  * Class NextEngineException
  * @package ShibuyaKosuke\LaravelNextEngine\Exceptions
  */

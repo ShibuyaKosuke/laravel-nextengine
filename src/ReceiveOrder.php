@@ -75,7 +75,6 @@ trait ReceiveOrder
      * @param integer $receive_order_row_cancel_update_flag 1:受注伝票の受注キャンセル区分を0（有効）に変更したときに明細行のキャンセルフラグを有効にする 1以外:受注キャンセル区分を0（有効）に変更しても明細行のキャンセルフラグに影響なし
      * @return array
      * @throws Exceptions\NextEngineException
-     * @todo xml変換
      */
     public function receiveOrderBaseUpdate(int $receive_order_id, Carbon $receive_order_last_modified_date, ReceiveOrderBase $receiveOrderBase, ReceiveOrderOption $receiveOrderOption = null, array $receiveOrderRows = [], int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0): array
     {

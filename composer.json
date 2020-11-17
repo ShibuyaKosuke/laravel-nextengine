@@ -43,6 +43,12 @@
     ],
     "cbf": [
       "./vendor/bin/phpcbf --standard=phpcs.xml ."
+    ],
+    "install phpdocumentor": [
+      "wget http://phpdoc.org/phpDocumentor.phar -O ./bin/phpDocumentor.phar"
+    ],
+    "doc": [
+      "php ./bin/phpDocumentor.phar -d ./src -t ./documents"
     ]
   }
 }

@@ -2,6 +2,10 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Entities;
 
+/**
+ * Interface EntityContract
+ * @package ShibuyaKosuke\LaravelNextEngine\Entities
+ */
 interface EntityContract
 {
     /**
