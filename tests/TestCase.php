@@ -14,6 +14,11 @@ use ShibuyaKosuke\LaravelNextEngine\Providers\ServiceProvider;
 abstract class TestCase extends OrchestraTestCase
 {
     /**
+     * @var
+     */
+    protected $nextEngineApi;
+
+    /**
      * Setup the test environment.
      * @return void
      */
