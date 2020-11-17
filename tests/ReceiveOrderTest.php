@@ -9,6 +9,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderGroupingTa
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderOption;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderPaymentDeliveryConvert;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderRow;
+use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderUploadPattern;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -197,5 +198,19 @@ class ReceiveOrderTest extends TestCase
         $apiResultEntity = $this->object->receiveOrderPaymentDeliveryConvertCount();
 
         $this->assertEqualsApiResponseCount($apiResultEntity);
+    }
+
+    /**
+     * 受注一括登録パターン情報
+     */
+    public function testReceiveOrderUploadPattern()
+    {
+        $apiResultEntity = $this->object->receiveOrderUploadPattern();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(ReceiveOrderUploadPattern::class, $data);
+        }
     }
 }
