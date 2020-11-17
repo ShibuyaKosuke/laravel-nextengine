@@ -11,7 +11,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 use ShibuyaKosuke\LaravelNextEngine\Services\HttpClient;
