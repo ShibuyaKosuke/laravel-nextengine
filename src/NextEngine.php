@@ -27,6 +27,7 @@ class NextEngine extends Base
     use SystemImage;
     use SystemMall;
     use SystemQue;
+    use NoticeExecution;
 
     /**
      * ログイン
