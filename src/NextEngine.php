@@ -33,6 +33,7 @@ class NextEngine extends Base
     use SystemDelivery;
     use SystemFraction;
     use SystemReturned;
+    use SystemCancel;
 
     /**
      * ログイン
