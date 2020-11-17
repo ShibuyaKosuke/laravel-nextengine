@@ -2,17 +2,17 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\SystemPayout\SystemPayout;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemSocial\SystemSocialInsurance;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
- * 支払方法区分情報
+ * 社会保険区分情報
  *
- * Class SystemPayoutTest
+ * Class SystemSocialTest
  * @package ShibuyaKosuke\LaravelNextEngine\Tests
  */
-class SystemPayoutTest extends TestCase
+class SystemSocialTest extends TestCase
 {
     private $object;
 
@@ -38,16 +38,16 @@ class SystemPayoutTest extends TestCase
     }
 
     /**
-     * 支払方法区分情報
+     * 社会保険区分情報
      */
-    public function testSystemPayout()
+    public function testSystemSocialInsurance()
     {
-        $apiResultEntity = $this->object->systemPayout();
+        $apiResultEntity = $this->object->systemSocialInsurance();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
         foreach ($apiResultEntity->data as $data) {
-            self::assertInstanceOf(SystemPayout::class, $data);
+            self::assertInstanceOf(SystemSocialInsurance::class, $data);
         }
     }
 }
