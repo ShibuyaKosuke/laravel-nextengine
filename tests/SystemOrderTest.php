@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemOrder\SystemOrder;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemOrder\SystemOrderCondition;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -48,6 +49,20 @@ class SystemOrderTest extends TestCase
 
         foreach ($apiResultEntity->data as $data) {
             self::assertInstanceOf(SystemOrder::class, $data);
+        }
+    }
+
+    /**
+     * 発注条件区分情報
+     */
+    public function testSystemOrderCondition()
+    {
+        $apiResultEntity = $this->object->systemOrderCondition();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(SystemOrderCondition::class, $data);
         }
     }
 }
