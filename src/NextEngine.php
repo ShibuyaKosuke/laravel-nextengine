@@ -26,6 +26,7 @@ class NextEngine extends Base
     use MasterShop;
     use SystemImage;
     use SystemMall;
+    use SystemQue;
 
     /**
      * ログイン
