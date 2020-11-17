@@ -32,6 +32,7 @@ class NextEngine extends Base
     use SystemOrder;
     use SystemDelivery;
     use SystemFraction;
+    use SystemReturned;
 
     /**
      * ログイン
