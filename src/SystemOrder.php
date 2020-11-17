@@ -4,6 +4,7 @@ namespace ShibuyaKosuke\LaravelNextEngine;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemOrder\SystemOrder as SystemOrderBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemOrder\SystemOrderCondition;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemOrder\SystemOrderStatus;
 
 /**
  * 発注区分情報
@@ -45,5 +46,22 @@ trait SystemOrder
 
         $response = $this->apiExecute(SystemOrderCondition::$endpoint_info, $params);
         return new ApiResultEntity(SystemOrderCondition::setData($response));
+    }
+
+    /**
+     * 受注状態区分情報
+     *
+     * @return ApiResultEntity
+     */
+    public function systemOrderStatus(): ApiResultEntity
+    {
+        $params = [
+            'access_token' => $this->access_token,
+            'refresh_token' => $this->refresh_token,
+            'wait_flag' => $this->getWaitFlag(),
+        ];
+
+        $response = $this->apiExecute(SystemOrderStatus::$endpoint_info, $params);
+        return new ApiResultEntity(SystemOrderStatus::setData($response));
     }
 }
