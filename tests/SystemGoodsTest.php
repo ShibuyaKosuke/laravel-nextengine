@@ -2,6 +2,7 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemGoods\SystemGoodsStatus;
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemGoods\SystemGoodsType;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
@@ -48,6 +49,20 @@ class SystemGoodsTest extends TestCase
 
         foreach ($apiResultEntity->data as $data) {
             self::assertInstanceOf(SystemGoodsType::class, $data);
+        }
+    }
+
+    /**
+     * 商品ステータス区分情報
+     */
+    public function testSystemGoodsStatus()
+    {
+        $apiResultEntity = $this->object->systemGoodsStatus();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(SystemGoodsStatus::class, $data);
         }
     }
 }
