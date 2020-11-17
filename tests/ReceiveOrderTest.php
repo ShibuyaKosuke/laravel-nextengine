@@ -51,8 +51,17 @@ class ReceiveOrderTest extends TestCase
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
-        foreach ($apiResultEntity->data as $data) {
-            self::assertInstanceOf(ReceiveOrderBase::class, $data);
+        /** @var ReceiveOrderBase[] $orders */
+        $orders = $apiResultEntity->data;
+
+        foreach ($orders as $order) {
+            self::assertInstanceOf(ReceiveOrderBase::class, $order);
+
+            self::assertInstanceOf(ReceiveOrderOption::class, $order->getOrderOption());
+
+            foreach ($order->getOrderRows() as $row) {
+                self::assertInstanceOf(ReceiveOrderRow::class, $row);
+            }
         }
     }
 

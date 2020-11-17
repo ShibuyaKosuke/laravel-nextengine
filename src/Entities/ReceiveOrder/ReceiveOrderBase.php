@@ -156,6 +156,21 @@ class ReceiveOrderBase extends EntityCommon
     public static $endpoint_update = '/api_v1_receiveorder_base/update';
 
     /**
+     * @var string 一括更新エンドポイント
+     */
+    public static $endpoint_bulk_update = '/api_v1_receiveorder_base/bulkupdate';
+
+    /**
+     * @var ReceiveOrderOption
+     */
+    public $orderOption;
+
+    /**
+     * @var array|ReceiveOrderRow[]
+     */
+    public $orderRows = [];
+
+    /**
      * プロパティのリスト
      *
      * @var string[]
@@ -304,6 +319,39 @@ class ReceiveOrderBase extends EntityCommon
         'receive_order_last_modified_date',
         'receive_order_last_modified_null_safe_date',
     ];
+
+    /**
+     * @param ReceiveOrderOption $orderOption
+     */
+    public function setOrderOption(ReceiveOrderOption $orderOption): void
+    {
+        $this->orderOption = $orderOption;
+    }
+
+    /**
+     * @return ReceiveOrderOption
+     */
+    public function getOrderOption():ReceiveOrderOption
+    {
+        return $this->orderOption;
+    }
+
+    /**
+     * @param ReceiveOrderRow $orderRow
+     * @return void
+     */
+    public function addOrderRow(ReceiveOrderRow $orderRow): void
+    {
+        $this->orderRows[] = $orderRow;
+    }
+
+    /**
+     * @return array|ReceiveOrderRow[]
+     */
+    public function getOrderRows(): array
+    {
+        return $this->orderRows;
+    }
 
     /**
      * 変更をXMLに変換する

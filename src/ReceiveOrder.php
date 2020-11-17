@@ -39,7 +39,38 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_search, $params);
-        return new ApiResultEntity(ReceiveOrderBase::setData($response));
+
+        /** @var array $data */
+        $data = $response['data'];
+        $ids_string = implode(',', \Arr::pluck($data, 'receive_order_id'));
+
+        // 受注オプション
+        $orderOptions = $this->receiveOrderOptionSearch(['receive_order_option_receive_order_id-in' => $ids_string]);
+
+        // 受注明細
+        $orderRows = $this->receiveOrderRowSearch(['receive_order_row_receive_order_id-in' => $ids_string]);
+
+        $temp_response = ReceiveOrderBase::setData($response);
+
+        /** @var ReceiveOrderBase[] $orders */
+        $orders = $temp_response['data'];
+
+        foreach ($orders as $order) {
+            $receive_order_id = $order->receive_order_id;
+            foreach ($orderOptions->data as $orderOption) {
+                if ($orderOption->receive_order_option_receive_order_id === $receive_order_id) {
+                    $order->setOrderOption($orderOption);
+                }
+            }
+            foreach ($orderRows->data as $orderRow) {
+                if ($orderRow->receive_order_row_receive_order_id === $receive_order_id) {
+                    $order->addOrderRow($orderRow);
+                }
+            }
+        }
+        $response['data'] = $orders;
+
+        return new ApiResultEntity($response);
     }
 
     /**
@@ -91,6 +122,22 @@ trait ReceiveOrder
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
         return ReceiveOrderBase::setData($response);
+    }
+
+    /**
+     * 一括更新
+     *
+     * @param array|ReceiveOrderBase[] $receiveOrderBases
+     * @param int $receive_order_shipped_update_flag
+     * @param int $receive_order_row_cancel_update_flag
+     * @throws Exceptions\NextEngineException
+     * @todo
+     */
+    public function receiveOrderBaseBulkUpdate(array $receiveOrderBases, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0)
+    {
+        $receiveOrderBases = array_map(static function (ReceiveOrderBase $receiveOrderBase) {
+            return $receiveOrderBase;
+        }, $receiveOrderBases);
     }
 
     /**
