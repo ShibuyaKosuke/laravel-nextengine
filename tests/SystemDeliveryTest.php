@@ -3,6 +3,7 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemDelivery\SystemDelivery;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemDelivery\SystemDeliveryDate;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -48,6 +49,20 @@ class SystemDeliveryTest extends TestCase
 
         foreach ($apiResultEntity->data as $data) {
             self::assertInstanceOf(SystemDelivery::class, $data);
+        }
+    }
+
+    /**
+     * 納期情報
+     */
+    public function testSystemDeliveryDate()
+    {
+        $apiResultEntity = $this->object->systemDeliveryDate();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(SystemDeliveryDate::class, $data);
         }
     }
 }
