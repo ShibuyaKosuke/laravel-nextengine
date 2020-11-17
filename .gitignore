@@ -2,6 +2,7 @@
 .phpdoc
 /vendor/
 /bin/
+/documents/
 composer.lock
 phpunit.xml
 .phpunit.result.cache
