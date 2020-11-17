@@ -5,11 +5,18 @@ namespace ShibuyaKosuke\LaravelNextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemIo\SystemIoType;
 
 /**
+ * 入出荷区分情報
+ *
  * Trait SystemIo
  * @package ShibuyaKosuke\LaravelNextEngine
  */
 trait SystemIo
 {
+    /**
+     * 入出荷区分情報
+     *
+     * @return ApiResultEntity
+     */
     public function systemIoType(): ApiResultEntity
     {
         $params = [
