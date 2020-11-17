@@ -35,6 +35,7 @@ class NextEngine extends Base
     use SystemReturned;
     use SystemCancel;
     use SystemImportant;
+    use SystemConfirm;
 
     /**
      * ログイン
