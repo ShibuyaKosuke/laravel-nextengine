@@ -2,17 +2,11 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\SystemReturned\SystemReturnedReason;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemIo\SystemIoType;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
-/**
- * 返品事由区分情報
- *
- * Class SystemReturnedTest
- * @package ShibuyaKosuke\LaravelNextEngine\Tests
- */
-class SystemReturnedTest extends TestCase
+class SystemIoTest extends TestCase
 {
     private $object;
 
@@ -40,14 +34,14 @@ class SystemReturnedTest extends TestCase
     /**
      * 返品事由区分情報
      */
-    public function testSystemReturnedReason()
+    public function testSystemIoType()
     {
-        $apiResultEntity = $this->object->systemReturnedReason();
+        $apiResultEntity = $this->object->systemIoType();
 
         $this->assertEqualsApiResponseSearch($apiResultEntity);
 
         foreach ($apiResultEntity->data as $data) {
-            self::assertInstanceOf(SystemReturnedReason::class, $data);
+            self::assertInstanceOf(SystemIoType::class, $data);
         }
     }
 }
