@@ -2,7 +2,9 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
-use ShibuyaKosuke\LaravelNextEngine\Entities\SystemCreditType\SystemCreditType;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemCredit\SystemCreditApprovalType;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemCredit\SystemCreditAuthorizationCenter;
+use ShibuyaKosuke\LaravelNextEngine\Entities\SystemCredit\SystemCreditType;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -12,7 +14,7 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  * Class SystemCreditTypeTest
  * @package ShibuyaKosuke\LaravelNextEngine\Tests
  */
-class SystemCreditTypeTest extends TestCase
+class SystemCreditTest extends TestCase
 {
     private $object;
 
@@ -48,6 +50,34 @@ class SystemCreditTypeTest extends TestCase
 
         foreach ($apiResultEntity->data as $data) {
             self::assertInstanceOf(SystemCreditType::class, $data);
+        }
+    }
+
+    /**
+     * クレジットオーソリセンター区分情報
+     */
+    public function testSystemCreditAuthorizationCenter()
+    {
+        $apiResultEntity = $this->object->systemCreditAuthorizationCenter();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(SystemCreditAuthorizationCenter::class, $data);
+        }
+    }
+
+    /**
+     * クレジット承認区分情報
+     */
+    public function testSystemCreditApprovalType()
+    {
+        $apiResultEntity = $this->object->systemCreditApprovalType();
+
+        $this->assertEqualsApiResponseSearch($apiResultEntity);
+
+        foreach ($apiResultEntity->data as $data) {
+            self::assertInstanceOf(SystemCreditApprovalType::class, $data);
         }
     }
 }
