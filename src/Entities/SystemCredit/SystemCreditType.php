@@ -1,14 +1,14 @@
 <?php
 
-namespace ShibuyaKosuke\LaravelNextEngine\Entities\SystemCreditType;
+namespace ShibuyaKosuke\LaravelNextEngine\Entities\SystemCredit;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 
 /**
  * クレジット種類区分情報
  *
- * Class SystemCreditType
- * @package ShibuyaKosuke\LaravelNextEngine\Entities\SystemCreditType
+ * Class SystemCredit
+ * @package ShibuyaKosuke\LaravelNextEngine\Entities\SystemCredit
  *
  * @property string credit_type_id クレジット種類区分
  * @property string credit_type_name クレジット名
@@ -25,7 +25,8 @@ class SystemCreditType extends EntityCommon
      *
      * @var string[]
      */
-    public static $properties = ['credit_type_id',
+    public static $properties = [
+        'credit_type_id',
         'credit_type_name',
     ];
 
