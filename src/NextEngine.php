@@ -29,6 +29,7 @@ class NextEngine extends Base
     use SystemQue;
     use NoticeExecution;
     use SystemCredit;
+    use SystemOrder;
 
     /**
      * ログイン
