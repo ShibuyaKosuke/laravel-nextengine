@@ -28,6 +28,7 @@ class NextEngine extends Base
     use SystemMall;
     use SystemQue;
     use NoticeExecution;
+    use SystemCreditType;
 
     /**
      * ログイン
