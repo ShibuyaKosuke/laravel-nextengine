@@ -28,7 +28,10 @@
   "require": {
     "php": "^7.2",
     "ext-json": "*",
-    "laravel/laravel": "^5.0 | ^6.0 | ^7.0"
+    "guzzlehttp/guzzle": "^5.0 | ^6.0 | ^7.0",
+    "illuminate/support": "^6.0 | ^7.0",
+    "illuminate/database": "^6.0 | ^7.0",
+    "nesbot/carbon": "^1.0 | ^2.0"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.4",
