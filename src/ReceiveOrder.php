@@ -2,7 +2,7 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine;
 
-use Illuminate\Support\Carbon;
+use DomDocument;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderConfirm;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderForwardingAgent;
@@ -97,16 +97,14 @@ trait ReceiveOrder
     /**
      * 受注伝票更新
      *
-     * @param integer $receive_order_id 伝票番号
-     * @param Carbon $receive_order_last_modified_date 最終更新日
      * @param ReceiveOrderBase $receiveOrderBase
      * @param integer $receive_order_shipped_update_flag 1:受注状態が「出荷確定済（完了）」でも更新可 1以外:受注状態が「出荷確定済（完了）」は更新不可
      * @param integer $receive_order_row_cancel_update_flag 1:受注伝票の受注キャンセル区分を0（有効）に変更したときに明細行のキャンセルフラグを有効にする 1以外:受注キャンセル区分を0（有効）に変更しても明細行のキャンセルフラグに影響なし
-     * @return array
+     * @return ApiResultEntity
      */
-    public function receiveOrderBaseUpdate(int $receive_order_id, Carbon $receive_order_last_modified_date, ReceiveOrderBase $receiveOrderBase, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0): array
+    public function receiveOrderBaseUpdate(ReceiveOrderBase $receiveOrderBase, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0): ApiResultEntity
     {
-        $dom = new \DomDocument('1.0', 'UTF-8');
+        $dom = new DomDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
         $root = $dom->appendChild($dom->createElement('root'));
 
@@ -120,8 +118,8 @@ trait ReceiveOrder
         }
 
         $params = [
-            'receive_order_id' => $receive_order_id,
-            'receive_order_last_modified_date' => $receive_order_last_modified_date,
+            'receive_order_id' => $receiveOrderBase->receive_order_id,
+            'receive_order_last_modified_date' => $receiveOrderBase->receive_order_last_modified_date,
             'data' => $dom->saveXML(),
             'receive_order_shipped_update_flag' => $receive_order_shipped_update_flag,
             'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
@@ -131,7 +129,7 @@ trait ReceiveOrder
         ];
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
-        return ReceiveOrderBase::setData($response);
+        return new ApiResultEntity(ReceiveOrderBase::setData($response));
     }
 
     /**
@@ -140,12 +138,12 @@ trait ReceiveOrder
      * @param array|ReceiveOrderBase[] $receiveOrderBases
      * @param int $receive_order_shipped_update_flag
      * @param int $receive_order_row_cancel_update_flag
-     * @return array|void
+     * @return ApiResultEntity|null
      * @todo
      */
-    public function receiveOrderBaseBulkUpdate(array $receiveOrderBases, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0)
+    public function receiveOrderBaseBulkUpdate(array $receiveOrderBases, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0): ?ApiResultEntity
     {
-        $dom = new \DomDocument('1.0', 'UTF-8');
+        $dom = new DomDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
 
         $root = $dom->appendChild($dom->createElement('root'));
@@ -161,7 +159,7 @@ trait ReceiveOrder
 
         // 更新内容が存在しないとき
         if (!$root->hasChildNodes()) {
-            return;
+            return null;
         }
 
         $params = [
@@ -174,7 +172,7 @@ trait ReceiveOrder
             'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
         ];
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_bulk_update, $params);
-        return ReceiveOrderBase::setData($response);
+        return new ApiResultEntity(ReceiveOrderBase::setData($response));
     }
 
     /**

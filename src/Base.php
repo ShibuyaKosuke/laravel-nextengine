@@ -57,11 +57,6 @@ abstract class Base
     const RESULT_REDIRECT = 'redirect';
 
     /**
-     * @var boolean
-     */
-    protected $isLogin = false;
-
-    /**
      * Cli環境かどうか
      * @var boolean
      */

@@ -5,7 +5,6 @@ namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderOption;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderRow;
-use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
  * Class ReceiveOrderBaseTest

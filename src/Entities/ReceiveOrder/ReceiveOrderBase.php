@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use DomDocument;
 use DOMElement;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
-use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
  * 受注伝票

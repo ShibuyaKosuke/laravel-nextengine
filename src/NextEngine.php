@@ -57,12 +57,16 @@ class NextEngine extends Base
      * ログイン
      *
      * @param string|null $redirect_uri リダイレクトURI
-     * @return self
+     * @return NextEngine
      * @throws NextEngineException
      * @category 認証系エンドポイント
      */
-    public function login(string $redirect_uri = null): self
+    public function login(string $redirect_uri = null): NextEngine
     {
+        // ログイン済みならオブジェクトをそのまま返す
+        if ($this->isLogin()) {
+            return $this;
+        }
         $this->loginForCli($redirect_uri);
         return $this;
     }
@@ -89,6 +93,16 @@ class NextEngine extends Base
         ];
 
         return $this->execute(self::PATH_OAUTH, $params, $redirect_uri);
+    }
+
+    /**
+     * ログイン済みかどうか
+     *
+     * @return boolean
+     */
+    protected function isLogin(): bool
+    {
+        return !is_null($this->access_token);
     }
 
     /**

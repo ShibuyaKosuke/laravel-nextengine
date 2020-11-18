@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace ShibuyaKosuke\LaravelNextEngine\Facades;
 
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
 use ShibuyaKosuke\LaravelNextEngine\ApiResultEntity;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop;
 use ShibuyaKosuke\LaravelNextEngine\Entities\NoticeExecution\NoticeExecution;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderBase;
-use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderOption;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
@@ -30,7 +28,8 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  * @method static apiExecute(string $path, array $params = [], string $redirect_uri = NULL)
  * @method static ApiResultEntity receiveOrderBaseSearch(array $params = [])
  * @method static ApiResultEntity receiveOrderBaseCount(array $params = [])
- * @method static array receiveOrderBaseUpdate(int $receive_order_id, Carbon $receive_order_last_modified_date, ReceiveOrderBase $receiveOrderBase, ReceiveOrderOption $receiveOrderOption = NULL, array $receiveOrderRows = [], int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0)
+ * @method static ApiResultEntity receiveOrderBaseUpdate(ReceiveOrderBase $receiveOrderBase, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0)
+ * @method static ApiResultEntity receiveOrderBaseBulkUpdate(array $receiveOrderBases, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0)
  * @method static ApiResultEntity receiveOrderRowSearch(array $params = [])
  * @method static ApiResultEntity receiveOrderRowCount(array $params = [])
  * @method static ApiResultEntity receiveOrderOptionSearch(array $params = [])
