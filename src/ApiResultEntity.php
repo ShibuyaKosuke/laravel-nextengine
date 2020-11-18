@@ -25,49 +25,49 @@ class ApiResultEntity
      *
      * @var Boolean
      */
-    private $result;
+    protected $result;
 
     /**
      * 件数
      *
      * @var integer
      */
-    private $count;
+    protected $count;
 
     /**
      * データ
      *
      * @var array|EntityContract[]
      */
-    private $data;
+    protected $data;
 
     /**
      * アクセストークン
      *
      * @var string
      */
-    private $access_token;
+    protected $access_token;
 
     /**
      * アクセストークン期限
      *
      * @var Carbon
      */
-    private $access_token_end_date;
+    protected $access_token_end_date;
 
     /**
      * リフレッシュトークン
      *
      * @var string
      */
-    private $refresh_token;
+    protected $refresh_token;
 
     /**
      * リフレッシュトークン期限
      *
      * @var Carbon
      */
-    private $refresh_token_end_date;
+    protected $refresh_token_end_date;
 
     /**
      * ApiResultEntity constructor.
