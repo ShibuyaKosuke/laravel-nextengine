@@ -330,9 +330,9 @@ class ReceiveOrderBase extends EntityCommon
     }
 
     /**
-     * @return ReceiveOrderOption
+     * @return ReceiveOrderOption|null
      */
-    public function getOrderOption(): ReceiveOrderOption
+    public function getOrderOption(): ?ReceiveOrderOption
     {
         return $this->orderOption;
     }
@@ -347,80 +347,11 @@ class ReceiveOrderBase extends EntityCommon
     }
 
     /**
-     * @return array|ReceiveOrderRow[]
+     * @return array|ReceiveOrderRow[]|null
      */
-    public function getOrderRows(): array
+    public function getOrderRows(): ?array
     {
         return $this->orderRows;
-    }
-
-    /**
-     * 変更をXMLに変換する
-     *
-     * @param ReceiveOrderBase $receiveOrderBase
-     * @param ReceiveOrderOption|null $receiveOrderOption
-     * @param array|ReceiveOrderRow[] $receiveOrderRows
-     * @return string
-     * @throws NextEngineException
-     */
-    public static function toXml(ReceiveOrderBase $receiveOrderBase, ReceiveOrderOption $receiveOrderOption = null, array $receiveOrderRows = []): string
-    {
-        foreach ($receiveOrderRows as $receiveOrderRow) {
-            if (!$receiveOrderRow instanceof ReceiveOrderRow) {
-                throw new NextEngineException('Invalid argument 3 is not type: ' . ReceiveOrderRow::class);
-            }
-        }
-        // DOMオブジェクト作成
-        $dom = new DomDocument('1.0');
-        $dom->encoding = "UTF-8";
-
-        // 出力XMLを改行
-        $dom->formatOutput = true;
-
-        $root = $dom->appendChild($dom->createElement('root'));
-
-        // OrderBase
-        $receiveorder_base = $dom->createElement('receiveorder_base');
-        foreach ($receiveOrderBase->getDirties() as $key => $value) {
-            $receiveorder_base->appendChild($dom->createElement($key, $value));
-        }
-        $root->appendChild($receiveorder_base);
-
-        // OrderOption
-        if ($receiveOrderOption && $receiveOrderOption->getDirties()) {
-            $receiveorder_option = $dom->createElement('receiveorder_option');
-            foreach ($receiveOrderOption->getDirties() as $key => $value) {
-                $receiveorder_option->appendChild($dom->createElement($key, $value));
-            }
-            $root->appendChild($receiveorder_option);
-        }
-
-        // OrderRow
-        $isDirty = false;
-        foreach ($receiveOrderRows as $receiveOrderRow) {
-            if ($receiveOrderRow->getDirties()) {
-                $isDirty = true;
-            }
-        }
-        if ($isDirty) {
-            $receiveorder_row = $dom->createElement('receiveorder_row');
-            foreach ($receiveOrderRows as $receiveOrderRow) {
-                if (!$receiveOrderRow->getDirties()) {
-                    continue;
-                }
-                $receive_order_row_no = $dom->createElement("receive_order_row_no");
-                $receive_order_row_no->setAttribute('value', $receiveOrderRow->receive_order_row_no);
-
-                $receiveorder_row->appendChild($receive_order_row_no);
-
-                foreach ($receiveOrderRow->getDirties() as $key => $value) {
-                    $receive_order_row_no->appendChild($dom->createElement($key, $value));
-                }
-            }
-            $root->appendChild($receiveorder_row);
-        }
-
-        return $dom->saveXML();
     }
 
     /**
@@ -435,9 +366,11 @@ class ReceiveOrderBase extends EntityCommon
         }
 
         // XMLに変換
-        $xmlOrderOption = $this->getOrderOption()->toXmlObject($domDocument);
-        if ($xmlOrderOption) {
-            $receiveorder_base->appendChild($xmlOrderOption);
+        if ($this->getOrderOption()) {
+            $xmlOrderOption = $this->getOrderOption()->toXmlObject($domDocument);
+            if ($xmlOrderOption) {
+                $receiveorder_base->appendChild($xmlOrderOption);
+            }
         }
 
         // 各要素をXMLに変換

@@ -335,7 +335,14 @@ class ReceiveOrderBaseTest extends TestCase
             $this->receiveOrderRows
         );
 
-        $result = ReceiveOrderBase::toXml($this->receiveOrderBase, $this->receiveOrderOption, $this->receiveOrderRows);
-        self::assertTrue(is_string($result));
+        $dom = new \DomDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true;
+        $root = $dom->appendChild($dom->createElement('root'));
+        $result = $this->receiveOrderBase->toXmlObject($dom);
+        $root->appendChild($result);
+
+        $xml = $dom->saveXML();
+
+        self::assertTrue(is_string($xml));
     }
 }
