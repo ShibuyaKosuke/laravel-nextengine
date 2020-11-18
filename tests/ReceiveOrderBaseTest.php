@@ -319,7 +319,6 @@ class ReceiveOrderBaseTest extends TestCase
 
     /**
      * @return void
-     * @throws NextEngineException
      */
     public function testToXml(): void
     {
@@ -343,6 +342,6 @@ class ReceiveOrderBaseTest extends TestCase
 
         $xml = $dom->saveXML();
 
-        self::assertTrue(is_string($xml));
+        self::assertIsString($xml);
     }
 }
