@@ -29,11 +29,14 @@ class ServiceProvider extends ServiceProviderBase
 
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang/ja', 'nextengine');
+
         $this->publishes(
             [
                 __DIR__ . '/../../config/nextengine.php' => config_path('nextengine.php'),
                 __DIR__ . '/../../database/migrations' => database_path('migrations'),
                 __DIR__ . '/../../database/factories' => database_path('factories'),
+                __DIR__ . '/../../resources/lang' => resource_path('lang/vendor/nextengine'),
             ],
             'nextengine'
         );
