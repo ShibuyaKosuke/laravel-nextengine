@@ -65,7 +65,7 @@ abstract class EntityCommon implements EntityContract
      * @param array $response
      * @return array
      */
-    public static function setDataRow(array $response)
+    public static function setDataRow(array $response): array
     {
         if (!array_key_exists('data', $response)) {
             return $response;
