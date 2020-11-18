@@ -60,6 +60,20 @@ abstract class EntityCommon implements EntityContract
     }
 
     /**
+     * 値を取得する
+     *
+     * @param string|null $name
+     * @return array|mixed
+     */
+    public function get(string $name = null)
+    {
+        if (is_null($name)) {
+            return $this->attributes;
+        }
+        return $this->attributes[$name];
+    }
+
+    /**
      * data が2次元配列ではないとき
      *
      * @param array $response
