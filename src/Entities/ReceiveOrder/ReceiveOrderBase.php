@@ -4,6 +4,7 @@ namespace ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder;
 
 use Carbon\Carbon;
 use DomDocument;
+use DOMElement;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
@@ -331,7 +332,7 @@ class ReceiveOrderBase extends EntityCommon
     /**
      * @return ReceiveOrderOption
      */
-    public function getOrderOption():ReceiveOrderOption
+    public function getOrderOption(): ReceiveOrderOption
     {
         return $this->orderOption;
     }
@@ -420,5 +421,48 @@ class ReceiveOrderBase extends EntityCommon
         }
 
         return $dom->saveXML();
+    }
+
+    /**
+     * @param DOMDocument $domDocument
+     * @return DOMElement|null
+     */
+    public function toXmlObject(\DOMDocument $domDocument): ?DOMElement
+    {
+        $receiveorder_base = $domDocument->createElement('receiveorder_base');
+        foreach ($this->getDirties() as $key => $value) {
+            $receiveorder_base->appendChild($domDocument->createElement($key, $value));
+        }
+
+        // XMLに変換
+        $xmlOrderOption = $this->getOrderOption()->toXmlObject($domDocument);
+        if ($xmlOrderOption) {
+            $receiveorder_base->appendChild($xmlOrderOption);
+        }
+
+        // 各要素をXMLに変換
+        $xmlOrderRows = array_map(static function (ReceiveOrderRow $orderRow) use ($domDocument) {
+            return $orderRow->toXmlObject($domDocument);
+        }, $this->getOrderRows());
+
+        // null を除外
+        $xmlOrderRows = array_filter($xmlOrderRows, static function ($item) {
+            return !is_null($item);
+        });
+
+        if (count($xmlOrderRows)) {
+            $receiveorder_row = $domDocument->createElement('receiveorder_row');
+            foreach ($xmlOrderRows as $xmlOrderRow) {
+                if ($xmlOrderRow) {
+                    $receiveorder_row->appendChild($xmlOrderRow);
+                }
+            }
+            $receiveorder_base->appendChild($receiveorder_row);
+        }
+
+        if ($receiveorder_base->hasChildNodes()) {
+            return $receiveorder_base;
+        }
+        return null;
     }
 }

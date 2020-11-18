@@ -13,11 +13,6 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 class NextEngineTest extends TestCase
 {
     /**
-     * @var NextEngineApi
-     */
-    private $nextEngineApi;
-
-    /**
      * @var NextEngine
      */
     private $object;

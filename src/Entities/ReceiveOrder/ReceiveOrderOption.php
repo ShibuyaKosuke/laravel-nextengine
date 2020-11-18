@@ -3,6 +3,8 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder;
 
 use Carbon\Carbon;
+use DOMDocument;
+use DOMElement;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 
 /**
@@ -99,4 +101,20 @@ class ReceiveOrderOption extends EntityCommon
         'receive_order_option_last_modified_date',
         'receive_order_option_last_modified_null_safe_date',
     ];
+
+    /**
+     * @param DOMDocument $domDocument
+     * @return DOMElement|null
+     */
+    public function toXmlObject(DOMDocument $domDocument): ?DOMElement
+    {
+        if ($this->isDirty()) {
+            $receiveorder_option = $domDocument->createElement('receiveorder_option');
+            foreach ($this->getDirties() as $key => $value) {
+                $receiveorder_option->appendChild($domDocument->createElement($key, $value));
+            }
+            return $receiveorder_option;
+        }
+        return null;
+    }
 }

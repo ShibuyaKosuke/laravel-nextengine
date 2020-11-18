@@ -18,14 +18,14 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  * Class NextEngine
  * @package \ShibuyaKosuke\LaravelNextEngine\Facades
  *
- * @method static NextEngine login(string $redirect_uri = NULL)
- * @method static loginForCli(string $redirect_uri = NULL)
+ * @method static \ShibuyaKosuke\LaravelNextEngine\NextEngine login(string $redirect_uri = NULL)
+ * @method static array|string loginForCli(string $redirect_uri = NULL)
  * @method static array getAccessToken()
  * @method static array company()
  * @method static array loginUser()
  * @method static array loginCompany()
  * @method static __construct(Application $app)
- * @method static NextEngine setAccount(NextEngineApi $nextEngineApi = NULL)
+ * @method static \ShibuyaKosuke\LaravelNextEngine\NextEngine setAccount(NextEngineApi $nextEngineApi = NULL)
  * @method static int getWaitFlag()
  * @method static apiExecute(string $path, array $params = [], string $redirect_uri = NULL)
  * @method static ApiResultEntity receiveOrderBaseSearch(array $params = [])

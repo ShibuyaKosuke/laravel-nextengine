@@ -130,14 +130,36 @@ trait ReceiveOrder
      * @param array|ReceiveOrderBase[] $receiveOrderBases
      * @param int $receive_order_shipped_update_flag
      * @param int $receive_order_row_cancel_update_flag
-     * @throws Exceptions\NextEngineException
      * @todo
      */
     public function receiveOrderBaseBulkUpdate(array $receiveOrderBases, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0)
     {
-        $receiveOrderBases = array_map(static function (ReceiveOrderBase $receiveOrderBase) {
-            return $receiveOrderBase;
-        }, $receiveOrderBases);
+        $dom = new \DomDocument('1.0');
+        $dom->encoding = "UTF-8";
+        $dom->formatOutput = true;
+        $root = $dom->appendChild($dom->createElement('root'));
+        foreach ($receiveOrderBases as $receiveOrderBase) {
+            if ($receiveOrderBasesXmlObject = $receiveOrderBase->toXmlObject($dom)) {
+                $receiveorder = $dom->createElement('receiveorder');
+                $receiveorder->setAttribute('receive_order_id', $receiveOrderBase->receive_order_id);
+                $receiveorder->setAttribute('receive_order_last_modified_date', $receiveOrderBase->receive_order_last_modified_date);
+                $receiveorder->appendChild($receiveOrderBasesXmlObject);
+                $root->appendChild($receiveorder);
+            }
+        }
+        if ($root->hasChildNodes()) {
+            $params = [
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'wait_flag' => $this->getWaitFlag(),
+                'data_type' => 'xml',
+                'data' => $dom->saveXML(),
+                'receive_order_shipped_update_flag' => $receive_order_shipped_update_flag,
+                'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
+            ];
+            $response = $this->apiExecute(ReceiveOrderBase::$endpoint_bulk_update, $params);
+            return ReceiveOrderBase::setData($response);
+        }
     }
 
     /**

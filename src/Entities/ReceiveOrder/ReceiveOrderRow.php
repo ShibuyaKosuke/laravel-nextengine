@@ -133,4 +133,22 @@ class ReceiveOrderRow extends EntityCommon
         'receive_order_row_last_modified_null_safe_date',
         'receive_order_row_last_modified_newest_date',
     ];
+
+    /**
+     * @param \DOMDocument $domDocument
+     * @return \DOMElement|null
+     */
+    public function toXmlObject(\DOMDocument $domDocument): ?\DOMElement
+    {
+        if ($this->getDirties()) {
+            $receive_order_row_no = $domDocument->createElement("receive_order_row_no");
+            $receive_order_row_no->setAttribute('value', $this->receive_order_row_no);
+
+            foreach ($this->getDirties() as $key => $value) {
+                $receive_order_row_no->appendChild($domDocument->createElement($key, $value));
+            }
+            return $receive_order_row_no;
+        }
+        return null;
+    }
 }
