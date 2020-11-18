@@ -5,6 +5,7 @@ namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
+use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 use ShibuyaKosuke\LaravelNextEngine\Providers\ServiceProvider;
 
 /**
@@ -14,7 +15,7 @@ use ShibuyaKosuke\LaravelNextEngine\Providers\ServiceProvider;
 abstract class TestCase extends OrchestraTestCase
 {
     /**
-     * @var
+     * @var NextEngineApi
      */
     protected $nextEngineApi;
 

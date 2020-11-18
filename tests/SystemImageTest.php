@@ -18,7 +18,6 @@ class SystemImageTest extends TestCase
 
     /**
      * @return void
-     * @throws \ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException
      */
     protected function setUp(): void
     {

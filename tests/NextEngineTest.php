@@ -31,12 +31,12 @@ class NextEngineTest extends TestCase
 
         $this->nextEngineApi = factory(NextEngineApi::class)->make();
 
-        $this->nextEngineApi->uid = '379559016b83bfafda8d9f5c5f2f48a138e4e4e6fd19ee549f787b7dd2fadcab24bac978e6a0b7e63cbb8076ced0ccab8725560ad416ffc08aca936e138f7e7e';
-        $this->nextEngineApi->state = 'MwoXyqRv2t7IFBTCYxGL36kWASZsKhpE';
+        $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
+        $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
     }
 
     /**
-     * @throws NextEngineException
+     * ログインユーザー取得
      */
     public function testLoginUser()
     {
@@ -45,7 +45,7 @@ class NextEngineTest extends TestCase
     }
 
     /**
-     * @throws NextEngineException
+     * アクセストークン取得
      */
     public function testGetAccessToken()
     {
