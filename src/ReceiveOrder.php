@@ -2,6 +2,7 @@
 
 namespace ShibuyaKosuke\LaravelNextEngine;
 
+use Arr;
 use DomDocument;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderConfirm;
@@ -42,7 +43,7 @@ trait ReceiveOrder
 
         /** @var array $data */
         $data = $response['data'];
-        $ids_string = implode(',', \Arr::pluck($data, 'receive_order_id'));
+        $ids_string = implode(',', Arr::pluck($data, 'receive_order_id'));
 
         // 受注オプション
         $orderOptions = $this->receiveOrderOptionSearch(['receive_order_option_receive_order_id-in' => $ids_string]);
@@ -57,11 +58,15 @@ trait ReceiveOrder
 
         foreach ($orders as $order) {
             $receive_order_id = $order->receive_order_id;
+
+            /** @var ReceiveOrderOption $orderOption */
             foreach ($orderOptions->data as $orderOption) {
                 if ($orderOption->receive_order_option_receive_order_id === $receive_order_id) {
                     $order->setOrderOption($orderOption);
                 }
             }
+
+            /** @var ReceiveOrderRow $orderRow */
             foreach ($orderRows->data as $orderRow) {
                 if ($orderRow->receive_order_row_receive_order_id === $receive_order_id) {
                     $order->addOrderRow($orderRow);
