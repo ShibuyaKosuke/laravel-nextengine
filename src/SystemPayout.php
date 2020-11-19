@@ -26,6 +26,6 @@ trait SystemPayout
         ];
 
         $response = $this->apiExecute(SystemPayoutBase::$endpoint_info, $params);
-        return new ApiResultEntity(SystemPayoutBase::setData($response));
+        return new ApiResultEntity(SystemPayoutBase::class, $response);
     }
 }

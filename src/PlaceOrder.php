@@ -32,7 +32,7 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderBase::$endpoint_search, $params);
-        return new ApiResultEntity(PlaceOrderBase::setData($response));
+        return new ApiResultEntity(PlaceOrderBase::class, $response);
     }
 
     /**
@@ -53,7 +53,7 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderBase::$endpoint_count, $params);
-        return new ApiResultEntity(PlaceOrderBase::setData($response));
+        return new ApiResultEntity(PlaceOrderBase::class, $response);
     }
 
     /**
@@ -75,7 +75,7 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderRow::$endpoint_search, $params);
-        return new ApiResultEntity(PlaceOrderRow::setData($response));
+        return new ApiResultEntity(PlaceOrderRow::class, $response);
     }
 
     /**
@@ -96,6 +96,6 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderRow::$endpoint_count, $params);
-        return new ApiResultEntity(PlaceOrderRow::setData($response));
+        return new ApiResultEntity(PlaceOrderRow::class, $response);
     }
 }

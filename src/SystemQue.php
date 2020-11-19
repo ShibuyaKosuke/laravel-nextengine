@@ -31,7 +31,7 @@ trait SystemQue
         );
 
         $response = $this->apiExecute(SystemQueBase::$endpoint_search, $params);
-        return new ApiResultEntity(SystemQueBase::setData($response));
+        return new ApiResultEntity(SystemQueBase::class, $response);
     }
 
     /**
@@ -52,6 +52,6 @@ trait SystemQue
         );
 
         $response = $this->apiExecute(SystemQueBase::$endpoint_count, $params);
-        return new ApiResultEntity(SystemQueBase::setData($response));
+        return new ApiResultEntity(SystemQueBase::class, $response);
     }
 }

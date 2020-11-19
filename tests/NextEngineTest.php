@@ -41,7 +41,7 @@ class NextEngineTest extends TestCase
     public function testLoginUser()
     {
         $this->expectException(NextEngineException::class);
-        NextEngine::setAccount($this->nextEngineApi)->loginUser();
+        NextEngine::loginUser();
     }
 
     /**

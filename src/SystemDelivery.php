@@ -27,7 +27,7 @@ trait SystemDelivery
         ];
 
         $response = $this->apiExecute(SystemDeliveryBase::$endpoint_info, $params);
-        return new ApiResultEntity(SystemDeliveryBase::setData($response));
+        return new ApiResultEntity(SystemDeliveryBase::class, $response);
     }
 
     /**
@@ -44,6 +44,6 @@ trait SystemDelivery
         ];
 
         $response = $this->apiExecute(SystemDeliveryDate::$endpoint_info, $params);
-        return new ApiResultEntity(SystemDeliveryDate::setData($response));
+        return new ApiResultEntity(SystemDeliveryDate::class, $response);
     }
 }

@@ -32,7 +32,7 @@ trait MasterShop
         );
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_search, $params);
-        return new ApiResultEntity(MasterShopBase::setData($response));
+        return new ApiResultEntity(MasterShopBase::class, $response);
     }
 
     /**
@@ -53,7 +53,7 @@ trait MasterShop
         );
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_count, $params);
-        return new ApiResultEntity(MasterShopBase::setData($response));
+        return new ApiResultEntity(MasterShopBase::class, $response);
     }
 
     /**
@@ -72,7 +72,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_check_connect, $params);
-        return new ApiResultEntity(MasterShopBase::setData($response));
+        return new ApiResultEntity(MasterShopBase::class, $response);
     }
 
     /**
@@ -90,7 +90,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopMailAddress::$endpoint_mail_address, $params);
-        return new ApiResultEntity(MasterShopMailAddress::setDataRow($response));
+        return new ApiResultEntity(null, MasterShopMailAddress::setDataRow($response));
     }
 
     /**
@@ -119,7 +119,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_create, $params);
-        return new ApiResultEntity($response);
+        return new ApiResultEntity(null, $response);
     }
 
     /**
@@ -140,6 +140,6 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_update, $params);
-        return new ApiResultEntity($response);
+        return new ApiResultEntity(null, $response);
     }
 }

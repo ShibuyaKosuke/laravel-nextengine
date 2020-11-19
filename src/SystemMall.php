@@ -30,7 +30,7 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallBase::$endpoint_search, $params);
-        return new ApiResultEntity(SystemMallBase::setData($response));
+        return new ApiResultEntity(SystemMallBase::class, $response);
     }
 
     /**
@@ -51,7 +51,7 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallBase::$endpoint_count, $params);
-        return new ApiResultEntity(SystemMallBase::setData($response));
+        return new ApiResultEntity(SystemMallBase::class, $response);
     }
 
     /**
@@ -73,7 +73,7 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallCategory::$endpoint_search, $params);
-        return new ApiResultEntity(SystemMallCategory::setData($response));
+        return new ApiResultEntity(SystemMallCategory::class, $response);
     }
 
     /**
@@ -94,6 +94,6 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallCategory::$endpoint_count, $params);
-        return new ApiResultEntity(SystemMallCategory::setData($response));
+        return new ApiResultEntity(SystemMallCategory::class, $response);
     }
 }

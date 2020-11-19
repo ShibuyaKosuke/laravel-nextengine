@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+$files = glob('./src/Entities/*/*');
+
+
+foreach ($files as $file) {
+
+    $path_info = pathinfo($file);
+    $tokens = token_get_all(file_get_contents($file));
+    $class_name = $path_info['filename'];
+    $rows = [];
+    foreach ($tokens as $token) {
+        if (is_array($token) && token_name($token[0]) === 'T_DOC_COMMENT' && strpos($token[1], '* @property')) {
+            $comment = $token[1];
+            foreach (explode(PHP_EOL, $comment) as $line) {
+                if (strpos($line, '* @property')) {
+                    list($space, $asterisk, $prop, $type, $name, $description) = explode(' ', $line);
+
+                    $rows[] = sprintf('    \'%s\' => \'%s\',', $name, $description);
+                }
+            }
+        }
+    }
+
+    $content_rows = implode(PHP_EOL, $rows);
+
+    $content = <<<FILE
+<?php
+
+return [
+{$content_rows}
+];
+FILE;
+
+    $fn = sprintf('resources/lang/ja/%s.php', \Illuminate\Support\Str::snake($path_info['filename']));
+    if (file_exists($fn)) {
+        file_put_contents($fn, $content);
+    }
+}

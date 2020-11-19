@@ -26,6 +26,6 @@ trait SystemSocial
         ];
 
         $response = $this->apiExecute(SystemSocialInsurance::$endpoint_info, $params);
-        return new ApiResultEntity(SystemSocialInsurance::setData($response));
+        return new ApiResultEntity(SystemSocialInsurance::class, $response);
     }
 }

@@ -26,6 +26,6 @@ trait SystemConfirm
         ];
 
         $response = $this->apiExecute(SystemConfirmCheck::$endpoint_info, $params);
-        return new ApiResultEntity(SystemConfirmCheck::setData($response));
+        return new ApiResultEntity(SystemConfirmCheck::class, $response);
     }
 }

@@ -31,7 +31,7 @@ trait MasterKeepStock
         );
 
         $response = $this->apiExecute(MasterKeepStockBase::$endpoint_search, $params);
-        return new ApiResultEntity(MasterKeepStockBase::setData($response));
+        return new ApiResultEntity(MasterKeepStockBase::class, $response);
     }
 
     /**
@@ -52,6 +52,6 @@ trait MasterKeepStock
         );
 
         $response = $this->apiExecute(MasterKeepStockBase::$endpoint_count, $params);
-        return new ApiResultEntity(MasterKeepStockBase::setData($response));
+        return new ApiResultEntity(MasterKeepStockBase::class, $response);
     }
 }

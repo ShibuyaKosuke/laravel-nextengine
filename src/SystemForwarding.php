@@ -26,6 +26,6 @@ trait SystemForwarding
         ];
 
         $response = $this->apiExecute(SystemForwardingMethod::$endpoint_info, $params);
-        return new ApiResultEntity(SystemForwardingMethod::setData($response));
+        return new ApiResultEntity(SystemForwardingMethod::class, $response);
     }
 }

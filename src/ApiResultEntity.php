@@ -35,6 +35,13 @@ class ApiResultEntity
     protected $count;
 
     /**
+     * 対訳
+     *
+     * @var array
+     */
+    protected $transtarions = [];
+
+    /**
      * データ
      *
      * @var array|EntityContract[]
@@ -71,10 +78,16 @@ class ApiResultEntity
 
     /**
      * ApiResultEntity constructor.
+     * @param string $class_name
      * @param array $response
      */
-    public function __construct(array $response)
+    public function __construct(string $class_name = null, array $response = [])
     {
+        if (!is_null($class_name)) {
+            $response = call_user_func([$class_name, 'setData'], $response);
+            $this->transtarions = call_user_func_array([$class_name, 'getTranslations'], []);
+        }
+
         foreach ($response as $name => $value) {
             $this->$name = $value;
         }
