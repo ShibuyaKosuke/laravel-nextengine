@@ -36,7 +36,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsBase::$endpoint_search, $params);
-        return new ApiResultEntity(MasterGoodsBase::setData($response));
+        return new ApiResultEntity(MasterGoodsBase::class, $response);
     }
 
     /**
@@ -57,7 +57,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsBase::$endpoint_count, $params);
-        return new ApiResultEntity(MasterGoodsBase::setData($response));
+        return new ApiResultEntity(MasterGoodsBase::class, $response);
     }
 
     /**
@@ -80,7 +80,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsBase::$endpoint_upload, $params);
-        return new ApiResultEntity(MasterGoodsBase::setData($response));
+        return new ApiResultEntity(MasterGoodsBase::class, $response);
     }
 
     /**
@@ -102,7 +102,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsTag::$endpoint_search, $params);
-        return new ApiResultEntity(MasterGoodsTag::setData($response));
+        return new ApiResultEntity(MasterGoodsTag::class, $response);
     }
 
     /**
@@ -123,7 +123,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsTag::$endpoint_count, $params);
-        return new ApiResultEntity(MasterGoodsTag::setData($response));
+        return new ApiResultEntity(MasterGoodsTag::class, $response);
     }
 
     /**
@@ -145,7 +145,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsImage::$endpoint_search, $params);
-        return new ApiResultEntity(MasterGoodsImage::setData($response));
+        return new ApiResultEntity(MasterGoodsImage::class, $response);
     }
 
     /**
@@ -166,7 +166,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsImage::$endpoint_count, $params);
-        return new ApiResultEntity(MasterGoodsImage::setData($response));
+        return new ApiResultEntity(MasterGoodsImage::class, $response);
     }
 
     /**
@@ -188,7 +188,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsImageTag::$endpoint_search, $params);
-        return new ApiResultEntity(MasterGoodsImageTag::setData($response));
+        return new ApiResultEntity(MasterGoodsImageTag::class, $response);
     }
 
     /**
@@ -209,7 +209,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsImageTag::$endpoint_count, $params);
-        return new ApiResultEntity(MasterGoodsImageTag::setData($response));
+        return new ApiResultEntity(MasterGoodsImageTag::class, $response);
     }
 
     /**
@@ -231,7 +231,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsCategory::$endpoint_search, $params);
-        return new ApiResultEntity(MasterGoodsCategory::setData($response));
+        return new ApiResultEntity(MasterGoodsCategory::class, $response);
     }
 
     /**
@@ -252,7 +252,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsCategory::$endpoint_count, $params);
-        return new ApiResultEntity(MasterGoodsCategory::setData($response));
+        return new ApiResultEntity(MasterGoodsCategory::class, $response);
     }
 
     /**
@@ -274,7 +274,7 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsWholesale::$endpoint_search, $params);
-        return new ApiResultEntity(MasterGoodsWholesale::setData($response));
+        return new ApiResultEntity(MasterGoodsWholesale::class, $response);
     }
 
     /**
@@ -295,6 +295,6 @@ trait MasterGoods
         );
 
         $response = $this->apiExecute(MasterGoodsWholesale::$endpoint_count, $params);
-        return new ApiResultEntity(MasterGoodsWholesale::setData($response));
+        return new ApiResultEntity(MasterGoodsWholesale::class, $response);
     }
 }

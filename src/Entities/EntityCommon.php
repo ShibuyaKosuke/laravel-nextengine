@@ -3,6 +3,8 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
@@ -11,6 +13,13 @@ use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
  */
 abstract class EntityCommon implements EntityContract
 {
+    /**
+     * 対訳
+     *
+     * @var array
+     */
+    public static $translations = [];
+
     /**
      * @var array
      */
@@ -35,6 +44,29 @@ abstract class EntityCommon implements EntityContract
         }
 
         $this->attributes = $this->original;
+
+        static::setTranslations();
+    }
+
+    /**
+     * 対訳を取得する
+     *
+     * @return array
+     */
+    public static function getTranslations()
+    {
+        return static::$translations;
+    }
+
+    /**
+     * 対訳ファイル読み込み
+     *
+     * @return void
+     */
+    protected static function setTranslations(): void
+    {
+        $file_name = Str::snake(class_basename(static::class));
+        static::$translations = Lang::get('nextengine::' . $file_name);
     }
 
     /**

@@ -67,7 +67,7 @@ class NextEngine extends Base
         if ($this->isLogin()) {
             return $this;
         }
-        $this->loginForCli($redirect_uri);
+        $response = $this->loginForCli($redirect_uri);
         return $this;
     }
 

@@ -26,6 +26,6 @@ trait SystemCancel
         ];
 
         $response = $this->apiExecute(SystemCancelType::$endpoint_info, $params);
-        return new ApiResultEntity(SystemCancelType::setData($response));
+        return new ApiResultEntity(SystemCancelType::class, $response);
     }
 }

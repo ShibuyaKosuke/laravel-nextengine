@@ -31,7 +31,7 @@ trait MasterStockIoHistory
         );
 
         $response = $this->apiExecute(MasterStockIoHistoryBase::$endpoint_search, $params);
-        return new ApiResultEntity(MasterStockIoHistoryBase::setData($response));
+        return new ApiResultEntity(MasterStockIoHistoryBase::class, $response);
     }
 
     /**
@@ -52,6 +52,6 @@ trait MasterStockIoHistory
         );
 
         $response = $this->apiExecute(MasterStockIoHistoryBase::$endpoint_count, $params);
-        return new ApiResultEntity(MasterStockIoHistoryBase::setData($response));
+        return new ApiResultEntity(MasterStockIoHistoryBase::class, $response);
     }
 }

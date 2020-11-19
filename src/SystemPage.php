@@ -26,6 +26,6 @@ trait SystemPage
         ];
 
         $response = $this->apiExecute(SystemPageStatus::$endpoint_info, $params);
-        return new ApiResultEntity(SystemPageStatus::setData($response));
+        return new ApiResultEntity(SystemPageStatus::class, $response);
     }
 }

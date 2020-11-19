@@ -26,6 +26,6 @@ trait SystemAuthorization
         ];
 
         $response = $this->apiExecute(SystemAuthorizationType::$endpoint_info, $params);
-        return new ApiResultEntity(SystemAuthorizationType::setData($response));
+        return new ApiResultEntity(SystemAuthorizationType::class, $response);
     }
 }

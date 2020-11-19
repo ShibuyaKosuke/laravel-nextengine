@@ -5,6 +5,7 @@ namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop as MasterShopBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShopMailAddress;
+use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
@@ -95,9 +96,13 @@ class MasterShopTest extends TestCase
 
     /**
      * 店舗マスタ更新
+     *
+     *
      */
     public function testMasterShopUpdate()
     {
+        $this->expectException(NextEngineException::class);
+
         $masterShop = new MasterShop(
             [
                 "shop_id" => "2",

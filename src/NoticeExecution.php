@@ -31,7 +31,7 @@ trait NoticeExecution
         );
 
         $response = $this->apiExecute(NoticeExecutionBase::$endpoint_search, $params);
-        return new ApiResultEntity(NoticeExecutionBase::setData($response));
+        return new ApiResultEntity(NoticeExecutionBase::class, $response);
     }
 
     /**
@@ -52,7 +52,7 @@ trait NoticeExecution
         );
 
         $response = $this->apiExecute(NoticeExecutionBase::$endpoint_count, $params);
-        return new ApiResultEntity(NoticeExecutionBase::setData($response));
+        return new ApiResultEntity(NoticeExecutionBase::class, $response);
     }
 
     /**
@@ -73,6 +73,6 @@ trait NoticeExecution
         ];
 
         $response = $this->apiExecute(NoticeExecutionBase::$endpoint_add, $params);
-        return new ApiResultEntity($response);
+        return new ApiResultEntity(null, $response);
     }
 }
