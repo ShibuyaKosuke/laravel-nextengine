@@ -7,4 +7,8 @@ return [
     'forwarding_agent_type_name' => '発送方法別項目名',
     'forwarding_agent_display_order' => '表示順序',
     'forwarding_agent_deleted_flag' => '削除フラグ',
+<<<<<<< HEAD
 ];
+=======
+];
+>>>>>>> main

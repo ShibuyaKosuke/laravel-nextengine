@@ -27,4 +27,8 @@ return [
     'shop_last_modified_by_null_safe_id' => '最終更新者ID',
     'shop_last_modified_by_name' => '最終更新者名',
     'shop_last_modified_by_null_safe_name' => '最終更新者名',
+<<<<<<< HEAD
 ];
+=======
+];
+>>>>>>> main

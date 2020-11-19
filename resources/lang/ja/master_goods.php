@@ -121,4 +121,8 @@ return [
     'goods_last_modified_by_null_safe_id' => '最終更新者ID',
     'goods_last_modified_by_name' => '最終更新者名',
     'goods_last_modified_by_null_safe_name' => '最終更新者名',
+<<<<<<< HEAD
 ];
+=======
+];
+>>>>>>> main
