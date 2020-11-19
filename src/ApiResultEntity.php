@@ -158,7 +158,7 @@ class ApiResultEntity
     public static function getSessionData(string $key)
     {
         /** @noinspection UnserializeExploitsInspection */
-        return unserialize(session($key), true);
+        return unserialize(session($key));
     }
 
     /**
