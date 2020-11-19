@@ -150,6 +150,18 @@ class ApiResultEntity
     }
 
     /**
+     * セッションに保存したデータを取得する
+     *
+     * @param string $key セッションキー
+     * @return mixed
+     */
+    public static function getSessionData(string $key)
+    {
+        /** @noinspection UnserializeExploitsInspection */
+        return unserialize(session($key), true);
+    }
+
+    /**
      * @param string $name
      * @return mixed
      */
