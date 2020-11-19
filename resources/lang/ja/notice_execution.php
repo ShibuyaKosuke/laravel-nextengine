@@ -8,8 +8,4 @@ return [
     'execution_notice_read' => '既読/未読フラグ',
     'execution_notice_creation_date' => '作成日',
     'execution_notice_last_modified_date' => '最終更新日',
-<<<<<<< HEAD
 ];
-=======
-];
->>>>>>> main

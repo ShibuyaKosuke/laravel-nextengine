@@ -36,8 +36,4 @@ return [
     'wholesale_last_modified_by_null_safe_id' => '最終更新者ID',
     'wholesale_last_modified_by_name' => '最終更新者名',
     'wholesale_last_modified_by_null_safe_name' => '最終更新者名',
-<<<<<<< HEAD
 ];
-=======
-];
->>>>>>> main

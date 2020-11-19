@@ -7,8 +7,4 @@ return [
     'mall_note' => '備考',
     'mall_country_id' => '国ID',
     'mall_deleted_flag' => '削除フラグ',
-<<<<<<< HEAD
 ];
-=======
-];
->>>>>>> main
