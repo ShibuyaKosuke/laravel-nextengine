@@ -12,6 +12,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
  *
  * @property boolean result
  * @property integer count
+ * @property array translations
  * @property array|EntityContract[] data
  * @property string access_token
  * @property Carbon access_token_end_date
@@ -39,7 +40,7 @@ class ApiResultEntity
      *
      * @var array
      */
-    protected $transtarions = [];
+    protected $translations = [];
 
     /**
      * データ
@@ -85,7 +86,7 @@ class ApiResultEntity
     {
         if (!is_null($class_name)) {
             $response = call_user_func([$class_name, 'setData'], $response);
-            $this->transtarions = call_user_func_array([$class_name, 'getTranslations'], []);
+            $this->translations = call_user_func_array([$class_name, 'getTranslations'], []);
         }
 
         foreach ($response as $name => $value) {
