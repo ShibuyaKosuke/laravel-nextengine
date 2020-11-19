@@ -45,16 +45,13 @@ trait ReceiveOrder
         $data = $response['data'];
         $ids_string = implode(',', Arr::pluck($data, 'receive_order_id'));
 
-        // 受注オプション
-        $orderOptions = $this->receiveOrderOptionSearch(['receive_order_option_receive_order_id-in' => $ids_string]);
-
-        // 受注明細
-        $orderRows = $this->receiveOrderRowSearch(['receive_order_row_receive_order_id-in' => $ids_string]);
-
         $temp_response = ReceiveOrderBase::setData($response);
 
         /** @var ReceiveOrderBase[] $orders */
         $orders = $temp_response['data'];
+
+        // 受注オプション
+        $orderOptions = $this->receiveOrderOptionSearch(['receive_order_option_receive_order_id-in' => $ids_string]);
 
         foreach ($orders as $order) {
             $receive_order_id = $order->receive_order_id;
@@ -65,6 +62,13 @@ trait ReceiveOrder
                     $order->setOrderOption($orderOption);
                 }
             }
+        }
+
+        // 受注明細
+        $orderRows = $this->receiveOrderRowSearch(['receive_order_row_receive_order_id-in' => $ids_string]);
+
+        foreach ($orders as $order) {
+            $receive_order_id = $order->receive_order_id;
 
             /** @var ReceiveOrderRow $orderRow */
             foreach ($orderRows->data as $orderRow) {
