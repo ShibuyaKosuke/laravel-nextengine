@@ -27,7 +27,7 @@ trait SystemGoods
         ];
 
         $response = $this->apiExecute(SystemGoodsType::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemGoodsType::class);
+        return $this->entity->set($response, SystemGoodsType::class);
     }
 
     /**
@@ -44,6 +44,6 @@ trait SystemGoods
         ];
 
         $response = $this->apiExecute(SystemGoodsStatus::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemGoodsStatus::class);
+        return $this->entity->set($response, SystemGoodsStatus::class);
     }
 }

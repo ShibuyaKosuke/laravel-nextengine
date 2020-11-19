@@ -26,6 +26,6 @@ trait SystemTax
         ];
 
         $response = $this->apiExecute(SystemTaxBase::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemTaxBase::class);
+        return $this->entity->set($response, SystemTaxBase::class);
     }
 }

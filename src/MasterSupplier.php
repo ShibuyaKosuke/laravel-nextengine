@@ -31,7 +31,7 @@ trait MasterSupplier
         );
 
         $response = $this->apiExecute(MasterSupplierBase::$endpoint_search, $params);
-        return new ApiResultEntity($response, MasterSupplierBase::class);
+        return $this->entity->set($response, MasterSupplierBase::class);
     }
 
     /**
@@ -52,6 +52,6 @@ trait MasterSupplier
         );
 
         $response = $this->apiExecute(MasterSupplierBase::$endpoint_count, $params);
-        return new ApiResultEntity($response, MasterSupplierBase::class);
+        return $this->entity->set($response, MasterSupplierBase::class);
     }
 }

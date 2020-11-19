@@ -26,6 +26,6 @@ trait SystemDeposit
         ];
 
         $response = $this->apiExecute(SystemDepositType::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemDepositType::class);
+        return $this->entity->set($response, SystemDepositType::class);
     }
 }

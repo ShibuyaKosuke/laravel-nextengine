@@ -3,6 +3,8 @@
 namespace ShibuyaKosuke\LaravelNextEngine;
 
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use phpDocumentor\Reflection\Types\Boolean;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
 
@@ -21,6 +23,11 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
  */
 class ApiResultEntity
 {
+    /**
+     * @var Request
+     */
+    protected $request;
+
     /**
      * 結果
      *
@@ -48,6 +55,23 @@ class ApiResultEntity
      * @var array|EntityContract[]
      */
     protected $data;
+
+    /**
+     * 線形化データ
+     *
+     * @var
+     */
+    protected $serialized_data;
+
+    /**
+     * @var string
+     */
+    protected $class_name;
+
+    /**
+     * @var string
+     */
+    protected $session_key;
 
     /**
      * アクセストークン
@@ -79,19 +103,50 @@ class ApiResultEntity
 
     /**
      * ApiResultEntity constructor.
-     * @param string|null $class_name
-     * @param array $response
+     * @param Request $request
      */
-    public function __construct(array $response, string $class_name = null)
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * @param array $response
+     * @param string|null $class_name
+     * @return ApiResultEntity
+     */
+    public function set(array $response, string $class_name = null): self
     {
         if (!is_null($class_name)) {
             $response = call_user_func([$class_name, 'setData'], $response);
             $this->translations = call_user_func_array([$class_name, 'getTranslations'], []);
         }
 
+        $this->class_name = $class_name;
+
         foreach ($response as $name => $value) {
             $this->$name = $value;
         }
+
+        // キャッシュ用にレスポンスを保持する
+        $this->serialized_data = serialize($this->data);
+
+        // session_key を生成
+        $this->session_key = hash('sha256', $this->serialized_data);
+
+        $this->request->session()->put($this->session_key, $this->serialized_data);
+
+        return $this;
+    }
+
+    /**
+     * セッション保存用のキーを取得
+     *
+     * @return string
+     */
+    public function getSessionKey(): string
+    {
+        return $this->session_key;
     }
 
     /**

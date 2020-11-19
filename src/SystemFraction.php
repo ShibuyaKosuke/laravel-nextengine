@@ -26,6 +26,6 @@ trait SystemFraction
         ];
 
         $response = $this->apiExecute(SystemFractionBase::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemFractionBase::class);
+        return $this->entity->set($response, SystemFractionBase::class);
     }
 }

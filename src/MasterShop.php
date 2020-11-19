@@ -32,7 +32,7 @@ trait MasterShop
         );
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_search, $params);
-        return new ApiResultEntity($response, MasterShopBase::class);
+        return $this->entity->set($response, MasterShopBase::class);
     }
 
     /**
@@ -53,7 +53,7 @@ trait MasterShop
         );
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_count, $params);
-        return new ApiResultEntity($response, MasterShopBase::class);
+        return $this->entity->set($response, MasterShopBase::class);
     }
 
     /**
@@ -72,7 +72,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_check_connect, $params);
-        return new ApiResultEntity($response, MasterShopBase::class);
+        return $this->entity->set($response, MasterShopBase::class);
     }
 
     /**
@@ -119,7 +119,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_create, $params);
-        return new ApiResultEntity($response);
+        return $this->entity->set($response);
     }
 
     /**
@@ -140,6 +140,6 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_update, $params);
-        return new ApiResultEntity($response);
+        return $this->entity->set($response);
     }
 }

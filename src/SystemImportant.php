@@ -26,6 +26,6 @@ trait SystemImportant
         ];
 
         $response = $this->apiExecute(SystemImportantCheck::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemImportantCheck::class);
+        return $this->entity->set($response, SystemImportantCheck::class);
     }
 }

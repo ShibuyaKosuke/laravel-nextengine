@@ -31,7 +31,7 @@ trait MasterMailTag
         );
 
         $response = $this->apiExecute(MasterMailTagBase::$endpoint_search, $params);
-        return new ApiResultEntity($response, MasterMailTagBase::class);
+        return $this->entity->set($response, MasterMailTagBase::class);
     }
 
     /**
@@ -52,6 +52,6 @@ trait MasterMailTag
         );
 
         $response = $this->apiExecute(MasterMailTagBase::$endpoint_count, $params);
-        return new ApiResultEntity($response, MasterMailTagBase::class);
+        return $this->entity->set($response, MasterMailTagBase::class);
     }
 }

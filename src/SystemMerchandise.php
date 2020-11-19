@@ -26,6 +26,6 @@ trait SystemMerchandise
         ];
 
         $response = $this->apiExecute(SystemMerchandiseBase::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemMerchandiseBase::class);
+        return $this->entity->set($response, SystemMerchandiseBase::class);
     }
 }

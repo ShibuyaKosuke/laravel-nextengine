@@ -26,6 +26,6 @@ trait SystemSelect
         ];
 
         $response = $this->apiExecute(SystemSelectBase::$endpoint_info, $params);
-        return new ApiResultEntity($response, SystemSelectBase::class);
+        return $this->entity->set($response, SystemSelectBase::class);
     }
 }

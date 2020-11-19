@@ -161,6 +161,11 @@ abstract class Base
     protected $state;
 
     /**
+     * @var ApiResultEntity
+     */
+    protected $entity;
+
+    /**
      * NextEngine constructor.
      * @param Application $app
      * @throws NextEngineException
@@ -172,6 +177,7 @@ abstract class Base
         $this->config = $app['config'];
         $this->router = $app['router'];
         $this->request = $app['request'];
+        $this->entity = new ApiResultEntity($this->request);
 
         $this->debug = $this->config->get('nextengine.debug');
 

@@ -32,7 +32,7 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBase::$endpoint_search, $params);
-        return new ApiResultEntity($response, MasterPageBase::class);
+        return $this->entity->set($response, MasterPageBase::class);
     }
 
     /**
@@ -53,7 +53,7 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBase::$endpoint_count, $params);
-        return new ApiResultEntity($response, MasterPageBase::class);
+        return $this->entity->set($response, MasterPageBase::class);
     }
 
     /**
@@ -75,7 +75,7 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBaseVariationOrOption::$endpoint_search, $params);
-        return new ApiResultEntity($response, MasterPageBaseVariationOrOption::class);
+        return $this->entity->set($response, MasterPageBaseVariationOrOption::class);
     }
 
     /**
@@ -96,6 +96,6 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBaseVariationOrOption::$endpoint_count, $params);
-        return new ApiResultEntity($response, MasterPageBaseVariationOrOption::class);
+        return $this->entity->set($response, MasterPageBaseVariationOrOption::class);
     }
 }
