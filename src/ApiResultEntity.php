@@ -4,8 +4,8 @@ namespace ShibuyaKosuke\LaravelNextEngine;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use phpDocumentor\Reflection\Types\Boolean;
+use ShibuyaKosuke\LaravelNextEngine\Contracts\SessionResponseContract;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
 
 /**
@@ -21,7 +21,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
  * @property string refresh_token
  * @property Carbon refresh_token_end_date
  */
-class ApiResultEntity
+class ApiResultEntity implements SessionResponseContract
 {
     /**
      * @var Request
@@ -128,6 +128,17 @@ class ApiResultEntity
             $this->$name = $value;
         }
 
+        // データをセッションに保存する
+        $this->setSessionData();
+
+        return $this;
+    }
+
+    /**
+     * データをセッションに保存する
+     */
+    public function setSessionData(): void
+    {
         // キャッシュ用にレスポンスを保持する
         $this->serialized_data = serialize($this->data);
 
@@ -135,8 +146,6 @@ class ApiResultEntity
         $this->session_key = hash('sha256', $this->serialized_data);
 
         $this->request->session()->put($this->session_key, $this->serialized_data);
-
-        return $this;
     }
 
     /**
