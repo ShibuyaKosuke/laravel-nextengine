@@ -26,6 +26,6 @@ trait SystemCurrency
         ];
 
         $response = $this->apiExecute(SystemCurrencyUnit::$endpoint_info, $params);
-        return new ApiResultEntity(SystemCurrencyUnit::class, $response);
+        return new ApiResultEntity($response, SystemCurrencyUnit::class);
     }
 }

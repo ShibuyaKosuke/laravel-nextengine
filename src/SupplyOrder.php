@@ -32,7 +32,7 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderBase::$endpoint_search, $params);
-        return new ApiResultEntity(SupplyOrderBase::class, $response);
+        return new ApiResultEntity($response, SupplyOrderBase::class);
     }
 
     /**
@@ -53,7 +53,7 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderBase::$endpoint_count, $params);
-        return new ApiResultEntity(SupplyOrderBase::class, $response);
+        return new ApiResultEntity($response, SupplyOrderBase::class);
     }
 
     /**
@@ -75,7 +75,7 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderRow::$endpoint_search, $params);
-        return new ApiResultEntity(SupplyOrderRow::class, $response);
+        return new ApiResultEntity($response, SupplyOrderRow::class);
     }
 
     /**
@@ -96,6 +96,6 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderRow::$endpoint_count, $params);
-        return new ApiResultEntity(SupplyOrderRow::class, $response);
+        return new ApiResultEntity($response, SupplyOrderRow::class);
     }
 }

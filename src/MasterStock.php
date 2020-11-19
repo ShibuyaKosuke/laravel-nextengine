@@ -31,7 +31,7 @@ trait MasterStock
         );
 
         $response = $this->apiExecute(MasterStockBase::$endpoint_search, $params);
-        return new ApiResultEntity(MasterStockBase::class, $response);
+        return new ApiResultEntity($response, MasterStockBase::class);
     }
 
     /**
@@ -52,6 +52,6 @@ trait MasterStock
         );
 
         $response = $this->apiExecute(MasterStockBase::$endpoint_count, $params);
-        return new ApiResultEntity(MasterStockBase::class, $response);
+        return new ApiResultEntity($response, MasterStockBase::class);
     }
 }

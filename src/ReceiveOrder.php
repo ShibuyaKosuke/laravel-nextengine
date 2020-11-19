@@ -70,7 +70,7 @@ trait ReceiveOrder
         }
         $response['data'] = $orders;
 
-        return new ApiResultEntity(null, $response);
+        return new ApiResultEntity($response);
     }
 
     /**
@@ -91,7 +91,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
-        return new ApiResultEntity(ReceiveOrderBase::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderBase::class);
     }
 
     /**
@@ -129,7 +129,7 @@ trait ReceiveOrder
         ];
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
-        return new ApiResultEntity(ReceiveOrderBase::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderBase::class);
     }
 
     /**
@@ -172,7 +172,7 @@ trait ReceiveOrder
             'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
         ];
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_bulk_update, $params);
-        return new ApiResultEntity(ReceiveOrderBase::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderBase::class);
     }
 
     /**
@@ -194,7 +194,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderRow::$endpoint_search, $params);
-        return new ApiResultEntity(ReceiveOrderRow::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderRow::class);
     }
 
     /**
@@ -215,7 +215,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderRow::$endpoint_count, $params);
-        return new ApiResultEntity(ReceiveOrderRow::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderRow::class);
     }
 
     /**
@@ -237,7 +237,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderOption::$endpoint_search, $params);
-        return new ApiResultEntity(ReceiveOrderOption::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderOption::class);
     }
 
     /**
@@ -258,7 +258,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderOption::$endpoint_count, $params);
-        return new ApiResultEntity(ReceiveOrderOption::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderOption::class);
     }
 
     /**
@@ -280,7 +280,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderConfirm::$endpoint_search, $params);
-        return new ApiResultEntity(ReceiveOrderConfirm::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderConfirm::class);
     }
 
     /**
@@ -301,7 +301,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderConfirm::$endpoint_count, $params);
-        return new ApiResultEntity(ReceiveOrderConfirm::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderConfirm::class);
     }
 
     /**
@@ -323,7 +323,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderGroupingTag::$endpoint_search, $params);
-        return new ApiResultEntity(ReceiveOrderGroupingTag::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderGroupingTag::class);
     }
 
     /**
@@ -345,7 +345,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderForwardingAgent::$endpoint_search, $params);
-        return new ApiResultEntity(ReceiveOrderForwardingAgent::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderForwardingAgent::class);
     }
 
     /**
@@ -366,7 +366,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderForwardingAgent::$endpoint_count, $params);
-        return new ApiResultEntity(ReceiveOrderForwardingAgent::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderForwardingAgent::class);
     }
 
     /**
@@ -388,7 +388,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderPaymentDeliveryConvert::$endpoint_search, $params);
-        return new ApiResultEntity(ReceiveOrderPaymentDeliveryConvert::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderPaymentDeliveryConvert::class);
     }
 
     /**
@@ -409,7 +409,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderPaymentDeliveryConvert::$endpoint_count, $params);
-        return new ApiResultEntity(ReceiveOrderPaymentDeliveryConvert::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderPaymentDeliveryConvert::class);
     }
 
     /**
@@ -426,6 +426,6 @@ trait ReceiveOrder
         ];
 
         $response = $this->apiExecute(ReceiveOrderUploadPattern::$endpoint_info, $params);
-        return new ApiResultEntity(ReceiveOrderUploadPattern::class, $response);
+        return new ApiResultEntity($response, ReceiveOrderUploadPattern::class);
     }
 }

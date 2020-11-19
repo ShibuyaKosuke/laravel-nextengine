@@ -28,7 +28,7 @@ trait SystemOrder
         ];
 
         $response = $this->apiExecute(SystemOrderBase::$endpoint_info, $params);
-        return new ApiResultEntity(SystemOrderBase::class, $response);
+        return new ApiResultEntity($response, SystemOrderBase::class);
     }
 
     /**
@@ -45,7 +45,7 @@ trait SystemOrder
         ];
 
         $response = $this->apiExecute(SystemOrderCondition::$endpoint_info, $params);
-        return new ApiResultEntity(SystemOrderCondition::class, $response);
+        return new ApiResultEntity($response, SystemOrderCondition::class);
     }
 
     /**
@@ -62,6 +62,6 @@ trait SystemOrder
         ];
 
         $response = $this->apiExecute(SystemOrderStatus::$endpoint_info, $params);
-        return new ApiResultEntity(SystemOrderStatus::class, $response);
+        return new ApiResultEntity($response, SystemOrderStatus::class);
     }
 }

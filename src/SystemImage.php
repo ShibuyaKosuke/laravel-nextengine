@@ -31,7 +31,7 @@ trait SystemImage
         );
 
         $response = $this->apiExecute(SystemImageBase::$endpoint_search, $params);
-        return new ApiResultEntity(SystemImageBase::class, $response);
+        return new ApiResultEntity($response, SystemImageBase::class);
     }
 
     /**
@@ -52,6 +52,6 @@ trait SystemImage
         );
 
         $response = $this->apiExecute(SystemImageBase::$endpoint_count, $params);
-        return new ApiResultEntity(SystemImageBase::class, $response);
+        return new ApiResultEntity($response, SystemImageBase::class);
     }
 }

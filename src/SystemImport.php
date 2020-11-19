@@ -26,6 +26,6 @@ trait SystemImport
         ];
 
         $response = $this->apiExecute(SystemImportType::$endpoint_info, $params);
-        return new ApiResultEntity(SystemImportType::class, $response);
+        return new ApiResultEntity($response, SystemImportType::class);
     }
 }
