@@ -28,7 +28,7 @@ trait SystemCredit
         ];
 
         $response = $this->apiExecute(SystemCreditType::$endpoint_info, $params);
-        return new ApiResultEntity(SystemCreditType::class, $response);
+        return new ApiResultEntity($response, SystemCreditType::class);
     }
 
     /**
@@ -45,7 +45,7 @@ trait SystemCredit
         ];
 
         $response = $this->apiExecute(SystemCreditAuthorizationCenter::$endpoint_info, $params);
-        return new ApiResultEntity(SystemCreditAuthorizationCenter::class, $response);
+        return new ApiResultEntity($response, SystemCreditAuthorizationCenter::class);
     }
 
     /**
@@ -62,6 +62,6 @@ trait SystemCredit
         ];
 
         $response = $this->apiExecute(SystemCreditApprovalType::$endpoint_info, $params);
-        return new ApiResultEntity(SystemCreditApprovalType::class, $response);
+        return new ApiResultEntity($response, SystemCreditApprovalType::class);
     }
 }

@@ -31,7 +31,7 @@ trait MasterWholesale
         );
 
         $response = $this->apiExecute(MasterWholesaleBase::$endpoint_search, $params);
-        return new ApiResultEntity(MasterWholesaleBase::class, $response);
+        return new ApiResultEntity($response, MasterWholesaleBase::class);
     }
 
     /**
@@ -52,6 +52,6 @@ trait MasterWholesale
         );
 
         $response = $this->apiExecute(MasterWholesaleBase::$endpoint_count, $params);
-        return new ApiResultEntity(MasterWholesaleBase::class, $response);
+        return new ApiResultEntity($response, MasterWholesaleBase::class);
     }
 }

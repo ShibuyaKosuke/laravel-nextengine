@@ -78,10 +78,10 @@ class ApiResultEntity
 
     /**
      * ApiResultEntity constructor.
-     * @param string $class_name
+     * @param string|null $class_name
      * @param array $response
      */
-    public function __construct(string $class_name = null, array $response = [])
+    public function __construct(array $response, string $class_name = null)
     {
         if (!is_null($class_name)) {
             $response = call_user_func([$class_name, 'setData'], $response);

@@ -12,4 +12,8 @@ return [
     'receive_order_upload_pattern_creator_name' => '作成担当者名',
     'receive_order_upload_pattern_last_modified_by_id' => '最終更新者ID',
     'receive_order_upload_pattern_last_modified_by_name' => '最終更新者名',
+<<<<<<< HEAD
 ];
+=======
+];
+>>>>>>> main

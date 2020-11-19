@@ -26,6 +26,6 @@ trait SystemPayment
         ];
 
         $response = $this->apiExecute(SystemPaymentMethod::$endpoint_info, $params);
-        return new ApiResultEntity(SystemPaymentMethod::class, $response);
+        return new ApiResultEntity($response, SystemPaymentMethod::class);
     }
 }

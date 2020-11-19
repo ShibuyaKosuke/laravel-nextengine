@@ -26,6 +26,6 @@ trait SystemIo
         ];
 
         $response = $this->apiExecute(SystemIoType::$endpoint_info, $params);
-        return new ApiResultEntity(SystemIoType::class, $response);
+        return new ApiResultEntity($response, SystemIoType::class);
     }
 }

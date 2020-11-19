@@ -12,4 +12,8 @@ return [
     'payment_delivery_convert_creator_name' => '作成担当者名',
     'payment_delivery_convert_last_modified_by_id' => '最終更新者ID',
     'payment_delivery_convert_last_modified_by_name' => '最終更新者名',
+<<<<<<< HEAD
 ];
+=======
+];
+>>>>>>> main

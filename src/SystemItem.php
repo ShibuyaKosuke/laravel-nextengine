@@ -26,6 +26,6 @@ trait SystemItem
         ];
 
         $response = $this->apiExecute(SystemItemBase::$endpoint_info, $params);
-        return new ApiResultEntity(SystemItemBase::class, $response);
+        return new ApiResultEntity($response, SystemItemBase::class);
     }
 }

@@ -26,6 +26,6 @@ trait SystemCustomer
         ];
 
         $response = $this->apiExecute(SystemCustomerType::$endpoint_info, $params);
-        return new ApiResultEntity(SystemCustomerType::class, $response);
+        return new ApiResultEntity($response, SystemCustomerType::class);
     }
 }

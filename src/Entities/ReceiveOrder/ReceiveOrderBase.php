@@ -373,14 +373,20 @@ class ReceiveOrderBase extends EntityCommon
         }
 
         // 各要素をXMLに変換
-        $xmlOrderRows = array_map(static function (ReceiveOrderRow $orderRow) use ($domDocument) {
-            return $orderRow->toXmlObject($domDocument);
-        }, $this->getOrderRows());
+        $xmlOrderRows = array_map(
+            static function (ReceiveOrderRow $orderRow) use ($domDocument) {
+                return $orderRow->toXmlObject($domDocument);
+            },
+            $this->getOrderRows()
+        );
 
         // null を除外
-        $xmlOrderRows = array_filter($xmlOrderRows, static function ($item) {
-            return !is_null($item);
-        });
+        $xmlOrderRows = array_filter(
+            $xmlOrderRows,
+            static function ($item) {
+                return !is_null($item);
+            }
+        );
 
         if (count($xmlOrderRows)) {
             $receiveorder_row = $domDocument->createElement('receiveorder_row');

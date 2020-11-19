@@ -26,6 +26,6 @@ trait SystemReturned
         ];
 
         $response = $this->apiExecute(SystemReturnedReason::$endpoint_info, $params);
-        return new ApiResultEntity(SystemReturnedReason::class, $response);
+        return new ApiResultEntity($response, SystemReturnedReason::class);
     }
 }
