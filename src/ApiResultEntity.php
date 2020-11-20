@@ -66,11 +66,6 @@ class ApiResultEntity implements SessionResponseContract
     /**
      * @var string
      */
-    protected $class_name;
-
-    /**
-     * @var string
-     */
     protected $session_key;
 
     /**
@@ -117,21 +112,57 @@ class ApiResultEntity implements SessionResponseContract
      */
     public function set(array $response, string $class_name = null): self
     {
-        if (!is_null($class_name)) {
-            $response = call_user_func([$class_name, 'setData'], $response);
-            $this->translations = call_user_func_array([$class_name, 'getTranslations'], []);
-        }
+        // レスポンス内のデータをエンティティに変換する
+        $response = $this->convertArrayToEntity($response, $class_name);
 
-        $this->class_name = $class_name;
-
-        foreach ($response as $name => $value) {
-            $this->$name = $value;
-        }
+        // データをセットする
+        $this->setData($response);
 
         // データをセッションに保存する
         $this->setSessionData();
 
         return $this;
+    }
+
+    /**
+     * レスポンス内のデータをエンティティに変換する
+     *
+     * @param array $response
+     * @param string $class_name
+     * @return array
+     */
+    protected function convertArrayToEntity(array $response, string $class_name): array
+    {
+        if (!is_null($class_name)) {
+            $response = call_user_func([$class_name, 'setData'], $response);
+        }
+        return $response;
+    }
+
+    /**
+     * 対訳をセットする
+     *
+     * @param string $class_name
+     * @return void
+     */
+    protected function setTranslations(string $class_name): void
+    {
+        if (!is_null($class_name)) {
+            $this->translations = call_user_func_array([$class_name, 'getTranslations'], []);
+        }
+    }
+
+    /**
+     * データをセットする
+     *
+     * @param array $response
+     * @return void
+     */
+    protected function setData(array $response): void
+    {
+        foreach ($response as $name => $value) {
+            $this->$name = $value;
+        }
     }
 
     /**

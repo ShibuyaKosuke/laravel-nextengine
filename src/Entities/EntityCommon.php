@@ -5,6 +5,7 @@ namespace ShibuyaKosuke\LaravelNextEngine\Entities;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\Array_;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
@@ -21,17 +22,22 @@ abstract class EntityCommon implements EntityContract
     public static $translations = [];
 
     /**
+     * 属性
+     *
      * @var array
      */
     protected $attributes = [];
 
     /**
+     * 初期値
+     *
      * @var array
      */
     protected $original = [];
 
     /**
      * Common constructor.
+     *
      * @param array $data
      */
     public function __construct(array $data = [])
@@ -53,7 +59,7 @@ abstract class EntityCommon implements EntityContract
      *
      * @return array
      */
-    public static function getTranslations()
+    public static function getTranslations(): array
     {
         return static::$translations;
     }
@@ -82,7 +88,7 @@ abstract class EntityCommon implements EntityContract
         }
 
         $response['data'] = array_map(
-            static function ($row) {
+            static function (array $row) {
                 return new static($row);
             },
             $response['data']
@@ -96,6 +102,9 @@ abstract class EntityCommon implements EntityContract
      *
      * @param string|null $name
      * @return array|mixed
+     *
+     * @synonym getAttributes()
+     * @synonym toArray()
      */
     public function get(string $name = null)
     {
@@ -106,7 +115,33 @@ abstract class EntityCommon implements EntityContract
     }
 
     /**
-     * data が2次元配列ではないとき
+     * 値を配列で取得する
+     *
+     * @return array
+     *
+     * @synonym get()
+     * @synonym toArray()
+     */
+    public function getAttributes(): array
+    {
+        return $this->get();
+    }
+
+    /**
+     * 値を配列で取得する
+     *
+     * @return array
+     *
+     * @synonym get()
+     * @synonym getAttributes()
+     */
+    public function toArray(): array
+    {
+        return $this->get();
+    }
+
+    /**
+     * data が二次元配列ではないとき
      *
      * @param array $response
      * @return array
@@ -131,6 +166,8 @@ abstract class EntityCommon implements EntityContract
     }
 
     /**
+     * プロパティのキー名をチェック
+     *
      * @param string $name
      * @return bool
      * @throws NextEngineException
@@ -144,6 +181,8 @@ abstract class EntityCommon implements EntityContract
     }
 
     /**
+     * XMLエレメントに変換する
+     *
      * @param array $items
      * @return string
      */
@@ -174,6 +213,7 @@ abstract class EntityCommon implements EntityContract
      */
     public function getDirties(): array
     {
+        // インスタンス作成時の値と、状態を比較
         return array_diff_assoc($this->attributes, $this->original);
     }
 
@@ -184,6 +224,7 @@ abstract class EntityCommon implements EntityContract
      */
     public function isDirty(): bool
     {
+        // 変更された値があるかどうかを判定
         return count($this->getDirties()) > 0;
     }
 
