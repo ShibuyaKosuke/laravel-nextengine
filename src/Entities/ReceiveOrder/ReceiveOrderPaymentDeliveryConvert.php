@@ -28,7 +28,7 @@ class ReceiveOrderPaymentDeliveryConvert extends EntityCommon
     /**
      * 更新用キー
      */
-    const KEY = 'forwarding_agent_id';
+    const KEY = null;
 
     /**
      * @var string エンドポイント

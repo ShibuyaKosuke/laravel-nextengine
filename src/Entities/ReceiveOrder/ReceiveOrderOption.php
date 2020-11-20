@@ -45,7 +45,7 @@ class ReceiveOrderOption extends EntityCommon
     /**
      * 更新用キー
      */
-    const KEY = 'receiveorder_option';
+    const KEY = 'receive_order_option_receive_order_id';
 
     /**
      * @var string エンドポイント

@@ -35,7 +35,7 @@ class MasterStock extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'mail_tag_id';
+    public const KEY = 'stock_goods_id';
 
     /**
      * @var string 検索エンドポイント

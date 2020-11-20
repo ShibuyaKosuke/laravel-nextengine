@@ -28,7 +28,7 @@ class ReceiveOrderUploadPattern extends EntityCommon
     /**
      * 更新用キー
      */
-    const KEY = 'receiveorder_row';
+    const KEY = 'receive_order_upload_pattern_id';
 
     /**
      * @var string エンドポイント
