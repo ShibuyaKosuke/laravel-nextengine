@@ -61,7 +61,7 @@ class ApiResultEntity implements SessionResponseContract
      *
      * @var
      */
-    protected $serialized_data;
+    protected $serialized_object;
 
     /**
      * @var string
@@ -171,12 +171,12 @@ class ApiResultEntity implements SessionResponseContract
     public function setSessionData(): void
     {
         // キャッシュ用にレスポンスを保持する
-        $this->serialized_data = serialize($this->data);
+        $this->serialized_object = serialize($this);
 
         // session_key を生成
-        $this->session_key = hash('sha256', $this->serialized_data);
+        $this->session_key = hash('sha256', $this->serialized_object);
 
-        $this->request->session()->put($this->session_key, $this->serialized_data);
+        $this->request->session()->put($this->session_key, $this->serialized_object);
     }
 
     /**
