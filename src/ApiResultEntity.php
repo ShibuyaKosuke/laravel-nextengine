@@ -178,7 +178,7 @@ class ApiResultEntity implements SessionResponseContract
     public function setSessionData(): void
     {
         // キャッシュ用にレスポンスを保持する
-        $this->serialized_object = serialize($this);
+        $this->serialized_object = serialize($this->data);
 
         // session_key を生成
         $this->session_key = hash('sha256', $this->serialized_object);
@@ -200,9 +200,9 @@ class ApiResultEntity implements SessionResponseContract
      * セッションに保存したデータを取得する
      *
      * @param string $key セッションキー
-     * @return ApiResultEntity
+     * @return array
      */
-    public static function getSessionData(string $key): ApiResultEntity
+    public static function getSessionData(string $key): array
     {
         /** @noinspection UnserializeExploitsInspection */
         return unserialize(session($key));
