@@ -24,6 +24,11 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
 class ApiResultEntity implements SessionResponseContract
 {
     /**
+     * @var EntityContract
+     */
+    protected $class_name;
+
+    /**
      * @var Request
      */
     protected $request;
@@ -112,8 +117,11 @@ class ApiResultEntity implements SessionResponseContract
      */
     public function set(array $response, string $class_name = null): self
     {
+        // クラス
+        $this->class_name = $class_name;
+
         // レスポンス内のデータをエンティティに変換する
-        $response = $this->convertArrayToEntity($response, $class_name);
+        $response = $this->convertArrayToEntity($response, $this->class_name);
 
         // データをセットする
         $this->setData($response);
@@ -142,13 +150,12 @@ class ApiResultEntity implements SessionResponseContract
     /**
      * 対訳をセットする
      *
-     * @param string $class_name
      * @return void
      */
-    protected function setTranslations(string $class_name): void
+    protected function setTranslations(): void
     {
-        if (!is_null($class_name)) {
-            $this->translations = call_user_func_array([$class_name, 'getTranslations'], []);
+        if (!is_null($this->class_name)) {
+            $this->translations = call_user_func_array([$this->class_name, 'getTranslations'], []);
         }
     }
 
@@ -193,9 +200,9 @@ class ApiResultEntity implements SessionResponseContract
      * セッションに保存したデータを取得する
      *
      * @param string $key セッションキー
-     * @return mixed
+     * @return ApiResultEntity
      */
-    public static function getSessionData(string $key)
+    public static function getSessionData(string $key): ApiResultEntity
     {
         /** @noinspection UnserializeExploitsInspection */
         return unserialize(session($key));
