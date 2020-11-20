@@ -27,7 +27,7 @@ class MasterGoodsTag extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'goods_tag_goods_id';
+    public static $primaryKey = 'goods_tag_goods_id';
 
     /**
      * @var string 検索エンドポイント

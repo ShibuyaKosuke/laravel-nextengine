@@ -45,7 +45,7 @@ class PlaceOrderRow extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'place_order_row_place_order_id';
+    public static $primaryKey = 'place_order_row_place_order_id';
 
     /**
      * @var string 検索エンドポイント

@@ -30,14 +30,8 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 class ReceiveOrderConfirm extends EntityCommon
 {
     /**
-     * 更新用キー
-     */
-    const KEY = 'confirm_id';
-
-    /**
      * @var string エンドポイント
-     */
-    public static $endpoint_search = '/api_v1_receiveorder_confirm/search';
+     */public static $endpoint_search = '/api_v1_receiveorder_confirm/search';
 
     /**
      * @var string 検索エンドポイント

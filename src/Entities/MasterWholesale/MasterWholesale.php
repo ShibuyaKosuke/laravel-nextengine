@@ -52,7 +52,7 @@ class MasterWholesale extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'wholesale_id';
+    public static $primaryKey = 'wholesale_id';
 
     /**
      * @var string 検索エンドポイント

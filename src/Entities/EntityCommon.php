@@ -5,14 +5,13 @@ namespace ShibuyaKosuke\LaravelNextEngine\Entities;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\Array_;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
  * Class Common
  * @package ShibuyaKosuke\LaravelNextEngine\Entities
  */
-abstract class EntityCommon implements EntityContract
+abstract class EntityCommon implements EntityContract, EntityDownloadable
 {
     /**
      * 対訳
@@ -52,6 +51,20 @@ abstract class EntityCommon implements EntityContract
         $this->attributes = $this->original;
 
         static::setTranslations();
+    }
+
+
+    /**
+     * プライマリーキー名を取得
+     *
+     * @return string|null
+     */
+    public function primaryKeyName(): ?string
+    {
+        if (property_exists(static::class, 'primaryKey')) {
+            return static::$primaryKey;
+        }
+        return null;
     }
 
     /**

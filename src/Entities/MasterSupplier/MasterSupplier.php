@@ -60,7 +60,7 @@ class MasterSupplier extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'supplier_id';
+    public static $primaryKey = 'supplier_id';
 
     /**
      * @var string 検索エンドポイント

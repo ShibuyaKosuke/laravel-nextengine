@@ -26,11 +26,6 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 class ReceiveOrderPaymentDeliveryConvert extends EntityCommon
 {
     /**
-     * 更新用キー
-     */
-    const KEY = null;
-
-    /**
      * @var string エンドポイント
      */
     public static $endpoint_search = '/api_v1_receiveorder_paymentdeliveryconvert/search';

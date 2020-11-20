@@ -29,11 +29,6 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 class ReceiveOrderGroupingTag extends EntityCommon
 {
     /**
-     * 更新用キー
-     */
-    const KEY = 'grouping_tag_id';
-
-    /**
      * @var string エンドポイント
      */
     public static $endpoint_search = '/api_v1_receiveorder_groupingtag/search';

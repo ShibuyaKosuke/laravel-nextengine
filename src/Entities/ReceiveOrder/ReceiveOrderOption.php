@@ -43,11 +43,6 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 class ReceiveOrderOption extends EntityCommon
 {
     /**
-     * 更新用キー
-     */
-    const KEY = 'receive_order_option_receive_order_id';
-
-    /**
      * @var string エンドポイント
      */
     public static $endpoint_search = '/api_v1_receiveorder_option/search';

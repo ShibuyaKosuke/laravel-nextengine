@@ -21,11 +21,6 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 class ReceiveOrderForwardingAgent extends EntityCommon
 {
     /**
-     * 更新用キー
-     */
-    const KEY = 'forwarding_agent_id';
-
-    /**
      * @var string エンドポイント
      */
     public static $endpoint_search = '/api_v1_receiveorder_forwardingagent/search';

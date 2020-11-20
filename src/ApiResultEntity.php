@@ -181,8 +181,7 @@ class ApiResultEntity implements SessionResponseContract
 
         // session_key を生成
         $this->session_key = hash('sha256', $this->serialized_object);
-
-        $this->request->session()->put($this->session_key, $this->serialized_object);
+        session()->put($this->session_key, $this->serialized_object);
     }
 
     /**

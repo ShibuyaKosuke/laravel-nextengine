@@ -26,11 +26,6 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 class ReceiveOrderUploadPattern extends EntityCommon
 {
     /**
-     * 更新用キー
-     */
-    const KEY = 'receive_order_upload_pattern_id';
-
-    /**
      * @var string エンドポイント
      */
     public static $endpoint_info = '/api_v1_receiveorder_uploadpattern/info';

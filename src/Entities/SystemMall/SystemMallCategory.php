@@ -33,7 +33,7 @@ class SystemMallCategory extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'mall_category_id';
+    public static $primaryKey = 'mall_category_id';
 
     /**
      * @var string 検索エンドポイント

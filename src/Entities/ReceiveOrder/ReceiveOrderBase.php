@@ -138,7 +138,7 @@ class ReceiveOrderBase extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'receive_order_id';
+    public static $primaryKey = 'receive_order_id';
 
     /**
      * @var string 検索エンドポイント

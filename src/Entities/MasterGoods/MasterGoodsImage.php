@@ -39,7 +39,7 @@ class MasterGoodsImage extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'goods_image_id';
+    public static $primaryKey = 'goods_image_id';
 
     /**
      * @var string 検索エンドポイント

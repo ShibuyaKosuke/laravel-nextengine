@@ -43,7 +43,7 @@ class MasterStockIoHistory extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'stock_io_history_id';
+    public static $primaryKey = 'stock_io_history_id';
 
     /**
      * @var string 検索エンドポイント

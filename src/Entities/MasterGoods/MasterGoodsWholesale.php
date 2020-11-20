@@ -29,7 +29,7 @@ class MasterGoodsWholesale extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'goods_wholesale_goods_id';
+    public static $primaryKey = 'goods_wholesale_goods_id';
 
     /**
      * @var string 検索エンドポイント

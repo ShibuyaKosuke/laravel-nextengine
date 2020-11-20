@@ -135,7 +135,7 @@ class MasterGoods extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'goods_id';
+    public static $primaryKey = 'goods_id';
 
     /**
      * @var string 検索エンドポイント

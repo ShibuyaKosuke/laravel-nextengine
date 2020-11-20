@@ -122,7 +122,7 @@ class MasterPage extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'page_base_goods_id';
+    public static $primaryKey = 'page_base_goods_id';
 
     /**
      * @var string 検索エンドポイント

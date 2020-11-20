@@ -26,6 +26,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->startSession();
     }
 
     /**
@@ -34,6 +36,8 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        parent::getEnvironmentSetUp($app);
+
         $app['config']->set('database.default', 'mysql');
         $app['config']->set(
             'database.connections.mysql',
@@ -46,6 +50,9 @@ abstract class TestCase extends OrchestraTestCase
                 'password' => 'secret',
             ]
         );
+
+        $app->make('Illuminate\Contracts\Http\Kernel')
+            ->pushMiddleware('Illuminate\Session\Middleware\StartSession');
     }
 
     /**

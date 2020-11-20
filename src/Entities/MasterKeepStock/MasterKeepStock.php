@@ -32,7 +32,7 @@ class MasterKeepStock extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'keep_stock_goods_id';
+    public static $primaryKey = 'keep_stock_goods_id';
 
     /**
      * @var string 検索エンドポイント

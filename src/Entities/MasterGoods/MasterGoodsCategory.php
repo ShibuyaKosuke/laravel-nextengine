@@ -30,7 +30,7 @@ class MasterGoodsCategory extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'goods_category_id';
+    public static $primaryKey = 'goods_category_id';
 
     /**
      * @var string 検索エンドポイント

@@ -35,7 +35,7 @@ class SystemQue extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'que_id';
+    public static $primaryKey = 'que_id';
 
     /**
      * @var string 検索エンドポイント

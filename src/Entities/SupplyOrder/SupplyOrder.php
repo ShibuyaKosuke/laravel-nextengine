@@ -38,7 +38,7 @@ class SupplyOrder extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'supply_order_id';
+    public static $primaryKey = 'supply_order_id';
 
     /**
      * @var string 検索エンドポイント

@@ -24,7 +24,7 @@ class NoticeExecution extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'execution_notice_id';
+    public static $primaryKey = 'execution_notice_id';
 
     /**
      * @var string 検索エンドポイント

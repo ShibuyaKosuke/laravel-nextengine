@@ -15,7 +15,7 @@ class MasterShopMailAddress extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'shop_id';
+    public static $primaryKey = 'shop_id';
 
     /**
      * @var string 受注情報取り込み用メールアドレス取得エンドポイント

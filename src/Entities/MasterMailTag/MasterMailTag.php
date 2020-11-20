@@ -37,7 +37,7 @@ class MasterMailTag extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'mail_tag_id';
+    public static $primaryKey = 'mail_tag_id';
 
     /**
      * @var string 検索エンドポイント

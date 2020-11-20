@@ -33,7 +33,7 @@ class SystemImage extends EntityCommon
     /**
      * 更新用キー
      */
-    public const KEY = 'image_tag_id';
+    public static $primaryKey = 'image_tag_id';
 
     /**
      * @var string 検索エンドポイント

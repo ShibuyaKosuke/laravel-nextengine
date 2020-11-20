@@ -57,11 +57,6 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 class ReceiveOrderRow extends EntityCommon
 {
     /**
-     * 更新用キー
-     */
-    const KEY = 'receive_order_row_receive_order_id';
-
-    /**
      * @var string エンドポイント
      */
     public static $endpoint_search = '/api_v1_receiveorder_row/search';
