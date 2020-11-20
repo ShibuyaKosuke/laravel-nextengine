@@ -121,7 +121,7 @@ class ApiResultEntity implements SessionResponseContract
         $this->class_name = $class_name;
 
         // レスポンス内のデータをエンティティに変換する
-        $response = $this->convertArrayToEntity($response, $this->class_name);
+        $response = $this->convertArrayToEntity($response);
 
         // データをセットする
         $this->setData($response);
@@ -136,13 +136,12 @@ class ApiResultEntity implements SessionResponseContract
      * レスポンス内のデータをエンティティに変換する
      *
      * @param array $response
-     * @param string $class_name
      * @return array
      */
-    protected function convertArrayToEntity(array $response, string $class_name): array
+    protected function convertArrayToEntity(array $response): array
     {
-        if (!is_null($class_name)) {
-            $response = call_user_func([$class_name, 'setData'], $response);
+        if (!is_null($this->class_name)) {
+            $response = call_user_func([$this->class_name, 'setData'], $response);
         }
         return $response;
     }
