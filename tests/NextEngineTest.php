@@ -38,7 +38,7 @@ class NextEngineTest extends TestCase
     /**
      * ログインユーザー取得
      */
-    public function testLoginUser()
+    public function testLoginUser(): void
     {
         $this->expectException(NextEngineException::class);
         NextEngine::loginUser();
@@ -47,7 +47,7 @@ class NextEngineTest extends TestCase
     /**
      * アクセストークン取得
      */
-    public function testGetAccessToken()
+    public function testGetAccessToken(): void
     {
         $response = NextEngine::setAccount($this->nextEngineApi)->getAccessToken();
 
@@ -71,9 +71,9 @@ class NextEngineTest extends TestCase
     }
 
     /**
-     * @throws NextEngineException
+     * @return void
      */
-    public function testCompany()
+    public function testCompany(): void
     {
         $response = NextEngine::setAccount($this->nextEngineApi)->company();
         self::assertArrayHasKey('count', $response);

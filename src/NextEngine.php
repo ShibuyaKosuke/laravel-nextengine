@@ -142,32 +142,32 @@ class NextEngine extends Base
     /**
      * ログインユーザー情報取得
      *
-     * @return array
+     * @return ApiResultEntity
      * @category 認証系エンドポイント
      */
-    public function loginUser(): array
+    public function loginUser(): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
             'refresh_token' => $this->refresh_token,
             'wait_flag' => $this->getWaitFlag(),
         ];
-        return $this->apiExecute('/api_v1_login_user/info', $params);
+        return $this->entity->set($this->apiExecute('/api_v1_login_user/info', $params));
     }
 
     /**
      * 企業情報取得
      *
-     * @return array
+     * @return ApiResultEntity
      * @category 認証系エンドポイント
      */
-    public function loginCompany(): array
+    public function loginCompany(): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
             'refresh_token' => $this->refresh_token,
             'wait_flag' => $this->getWaitFlag(),
         ];
-        return $this->apiExecute('/api_v1_login_company/info', $params);
+        return $this->entity->set($this->apiExecute('/api_v1_login_company/info', $params));
     }
 }

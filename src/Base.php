@@ -242,7 +242,7 @@ abstract class Base
      *
      * @return integer
      */
-    public function getWaitFlag(): int
+    protected function getWaitFlag(): int
     {
         return ($this->isCli || $this->config->get('nextengine.wait_flag')) === 1 ? 1 : 0;
     }
