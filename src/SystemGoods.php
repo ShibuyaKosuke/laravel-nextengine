@@ -16,9 +16,10 @@ trait SystemGoods
     /**
      * 商品区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemGoodsType(): ApiResultEntity
+    public function systemGoodsType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -27,15 +28,16 @@ trait SystemGoods
         ];
 
         $response = $this->apiExecute(SystemGoodsType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemGoodsType::class);
+        return $this->entity->set($response, $userClass ?? SystemGoodsType::class);
     }
 
     /**
      * 商品ステータス区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemGoodsStatus(): ApiResultEntity
+    public function systemGoodsStatus(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -44,6 +46,6 @@ trait SystemGoods
         ];
 
         $response = $this->apiExecute(SystemGoodsStatus::$endpoint_info, $params);
-        return $this->entity->set($response, SystemGoodsStatus::class);
+        return $this->entity->set($response, $userClass ?? SystemGoodsStatus::class);
     }
 }

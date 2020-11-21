@@ -15,9 +15,10 @@ trait SystemCustomer
     /**
      * 顧客区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemCustomerType(): ApiResultEntity
+    public function systemCustomerType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemCustomer
         ];
 
         $response = $this->apiExecute(SystemCustomerType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemCustomerType::class);
+        return $this->entity->set($response, $userClass ?? SystemCustomerType::class);
     }
 }

@@ -15,9 +15,10 @@ trait SystemAuthorization
     /**
      * オーソリ区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemAuthorizationType(): ApiResultEntity
+    public function systemAuthorizationType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemAuthorization
         ];
 
         $response = $this->apiExecute(SystemAuthorizationType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemAuthorizationType::class);
+        return $this->entity->set($response, $userClass ?? SystemAuthorizationType::class);
     }
 }

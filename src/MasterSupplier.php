@@ -16,9 +16,10 @@ trait MasterSupplier
      * 仕入先マスタ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterSupplierSearch(array $params = []): ApiResultEntity
+    public function masterSupplierSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait MasterSupplier
         );
 
         $response = $this->apiExecute(MasterSupplierBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterSupplierBase::class);
+        return $this->entity->set($response, $userClass ?? MasterSupplierBase::class);
     }
 
     /**
      * 仕入先マスタ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterSupplierCount(array $params = []): ApiResultEntity
+    public function masterSupplierCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,6 +54,6 @@ trait MasterSupplier
         );
 
         $response = $this->apiExecute(MasterSupplierBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterSupplierBase::class);
+        return $this->entity->set($response, $userClass ?? MasterSupplierBase::class);
     }
 }

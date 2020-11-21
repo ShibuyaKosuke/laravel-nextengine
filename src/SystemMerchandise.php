@@ -15,9 +15,10 @@ trait SystemMerchandise
     /**
      * 取扱区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemMerchandise(): ApiResultEntity
+    public function systemMerchandise(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemMerchandise
         ];
 
         $response = $this->apiExecute(SystemMerchandiseBase::$endpoint_info, $params);
-        return $this->entity->set($response, SystemMerchandiseBase::class);
+        return $this->entity->set($response, $userClass ?? SystemMerchandiseBase::class);
     }
 }

@@ -15,9 +15,10 @@ trait SystemImportant
     /**
      * 重要チェック区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemImportantCheck(): ApiResultEntity
+    public function systemImportantCheck(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemImportant
         ];
 
         $response = $this->apiExecute(SystemImportantCheck::$endpoint_info, $params);
-        return $this->entity->set($response, SystemImportantCheck::class);
+        return $this->entity->set($response, $userClass ?? SystemImportantCheck::class);
     }
 }

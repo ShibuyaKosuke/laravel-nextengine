@@ -15,9 +15,10 @@ trait SystemIo
     /**
      * 入出荷区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemIoType(): ApiResultEntity
+    public function systemIoType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemIo
         ];
 
         $response = $this->apiExecute(SystemIoType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemIoType::class);
+        return $this->entity->set($response, $userClass ?? SystemIoType::class);
     }
 }

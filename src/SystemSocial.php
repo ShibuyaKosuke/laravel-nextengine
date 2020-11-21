@@ -15,9 +15,10 @@ trait SystemSocial
     /**
      * 社会保険区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemSocialInsurance(): ApiResultEntity
+    public function systemSocialInsurance(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemSocial
         ];
 
         $response = $this->apiExecute(SystemSocialInsurance::$endpoint_info, $params);
-        return $this->entity->set($response, SystemSocialInsurance::class);
+        return $this->entity->set($response, $userClass ?? SystemSocialInsurance::class);
     }
 }

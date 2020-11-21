@@ -25,9 +25,10 @@ trait ReceiveOrder
      * 受注伝票検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderBaseSearch(array $params = []): ApiResultEntity
+    public function receiveOrderBaseSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -86,9 +87,10 @@ trait ReceiveOrder
      * 受注伝票件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderBaseCount(array $params = []): ApiResultEntity
+    public function receiveOrderBaseCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -100,7 +102,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
-        return $this->entity->set($response, ReceiveOrderBase::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderBase::class);
     }
 
     /**
@@ -138,7 +140,7 @@ trait ReceiveOrder
         ];
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
-        return $this->entity->set($response, ReceiveOrderBase::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderBase::class);
     }
 
     /**
@@ -181,16 +183,17 @@ trait ReceiveOrder
             'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
         ];
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_bulk_update, $params);
-        return $this->entity->set($response, ReceiveOrderBase::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderBase::class);
     }
 
     /**
      * 受注明細検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderRowSearch(array $params = []): ApiResultEntity
+    public function receiveOrderRowSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -203,16 +206,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderRow::$endpoint_search, $params);
-        return $this->entity->set($response, ReceiveOrderRow::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderRow::class);
     }
 
     /**
      * 受注明細件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderRowCount(array $params = []): ApiResultEntity
+    public function receiveOrderRowCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -224,16 +228,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderRow::$endpoint_count, $params);
-        return $this->entity->set($response, ReceiveOrderRow::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderRow::class);
     }
 
     /**
      * 受注オプション検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderOptionSearch(array $params = []): ApiResultEntity
+    public function receiveOrderOptionSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -246,16 +251,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderOption::$endpoint_search, $params);
-        return $this->entity->set($response, ReceiveOrderOption::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderOption::class);
     }
 
     /**
      * 受注オプション件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderOptionCount(array $params = []): ApiResultEntity
+    public function receiveOrderOptionCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -267,16 +273,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderOption::$endpoint_count, $params);
-        return $this->entity->set($response, ReceiveOrderOption::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderOption::class);
     }
 
     /**
      * 受注確認内容検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderConfirmSearch(array $params = []): ApiResultEntity
+    public function receiveOrderConfirmSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -289,16 +296,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderConfirm::$endpoint_search, $params);
-        return $this->entity->set($response, ReceiveOrderConfirm::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderConfirm::class);
     }
 
     /**
      * 受注確認内容件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderConfirmCount(array $params = []): ApiResultEntity
+    public function receiveOrderConfirmCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -310,16 +318,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderConfirm::$endpoint_count, $params);
-        return $this->entity->set($response, ReceiveOrderConfirm::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderConfirm::class);
     }
 
     /**
      * 受注分類タグ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderGroupingTagSearch(array $params = []): ApiResultEntity
+    public function receiveOrderGroupingTagSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -332,16 +341,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderGroupingTag::$endpoint_search, $params);
-        return $this->entity->set($response, ReceiveOrderGroupingTag::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderGroupingTag::class);
     }
 
     /**
      * 受注確認内容検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderForwardingAgentSearch(array $params = []): ApiResultEntity
+    public function receiveOrderForwardingAgentSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -354,16 +364,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderForwardingAgent::$endpoint_search, $params);
-        return $this->entity->set($response, ReceiveOrderForwardingAgent::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderForwardingAgent::class);
     }
 
     /**
      * 受注確認内容件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderForwardingAgentCount(array $params = []): ApiResultEntity
+    public function receiveOrderForwardingAgentCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -375,16 +386,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderForwardingAgent::$endpoint_count, $params);
-        return $this->entity->set($response, ReceiveOrderForwardingAgent::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderForwardingAgent::class);
     }
 
     /**
      * 受注確認内容検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderPaymentDeliveryConvertSearch(array $params = []): ApiResultEntity
+    public function receiveOrderPaymentDeliveryConvertSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -397,16 +409,17 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderPaymentDeliveryConvert::$endpoint_search, $params);
-        return $this->entity->set($response, ReceiveOrderPaymentDeliveryConvert::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderPaymentDeliveryConvert::class);
     }
 
     /**
      * 受注確認内容件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderPaymentDeliveryConvertCount(array $params = []): ApiResultEntity
+    public function receiveOrderPaymentDeliveryConvertCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -418,7 +431,7 @@ trait ReceiveOrder
         );
 
         $response = $this->apiExecute(ReceiveOrderPaymentDeliveryConvert::$endpoint_count, $params);
-        return $this->entity->set($response, ReceiveOrderPaymentDeliveryConvert::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderPaymentDeliveryConvert::class);
     }
 
     /**
@@ -426,7 +439,7 @@ trait ReceiveOrder
      *
      * @return ApiResultEntity
      */
-    public function receiveOrderUploadPattern(): ApiResultEntity
+    public function receiveOrderUploadPattern(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -435,6 +448,6 @@ trait ReceiveOrder
         ];
 
         $response = $this->apiExecute(ReceiveOrderUploadPattern::$endpoint_info, $params);
-        return $this->entity->set($response, ReceiveOrderUploadPattern::class);
+        return $this->entity->set($response, $userClass ?? ReceiveOrderUploadPattern::class);
     }
 }

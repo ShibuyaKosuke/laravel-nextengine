@@ -15,9 +15,10 @@ trait SystemSelect
     /**
      * 商品選択肢区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemSelect(): ApiResultEntity
+    public function systemSelect(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemSelect
         ];
 
         $response = $this->apiExecute(SystemSelectBase::$endpoint_info, $params);
-        return $this->entity->set($response, SystemSelectBase::class);
+        return $this->entity->set($response, $userClass ?? SystemSelectBase::class);
     }
 }

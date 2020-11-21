@@ -16,9 +16,10 @@ trait SystemQue
      * アップロードキュー検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemQueSearch(array $params = []): ApiResultEntity
+    public function systemQueSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait SystemQue
         );
 
         $response = $this->apiExecute(SystemQueBase::$endpoint_search, $params);
-        return $this->entity->set($response, SystemQueBase::class);
+        return $this->entity->set($response, $userClass ?? SystemQueBase::class);
     }
 
     /**
      * アップロードキュー件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemQueCount(array $params = []): ApiResultEntity
+    public function systemQueCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,6 +54,6 @@ trait SystemQue
         );
 
         $response = $this->apiExecute(SystemQueBase::$endpoint_count, $params);
-        return $this->entity->set($response, SystemQueBase::class);
+        return $this->entity->set($response, $userClass ?? SystemQueBase::class);
     }
 }

@@ -17,9 +17,10 @@ trait MasterPage
      * 商品ページ（基本）検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterPageBaseSearch(array $params = []): ApiResultEntity
+    public function masterPageBaseSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -32,16 +33,17 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterPageBase::class);
+        return $this->entity->set($response, $userClass ?? MasterPageBase::class);
     }
 
     /**
      * 商品ページ（基本）件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterPageBaseCount(array $params = []): ApiResultEntity
+    public function masterPageBaseCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -53,16 +55,17 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterPageBase::class);
+        return $this->entity->set($response, $userClass ?? MasterPageBase::class);
     }
 
     /**
      * 商品ページ（基本-項目選択肢又はオプション）検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterPageBaseVariationOrOptionSearch(array $params = []): ApiResultEntity
+    public function masterPageBaseVariationOrOptionSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -75,16 +78,17 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBaseVariationOrOption::$endpoint_search, $params);
-        return $this->entity->set($response, MasterPageBaseVariationOrOption::class);
+        return $this->entity->set($response, $userClass ?? MasterPageBaseVariationOrOption::class);
     }
 
     /**
      * 商品ページ（基本-項目選択肢又はオプション）件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterPageBaseVariationOrOptionCount(array $params = []): ApiResultEntity
+    public function masterPageBaseVariationOrOptionCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -96,6 +100,6 @@ trait MasterPage
         );
 
         $response = $this->apiExecute(MasterPageBaseVariationOrOption::$endpoint_count, $params);
-        return $this->entity->set($response, MasterPageBaseVariationOrOption::class);
+        return $this->entity->set($response, $userClass ?? MasterPageBaseVariationOrOption::class);
     }
 }

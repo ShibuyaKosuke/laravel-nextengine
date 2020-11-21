@@ -17,9 +17,10 @@ trait SystemCredit
     /**
      * クレジット種類区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemCreditType(): ApiResultEntity
+    public function systemCreditType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -28,15 +29,16 @@ trait SystemCredit
         ];
 
         $response = $this->apiExecute(SystemCreditType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemCreditType::class);
+        return $this->entity->set($response, $userClass ?? SystemCreditType::class);
     }
 
     /**
      * クレジットオーソリセンター区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemCreditAuthorizationCenter(): ApiResultEntity
+    public function systemCreditAuthorizationCenter(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -45,15 +47,16 @@ trait SystemCredit
         ];
 
         $response = $this->apiExecute(SystemCreditAuthorizationCenter::$endpoint_info, $params);
-        return $this->entity->set($response, SystemCreditAuthorizationCenter::class);
+        return $this->entity->set($response, $userClass ?? SystemCreditAuthorizationCenter::class);
     }
 
     /**
      * クレジット承認区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemCreditApprovalType(): ApiResultEntity
+    public function systemCreditApprovalType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -62,6 +65,6 @@ trait SystemCredit
         ];
 
         $response = $this->apiExecute(SystemCreditApprovalType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemCreditApprovalType::class);
+        return $this->entity->set($response, $userClass ?? SystemCreditApprovalType::class);
     }
 }

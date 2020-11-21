@@ -15,9 +15,10 @@ trait SystemDeposit
     /**
      * 発送方法区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemDepositType(): ApiResultEntity
+    public function systemDepositType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemDeposit
         ];
 
         $response = $this->apiExecute(SystemDepositType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemDepositType::class);
+        return $this->entity->set($response, $userClass ?? SystemDepositType::class);
     }
 }

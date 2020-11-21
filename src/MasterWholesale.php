@@ -16,9 +16,10 @@ trait MasterWholesale
      * 卸先マスタ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterWholesaleBaseSearch(array $params = []): ApiResultEntity
+    public function masterWholesaleBaseSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait MasterWholesale
         );
 
         $response = $this->apiExecute(MasterWholesaleBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterWholesaleBase::class);
+        return $this->entity->set($response, $userClass ?? MasterWholesaleBase::class);
     }
 
     /**
      * 卸先マスタ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterWholesaleBaseCount(array $params = []): ApiResultEntity
+    public function masterWholesaleBaseCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,6 +54,6 @@ trait MasterWholesale
         );
 
         $response = $this->apiExecute(MasterWholesaleBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterWholesaleBase::class);
+        return $this->entity->set($response, $userClass ?? MasterWholesaleBase::class);
     }
 }

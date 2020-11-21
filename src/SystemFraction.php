@@ -15,9 +15,10 @@ trait SystemFraction
     /**
      * 発送方法区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemFraction(): ApiResultEntity
+    public function systemFraction(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemFraction
         ];
 
         $response = $this->apiExecute(SystemFractionBase::$endpoint_info, $params);
-        return $this->entity->set($response, SystemFractionBase::class);
+        return $this->entity->set($response, $userClass ?? SystemFractionBase::class);
     }
 }

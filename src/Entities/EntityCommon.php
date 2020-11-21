@@ -5,6 +5,7 @@ namespace ShibuyaKosuke\LaravelNextEngine\Entities;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
+use ShibuyaKosuke\LaravelNextEngine\Contracts\UserInstanceContract;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
@@ -41,6 +42,17 @@ abstract class EntityCommon implements EntityContract, EntityDownloadable
      */
     public function __construct(array $data = [])
     {
+        $this->setAttributes($data);
+
+        static::setTranslations();
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    protected function setAttributes(array $data = []): void
+    {
         foreach ($data as $name => $value) {
             if ($this->isDate($name)) {
                 $value = new Carbon($value);
@@ -49,10 +61,7 @@ abstract class EntityCommon implements EntityContract, EntityDownloadable
         }
 
         $this->attributes = $this->original;
-
-        static::setTranslations();
     }
-
 
     /**
      * プライマリーキー名を取得

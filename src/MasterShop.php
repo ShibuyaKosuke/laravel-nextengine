@@ -17,9 +17,10 @@ trait MasterShop
      * 店舗マスタ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterShopSearch(array $params = []): ApiResultEntity
+    public function masterShopSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -32,16 +33,17 @@ trait MasterShop
         );
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterShopBase::class);
+        return $this->entity->set($response, $userClass ?? MasterShopBase::class);
     }
 
     /**
      * 店舗マスタ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterShopCount(array $params = []): ApiResultEntity
+    public function masterShopCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -53,7 +55,7 @@ trait MasterShop
         );
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterShopBase::class);
+        return $this->entity->set($response, $userClass ?? MasterShopBase::class);
     }
 
     /**
@@ -72,7 +74,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_check_connect, $params);
-        return $this->entity->set($response, MasterShopBase::class);
+        return $this->entity->set($response, $userClass ?? MasterShopBase::class);
     }
 
     /**

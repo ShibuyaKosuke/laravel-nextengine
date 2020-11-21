@@ -15,9 +15,10 @@ trait SystemCurrency
     /**
      * 通貨単位区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemCurrencyUnit(): ApiResultEntity
+    public function systemCurrencyUnit(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemCurrency
         ];
 
         $response = $this->apiExecute(SystemCurrencyUnit::$endpoint_info, $params);
-        return $this->entity->set($response, SystemCurrencyUnit::class);
+        return $this->entity->set($response, $userClass ?? SystemCurrencyUnit::class);
     }
 }

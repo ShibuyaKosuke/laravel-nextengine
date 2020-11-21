@@ -15,9 +15,10 @@ trait SystemConfirm
     /**
      * 確認チェック区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemConfirmCheck(): ApiResultEntity
+    public function systemConfirmCheck(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemConfirm
         ];
 
         $response = $this->apiExecute(SystemConfirmCheck::$endpoint_info, $params);
-        return $this->entity->set($response, SystemConfirmCheck::class);
+        return $this->entity->set($response, $userClass ?? SystemConfirmCheck::class);
     }
 }

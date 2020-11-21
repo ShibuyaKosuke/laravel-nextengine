@@ -15,9 +15,10 @@ trait SystemForwarding
     /**
      * 輸送区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemForwardingMethod(): ApiResultEntity
+    public function systemForwardingMethod(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemForwarding
         ];
 
         $response = $this->apiExecute(SystemForwardingMethod::$endpoint_info, $params);
-        return $this->entity->set($response, SystemForwardingMethod::class);
+        return $this->entity->set($response, $userClass ?? SystemForwardingMethod::class);
     }
 }

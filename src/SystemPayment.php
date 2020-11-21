@@ -15,9 +15,10 @@ trait SystemPayment
     /**
      * 支払区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemPaymentMethod(): ApiResultEntity
+    public function systemPaymentMethod(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemPayment
         ];
 
         $response = $this->apiExecute(SystemPaymentMethod::$endpoint_info, $params);
-        return $this->entity->set($response, SystemPaymentMethod::class);
+        return $this->entity->set($response, $userClass ?? SystemPaymentMethod::class);
     }
 }

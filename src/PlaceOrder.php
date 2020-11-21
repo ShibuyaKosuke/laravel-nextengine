@@ -17,9 +17,10 @@ trait PlaceOrder
      * 発注伝票検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function placeOrderBaseSearch(array $params = []): ApiResultEntity
+    public function placeOrderBaseSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -32,16 +33,17 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderBase::$endpoint_search, $params);
-        return $this->entity->set($response, PlaceOrderBase::class);
+        return $this->entity->set($response, $userClass ?? PlaceOrderBase::class);
     }
 
     /**
      * 発注伝票件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function placeOrderBaseCount(array $params = []): ApiResultEntity
+    public function placeOrderBaseCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -53,16 +55,17 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderBase::$endpoint_count, $params);
-        return $this->entity->set($response, PlaceOrderBase::class);
+        return $this->entity->set($response, $userClass ?? PlaceOrderBase::class);
     }
 
     /**
      * 発注明細検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function placeOrderRowSearch(array $params = []): ApiResultEntity
+    public function placeOrderRowSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -75,16 +78,17 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderRow::$endpoint_search, $params);
-        return $this->entity->set($response, PlaceOrderRow::class);
+        return $this->entity->set($response, $userClass ?? PlaceOrderRow::class);
     }
 
     /**
      * 発注明細件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function placeOrderRowCount(array $params = []): ApiResultEntity
+    public function placeOrderRowCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -96,6 +100,6 @@ trait PlaceOrder
         );
 
         $response = $this->apiExecute(PlaceOrderRow::$endpoint_count, $params);
-        return $this->entity->set($response, PlaceOrderRow::class);
+        return $this->entity->set($response, $userClass ?? PlaceOrderRow::class);
     }
 }

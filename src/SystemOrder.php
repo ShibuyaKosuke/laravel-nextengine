@@ -17,9 +17,10 @@ trait SystemOrder
     /**
      * 発注区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemOrder(): ApiResultEntity
+    public function systemOrder(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -28,15 +29,16 @@ trait SystemOrder
         ];
 
         $response = $this->apiExecute(SystemOrderBase::$endpoint_info, $params);
-        return $this->entity->set($response, SystemOrderBase::class);
+        return $this->entity->set($response, $userClass ?? SystemOrderBase::class);
     }
 
     /**
      * 発注条件区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemOrderCondition(): ApiResultEntity
+    public function systemOrderCondition(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -45,15 +47,16 @@ trait SystemOrder
         ];
 
         $response = $this->apiExecute(SystemOrderCondition::$endpoint_info, $params);
-        return $this->entity->set($response, SystemOrderCondition::class);
+        return $this->entity->set($response, $userClass ?? SystemOrderCondition::class);
     }
 
     /**
      * 受注状態区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemOrderStatus(): ApiResultEntity
+    public function systemOrderStatus(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -62,6 +65,6 @@ trait SystemOrder
         ];
 
         $response = $this->apiExecute(SystemOrderStatus::$endpoint_info, $params);
-        return $this->entity->set($response, SystemOrderStatus::class);
+        return $this->entity->set($response, $userClass ?? SystemOrderStatus::class);
     }
 }

@@ -16,9 +16,10 @@ trait NoticeExecution
      * 実行結果お知らせ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function noticeExecutionSearch(array $params = []): ApiResultEntity
+    public function noticeExecutionSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait NoticeExecution
         );
 
         $response = $this->apiExecute(NoticeExecutionBase::$endpoint_search, $params);
-        return $this->entity->set($response, NoticeExecutionBase::class);
+        return $this->entity->set($response, $userClass ?? NoticeExecutionBase::class);
     }
 
     /**
      * 実行結果お知らせ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function noticeExecutionCount(array $params = []): ApiResultEntity
+    public function noticeExecutionCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,7 +54,7 @@ trait NoticeExecution
         );
 
         $response = $this->apiExecute(NoticeExecutionBase::$endpoint_count, $params);
-        return $this->entity->set($response, NoticeExecutionBase::class);
+        return $this->entity->set($response, $userClass ?? NoticeExecutionBase::class);
     }
 
     /**

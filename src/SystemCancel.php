@@ -15,9 +15,10 @@ trait SystemCancel
     /**
      * 受注キャンセル区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemCancelType(): ApiResultEntity
+    public function systemCancelType(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemCancel
         ];
 
         $response = $this->apiExecute(SystemCancelType::$endpoint_info, $params);
-        return $this->entity->set($response, SystemCancelType::class);
+        return $this->entity->set($response, $userClass ?? SystemCancelType::class);
     }
 }

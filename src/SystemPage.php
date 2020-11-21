@@ -15,9 +15,10 @@ trait SystemPage
     /**
      * ページステータス区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemPageStatus(): ApiResultEntity
+    public function systemPageStatus(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemPage
         ];
 
         $response = $this->apiExecute(SystemPageStatus::$endpoint_info, $params);
-        return $this->entity->set($response, SystemPageStatus::class);
+        return $this->entity->set($response, $userClass ?? SystemPageStatus::class);
     }
 }

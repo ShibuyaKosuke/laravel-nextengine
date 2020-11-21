@@ -274,7 +274,8 @@ abstract class Base
      * ログインAPIにリクエストする
      *
      * @param string $path URI
-     * @param array $params パラメータ
+     * @param array $params
+     * @param string|null $userClass パラメータ
      * @param string|null $redirect_uri リダイレクトURI
      * @return array|string
      * @throws NextEngineException
@@ -291,6 +292,7 @@ abstract class Base
      *
      * @param string $path
      * @param array $params
+     * @param string|null $userClass
      * @param string|null $redirect_uri
      * @return array|string
      */
@@ -304,6 +306,7 @@ abstract class Base
      *
      * @param string $path
      * @param array $params
+     * @param string|null $userClass
      * @return array|string|null
      * @throws NextEngineException
      */

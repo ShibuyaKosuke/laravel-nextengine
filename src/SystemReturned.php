@@ -15,9 +15,10 @@ trait SystemReturned
     /**
      * 発送方法区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemReturnedReason(): ApiResultEntity
+    public function systemReturnedReason(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemReturned
         ];
 
         $response = $this->apiExecute(SystemReturnedReason::$endpoint_info, $params);
-        return $this->entity->set($response, SystemReturnedReason::class);
+        return $this->entity->set($response, $userClass ?? SystemReturnedReason::class);
     }
 }

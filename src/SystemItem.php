@@ -15,9 +15,10 @@ trait SystemItem
     /**
      * 項目名情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemItem(): ApiResultEntity
+    public function systemItem(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemItem
         ];
 
         $response = $this->apiExecute(SystemItemBase::$endpoint_info, $params);
-        return $this->entity->set($response, SystemItemBase::class);
+        return $this->entity->set($response, $userClass ?? SystemItemBase::class);
     }
 }

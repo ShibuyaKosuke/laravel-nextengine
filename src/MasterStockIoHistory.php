@@ -16,9 +16,10 @@ trait MasterStockIoHistory
      * 在庫入出庫履歴検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterStockIoHistorySearch(array $params = []): ApiResultEntity
+    public function masterStockIoHistorySearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait MasterStockIoHistory
         );
 
         $response = $this->apiExecute(MasterStockIoHistoryBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterStockIoHistoryBase::class);
+        return $this->entity->set($response, $userClass ?? MasterStockIoHistoryBase::class);
     }
 
     /**
      * 在庫入出庫履歴件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterStockIoHistoryCount(array $params = []): ApiResultEntity
+    public function masterStockIoHistoryCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,6 +54,6 @@ trait MasterStockIoHistory
         );
 
         $response = $this->apiExecute(MasterStockIoHistoryBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterStockIoHistoryBase::class);
+        return $this->entity->set($response, $userClass ?? MasterStockIoHistoryBase::class);
     }
 }

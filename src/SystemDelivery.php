@@ -16,9 +16,10 @@ trait SystemDelivery
     /**
      * 発送方法区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemDelivery(): ApiResultEntity
+    public function systemDelivery(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -27,15 +28,16 @@ trait SystemDelivery
         ];
 
         $response = $this->apiExecute(SystemDeliveryBase::$endpoint_info, $params);
-        return $this->entity->set($response, SystemDeliveryBase::class);
+        return $this->entity->set($response, $userClass ?? SystemDeliveryBase::class);
     }
 
     /**
      * 納期情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemDeliveryDate(): ApiResultEntity
+    public function systemDeliveryDate(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -44,6 +46,6 @@ trait SystemDelivery
         ];
 
         $response = $this->apiExecute(SystemDeliveryDate::$endpoint_info, $params);
-        return $this->entity->set($response, SystemDeliveryDate::class);
+        return $this->entity->set($response, $userClass ?? SystemDeliveryDate::class);
     }
 }

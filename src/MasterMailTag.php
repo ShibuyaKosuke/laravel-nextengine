@@ -16,9 +16,10 @@ trait MasterMailTag
      * メールタグ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterMailTagSearch(array $params = []): ApiResultEntity
+    public function masterMailTagSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait MasterMailTag
         );
 
         $response = $this->apiExecute(MasterMailTagBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterMailTagBase::class);
+        return $this->entity->set($response, $userClass ?? MasterMailTagBase::class);
     }
 
     /**
      * メールタグ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterMailTagCount(array $params = []): ApiResultEntity
+    public function masterMailTagCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,6 +54,6 @@ trait MasterMailTag
         );
 
         $response = $this->apiExecute(MasterMailTagBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterMailTagBase::class);
+        return $this->entity->set($response, $userClass ?? MasterMailTagBase::class);
     }
 }

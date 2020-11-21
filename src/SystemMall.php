@@ -15,9 +15,10 @@ trait SystemMall
      * モール検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemMallSearch(array $params = []): ApiResultEntity
+    public function systemMallSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -30,16 +31,17 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallBase::$endpoint_search, $params);
-        return $this->entity->set($response, SystemMallBase::class);
+        return $this->entity->set($response, $userClass ?? SystemMallBase::class);
     }
 
     /**
      * モール件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemMallCount(array $params = []): ApiResultEntity
+    public function systemMallCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -51,16 +53,17 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallBase::$endpoint_count, $params);
-        return $this->entity->set($response, SystemMallBase::class);
+        return $this->entity->set($response, $userClass ?? SystemMallBase::class);
     }
 
     /**
      * モールカテゴリ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemMallCategorySearch(array $params = []): ApiResultEntity
+    public function systemMallCategorySearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -73,16 +76,17 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallCategory::$endpoint_search, $params);
-        return $this->entity->set($response, SystemMallCategory::class);
+        return $this->entity->set($response, $userClass ?? SystemMallCategory::class);
     }
 
     /**
      * モールカテゴリ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemMallCategoryCount(array $params = []): ApiResultEntity
+    public function systemMallCategoryCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -94,6 +98,6 @@ trait SystemMall
         );
 
         $response = $this->apiExecute(SystemMallCategory::$endpoint_count, $params);
-        return $this->entity->set($response, SystemMallCategory::class);
+        return $this->entity->set($response, $userClass ?? SystemMallCategory::class);
     }
 }

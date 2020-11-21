@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Boolean;
 use ShibuyaKosuke\LaravelNextEngine\Contracts\SessionResponseContract;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
+use ShibuyaKosuke\LaravelNextEngine\Contracts\UserInstanceContract as UserInstance;
+use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
  * Class ApiResultEntity

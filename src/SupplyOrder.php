@@ -17,9 +17,10 @@ trait SupplyOrder
      * 仕入伝票検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function supplyOrderSearch(array $params = []): ApiResultEntity
+    public function supplyOrderSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -32,16 +33,17 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderBase::$endpoint_search, $params);
-        return $this->entity->set($response, SupplyOrderBase::class);
+        return $this->entity->set($response, $userClass ?? SupplyOrderBase::class);
     }
 
     /**
      * 仕入伝票件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function supplyOrderCount(array $params = []): ApiResultEntity
+    public function supplyOrderCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -53,16 +55,17 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderBase::$endpoint_count, $params);
-        return $this->entity->set($response, SupplyOrderBase::class);
+        return $this->entity->set($response, $userClass ?? SupplyOrderBase::class);
     }
 
     /**
      * 仕入明細検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function supplyOrderRowSearch(array $params = []): ApiResultEntity
+    public function supplyOrderRowSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -75,16 +78,17 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderRow::$endpoint_search, $params);
-        return $this->entity->set($response, SupplyOrderRow::class);
+        return $this->entity->set($response, $userClass ?? SupplyOrderRow::class);
     }
 
     /**
      * 仕入明細件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function supplyOrderRowCount(array $params = []): ApiResultEntity
+    public function supplyOrderRowCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -96,6 +100,6 @@ trait SupplyOrder
         );
 
         $response = $this->apiExecute(SupplyOrderRow::$endpoint_count, $params);
-        return $this->entity->set($response, SupplyOrderRow::class);
+        return $this->entity->set($response, $userClass ?? SupplyOrderRow::class);
     }
 }

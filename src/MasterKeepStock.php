@@ -16,9 +16,10 @@ trait MasterKeepStock
      * 区分け在庫マスタ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterKeepStockSearch(array $params = []): ApiResultEntity
+    public function masterKeepStockSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait MasterKeepStock
         );
 
         $response = $this->apiExecute(MasterKeepStockBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterKeepStockBase::class);
+        return $this->entity->set($response, $userClass ?? MasterKeepStockBase::class);
     }
 
     /**
      * 区分け在庫マスタ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterKeepStockCount(array $params = []): ApiResultEntity
+    public function masterKeepStockCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,6 +54,6 @@ trait MasterKeepStock
         );
 
         $response = $this->apiExecute(MasterKeepStockBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterKeepStockBase::class);
+        return $this->entity->set($response, $userClass ?? MasterKeepStockBase::class);
     }
 }

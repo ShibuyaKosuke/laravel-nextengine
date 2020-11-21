@@ -16,9 +16,10 @@ trait MasterStock
      * メールタグ検索
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterStockSearch(array $params = []): ApiResultEntity
+    public function masterStockSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -31,16 +32,17 @@ trait MasterStock
         );
 
         $response = $this->apiExecute(MasterStockBase::$endpoint_search, $params);
-        return $this->entity->set($response, MasterStockBase::class);
+        return $this->entity->set($response, $userClass ?? MasterStockBase::class);
     }
 
     /**
      * メールタグ件数
      *
      * @param array $params
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function masterStockCount(array $params = []): ApiResultEntity
+    public function masterStockCount(array $params = [], string $userClass = null): ApiResultEntity
     {
         $params = array_merge(
             [
@@ -52,6 +54,6 @@ trait MasterStock
         );
 
         $response = $this->apiExecute(MasterStockBase::$endpoint_count, $params);
-        return $this->entity->set($response, MasterStockBase::class);
+        return $this->entity->set($response, $userClass ?? MasterStockBase::class);
     }
 }

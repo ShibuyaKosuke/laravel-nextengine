@@ -15,9 +15,10 @@ trait SystemTax
     /**
      * 税区分情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function systemTax(): ApiResultEntity
+    public function systemTax(string $userClass = null): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -26,6 +27,6 @@ trait SystemTax
         ];
 
         $response = $this->apiExecute(SystemTaxBase::$endpoint_info, $params);
-        return $this->entity->set($response, SystemTaxBase::class);
+        return $this->entity->set($response, $userClass ?? SystemTaxBase::class);
     }
 }
