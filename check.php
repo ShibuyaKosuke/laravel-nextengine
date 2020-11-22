@@ -35,24 +35,33 @@ foreach ($files as $file) {
             'return' => $method->hasReturnType() ? explode('\\', $method->getReturnType()->getName())[2] : null,
             'class' => '\\NextEngine',
             'name' => $method->getName(),
-            'arguments' => implode(', ', array_map(function (ReflectionParameter $parameter) {
-                $default = '';
-                if ($parameter->isDefaultValueAvailable()) {
-                    $def = $parameter->getDefaultValue();
-                    if ($def === null) {
-                        $default = '= null';
-                    } elseif ($def === []) {
-                        $default = '= []';
-                    } else {
-                        $default = $parameter->getDefaultValue();
-                    }
-                }
-                return implode(' ', [
-                    'type' => ($parameter->hasType()) ? $parameter->getType()->getName() : null,
-                    'name' => '$' . $parameter->getName(),
-                    'default' => $default
-                ]);
-            }, $method->getParameters())),
+            'arguments' => implode(
+                ', ',
+                array_map(
+                    function (ReflectionParameter $parameter) {
+                        $default = '';
+                        if ($parameter->isDefaultValueAvailable()) {
+                            $def = $parameter->getDefaultValue();
+                            if ($def === null) {
+                                $default = '= null';
+                            } elseif ($def === []) {
+                                $default = '= []';
+                            } else {
+                                $default = $parameter->getDefaultValue();
+                            }
+                        }
+                        return implode(
+                            ' ',
+                            [
+                            'type' => ($parameter->hasType()) ? $parameter->getType()->getName() : null,
+                            'name' => '$' . $parameter->getName(),
+                            'default' => $default
+                            ]
+                        );
+                    },
+                    $method->getParameters()
+                )
+            ),
             'comment' => $method_comment
         ];
     }
@@ -66,14 +75,14 @@ foreach ($files as $file) {
 
 $markdown = [];
 foreach ($result as $class) {
-
     $markdown[] = '## ' . $class['comment'];
     foreach ($class['methods'] as $method) {
         $markdown[] = '';
         $markdown[] = '##### ' . $method['comment'];
         $markdown[] = '';
         $markdown[] = '```php';
-        $markdown[] = sprintf('%s::%s(%s): %s',
+        $markdown[] = sprintf(
+            '%s::%s(%s): %s',
             $method['class'],
             $method['name'],
             $method['arguments'],
@@ -86,4 +95,3 @@ foreach ($result as $class) {
 
 $contemts = implode(PHP_EOL, $markdown);
 file_put_contents('text.md', $contemts);
-
