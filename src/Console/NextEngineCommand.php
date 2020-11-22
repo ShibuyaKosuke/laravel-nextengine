@@ -27,10 +27,11 @@ class NextEngineCommand extends Command
      * The console command description.
      *
      * @var string
-     *
-     * protected $description = 'Refresh access token for NextEngine.';
-     *
-     * /**
+     */
+
+    protected $description = 'Refresh access token for NextEngine.';
+
+    /**
      * @var Application
      */
     protected $app;
@@ -65,7 +66,7 @@ class NextEngineCommand extends Command
         $accounts = $nextEngineApis->filter(
             function (NextEngineApi $nextEngineApi) {
 
-            /** @var \ShibuyaKosuke\LaravelNextEngine\NextEngine $nextEngine */
+                /** @var \ShibuyaKosuke\LaravelNextEngine\NextEngine $nextEngine */
                 $nextEngine = NextEngine::setAccount($nextEngineApi);
 
                 $response = $nextEngine->loginForCli($nextEngineApi->redirect_uri);
@@ -74,7 +75,7 @@ class NextEngineCommand extends Command
                     return false;
                 }
 
-            /** @var string $content */
+                /** @var string $content */
                 $content = $nextEngine->loginUser();
 
                 $this->info(sprintf('更新: ID %d', $nextEngineApi->id));
