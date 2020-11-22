@@ -37,5 +37,3 @@ jobs:
             - ./vendor
 
       - run: ./vendor/bin/phpcs --standard=phpcs.xml .
-
-      - run: ./vendor/bin/phpcbf --standard=phpcs.xml .
