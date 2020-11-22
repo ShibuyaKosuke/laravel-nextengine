@@ -55,7 +55,7 @@ class NextEngineCommand extends Command
         $this->info('======== START TOKEN REFRESH ========');
 
         /** @var NextEngineApi[]|Collection $nextEngineApis */
-        $nextEngineApis = NextEngineApi::query()->refresh()->get();
+        $nextEngineApis = NextEngineApi::refresh()->get();
 
         if ($nextEngineApis->count() === 0) {
             $this->info('=   No Account is need to update.   =');
@@ -66,7 +66,6 @@ class NextEngineCommand extends Command
         $accounts = $nextEngineApis->filter(
             function (NextEngineApi $nextEngineApi) {
 
-                /** @var \ShibuyaKosuke\LaravelNextEngine\NextEngine $nextEngine */
                 $nextEngine = NextEngine::setAccount($nextEngineApi);
 
                 $response = $nextEngine->loginForCli($nextEngineApi->redirect_uri);

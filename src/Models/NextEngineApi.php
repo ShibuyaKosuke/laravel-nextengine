@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon access_token_end_date
  * @property Carbon refresh_token_end_date
  *
- * @method Builder refresh()
+ * @method static Builder refresh()
  */
 class NextEngineApi extends Model
 {
