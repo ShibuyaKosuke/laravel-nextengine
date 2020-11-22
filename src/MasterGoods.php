@@ -10,7 +10,7 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsTag;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoodsWholesale;
 
 /**
- * 商品マスター系メソッド
+ * 商品マスタ
  *
  * Trait MasterGoods
  * @package ShibuyaKosuke\LaravelNextEngine
