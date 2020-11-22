@@ -145,7 +145,7 @@ class NextEngine extends Base
      * @return ApiResultEntity
      * @category 認証系エンドポイント
      */
-    public function loginUser(string $userClass = null): ApiResultEntity
+    public function loginUser(): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,
@@ -161,7 +161,7 @@ class NextEngine extends Base
      * @return ApiResultEntity
      * @category 認証系エンドポイント
      */
-    public function loginCompany(string $userClass = null): ApiResultEntity
+    public function loginCompany(): ApiResultEntity
     {
         $params = [
             'access_token' => $this->access_token,

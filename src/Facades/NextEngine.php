@@ -16,8 +16,8 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  * Class NextEngine
  * @package \ShibuyaKosuke\LaravelNextEngine\Facades
  *
- * @method static \ShibuyaKosuke\LaravelNextEngine\NextEngine login(string $redirect_uri = NULL)
- * @method static array|string loginForCli(string $redirect_uri = NULL)
+ * @method static \ShibuyaKosuke\LaravelNextEngine\NextEngine login()
+ * @method static array|string loginForCli()
  * @method static array getAccessToken()
  * @method static array company()
  * @method static ApiResultEntity loginUser()
