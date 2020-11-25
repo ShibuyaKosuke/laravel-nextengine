@@ -171,6 +171,11 @@ class ReceiveOrderBase extends EntityCommon
     public $orderRows = [];
 
     /**
+     * @var ReceiveOrderConfirm
+     */
+    public $orderConfirm;
+
+    /**
      * プロパティのリスト
      *
      * @var string[]
@@ -319,6 +324,22 @@ class ReceiveOrderBase extends EntityCommon
         'receive_order_last_modified_date',
         'receive_order_last_modified_null_safe_date',
     ];
+
+    /**
+     * @return ReceiveOrderConfirm|null
+     */
+    public function getOrderConfirm(): ?ReceiveOrderConfirm
+    {
+        return $this->orderConfirm;
+    }
+
+    /**
+     * @param ReceiveOrderConfirm $orderConfirm
+     */
+    public function setOrderConfirm(ReceiveOrderConfirm $orderConfirm): void
+    {
+        $this->orderConfirm = $orderConfirm;
+    }
 
     /**
      * @param ReceiveOrderOption $orderOption

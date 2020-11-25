@@ -4,6 +4,7 @@ namespace ShibuyaKosuke\LaravelNextEngine;
 
 use Arr;
 use DomDocument;
+use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderConfirm;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderForwardingAgent;
@@ -30,9 +31,12 @@ trait ReceiveOrder
      */
     public function receiveOrderBaseSearch(array $params = [], string $userClass = null): ApiResultEntity
     {
+        /** @var EntityCommon $class */
+        $class = ($userClass) ?: ReceiveOrderBase::class;
+
         $params = array_merge(
             [
-                'fields' => ReceiveOrderBase::getPropertiesString(),
+                'fields' => $class::getPropertiesString(),
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'wait_flag' => $this->getWaitFlag(),
@@ -40,26 +44,36 @@ trait ReceiveOrder
             $params
         );
 
-        $response = $this->apiExecute(ReceiveOrderBase::$endpoint_search, $params);
+        $response = $this->apiExecute($class::$endpoint_search, $params);
 
         /** @var array $data */
         $data = $response['data'];
-        $ids_string = implode(',', Arr::pluck($data, 'receive_order_id'));
 
-        $temp_response = ReceiveOrderBase::setData($response);
+        $temp_response = $class::setData($response);
 
-        /** @var ReceiveOrderBase[] $orders */
+        /** @var $class [] $orders */
         $orders = $temp_response['data'];
+
+        // 受注確認内容
+        $confirm_ids = implode(',', Arr::pluck($data, 'receive_order_confirm_ids'));
+        $confirms = $this->receiveOrderConfirmSearch(['confirm_id-in' => $confirm_ids]);
+        foreach ($orders as $order) {
+            /** @var ReceiveOrderConfirm $confirm */
+            foreach ($confirms->data as $confirm) {
+                if ($confirm->confirm_id === $order->receive_order_confirm_ids) {
+                    $order->setOrderConfirm($confirm);
+                }
+            }
+        }
+
+        $ids_string = implode(',', Arr::pluck($data, 'receive_order_id'));
 
         // 受注オプション
         $orderOptions = $this->receiveOrderOptionSearch(['receive_order_option_receive_order_id-in' => $ids_string]);
-
         foreach ($orders as $order) {
-            $receive_order_id = $order->receive_order_id;
-
             /** @var ReceiveOrderOption $orderOption */
             foreach ($orderOptions->data as $orderOption) {
-                if ($orderOption->receive_order_option_receive_order_id === $receive_order_id) {
+                if ($orderOption->receive_order_option_receive_order_id === $order->receive_order_id) {
                     $order->setOrderOption($orderOption);
                 }
             }
@@ -67,13 +81,10 @@ trait ReceiveOrder
 
         // 受注明細
         $orderRows = $this->receiveOrderRowSearch(['receive_order_row_receive_order_id-in' => $ids_string]);
-
         foreach ($orders as $order) {
-            $receive_order_id = $order->receive_order_id;
-
             /** @var ReceiveOrderRow $orderRow */
             foreach ($orderRows->data as $orderRow) {
-                if ($orderRow->receive_order_row_receive_order_id === $receive_order_id) {
+                if ($orderRow->receive_order_row_receive_order_id === $order->receive_order_id) {
                     $order->addOrderRow($orderRow);
                 }
             }
