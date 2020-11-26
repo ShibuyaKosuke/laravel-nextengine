@@ -4,6 +4,7 @@ namespace ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder;
 
 use Carbon\Carbon;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
+use ShibuyaKosuke\LaravelNextEngine\Entities\MasterGoods\MasterGoods;
 
 /**
  * 受注明細
@@ -128,6 +129,19 @@ class ReceiveOrderRow extends EntityCommon
         'receive_order_row_last_modified_null_safe_date',
         'receive_order_row_last_modified_newest_date',
     ];
+
+    /**
+     * @var MasterGoods
+     */
+    public $goods;
+
+    /**
+     * @param MasterGoods $goods
+     */
+    public function setGoods(MasterGoods $goods): void
+    {
+        $this->goods = $goods;
+    }
 
     /**
      * @param \DOMDocument $domDocument

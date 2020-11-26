@@ -56,12 +56,14 @@ trait ReceiveOrder
 
         // 受注確認内容
         $confirm_ids = implode(',', Arr::pluck($data, 'receive_order_confirm_ids'));
-        $confirms = $this->receiveOrderConfirmSearch(['confirm_id-in' => $confirm_ids]);
-        foreach ($orders as $order) {
-            /** @var ReceiveOrderConfirm $confirm */
-            foreach ($confirms->data as $confirm) {
-                if ($confirm->confirm_id === $order->receive_order_confirm_ids) {
-                    $order->setOrderConfirm($confirm);
+        if ($confirm_ids) {
+            $confirms = $this->receiveOrderConfirmSearch(['confirm_id-in' => $confirm_ids]);
+            foreach ($orders as $order) {
+                /** @var ReceiveOrderConfirm $confirm */
+                foreach ($confirms->data as $confirm) {
+                    if ($confirm->confirm_id === $order->receive_order_confirm_ids) {
+                        $order->setOrderConfirm($confirm);
+                    }
                 }
             }
         }
@@ -81,14 +83,29 @@ trait ReceiveOrder
 
         // 受注明細
         $orderRows = $this->receiveOrderRowSearch(['receive_order_row_receive_order_id-in' => $ids_string]);
+
+        $orderRowsData = $orderRows->data;
         foreach ($orders as $order) {
             /** @var ReceiveOrderRow $orderRow */
-            foreach ($orderRows->data as $orderRow) {
+            foreach ($orderRowsData as $orderRow) {
                 if ($orderRow->receive_order_row_receive_order_id === $order->receive_order_id) {
                     $order->addOrderRow($orderRow);
                 }
             }
         }
+
+        /** @var string $goods_ids 複数商品IDのカンマ区切り */
+        $goods_ids = implode(',', Arr::pluck($orderRows->data, 'receive_order_row_goods_id'));
+        $goods = $this->masterGoodsSearch(['goods_id-in' => $goods_ids]);
+
+        $temp_goods = [];
+        foreach ($goods->data as $good) {
+            $temp_goods[$good->goods_id] = $good;
+        }
+        foreach ($orderRowsData as $orderRow) {
+            $orderRow->setGoods($temp_goods[$orderRow->receive_order_row_goods_id]);
+        }
+
         $response['data'] = $orders;
 
         return $this->entity->set($response);
@@ -151,7 +168,7 @@ trait ReceiveOrder
         ];
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
-        return $this->entity->set($response, $userClass ?? ReceiveOrderBase::class);
+        return $this->entity->set($response, ReceiveOrderBase::class);
     }
 
     /**
@@ -194,7 +211,7 @@ trait ReceiveOrder
             'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
         ];
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_bulk_update, $params);
-        return $this->entity->set($response, $userClass ?? ReceiveOrderBase::class);
+        return $this->entity->set($response, ReceiveOrderBase::class);
     }
 
     /**
@@ -448,6 +465,7 @@ trait ReceiveOrder
     /**
      * 受注一括登録パターン情報
      *
+     * @param string|null $userClass
      * @return ApiResultEntity
      */
     public function receiveOrderUploadPattern(string $userClass = null): ApiResultEntity
