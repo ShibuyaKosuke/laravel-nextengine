@@ -168,7 +168,7 @@ trait ReceiveOrder
         ];
 
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
-        return $this->entity->set($response, $userClass ?? ReceiveOrderBase::class);
+        return $this->entity->set($response, ReceiveOrderBase::class);
     }
 
     /**
@@ -211,7 +211,7 @@ trait ReceiveOrder
             'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
         ];
         $response = $this->apiExecute(ReceiveOrderBase::$endpoint_bulk_update, $params);
-        return $this->entity->set($response, $userClass ?? ReceiveOrderBase::class);
+        return $this->entity->set($response, ReceiveOrderBase::class);
     }
 
     /**
