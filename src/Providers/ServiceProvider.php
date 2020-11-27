@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ShibuyaKosuke\LaravelNextEngine\Providers;
 
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider as ServiceProviderBase;
 use ShibuyaKosuke\LaravelNextEngine\Console\NextEngineCommand;
 use ShibuyaKosuke\LaravelNextEngine\NextEngine;
-use ShibuyaKosuke\LaravelNextEngine\Services\HttpClient;
 
 /**
  * Class ServiceProvider
@@ -66,7 +66,7 @@ class ServiceProvider extends ServiceProviderBase
         $this->app->singleton(
             'nextengine.client',
             function ($app) {
-                $httpClient = new HttpClient();
+                $httpClient = new Client();
                 return new NextEngine($app, $httpClient);
             }
         );

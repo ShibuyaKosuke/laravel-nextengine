@@ -3,8 +3,6 @@
 namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemImage\SystemImage;
-use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
-use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 
 /**
  * 画像分類タグ
@@ -14,29 +12,6 @@ use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
  */
 class SystemImageTest extends TestCase
 {
-    private $object;
-
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate:fresh');
-
-        $this->getEnvironmentSetUp($this->app);
-
-        $this->nextEngineApi = factory(NextEngineApi::class)->make();
-
-        $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
-        $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
-
-        $response = NextEngine::setAccount($this->nextEngineApi)->getAccessToken();
-
-        $this->object = NextEngine::setAccount($this->nextEngineApi);
-    }
-
     /**
      * 画像分類タグ検索
      */

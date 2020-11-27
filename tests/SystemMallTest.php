@@ -4,8 +4,6 @@ namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemMall\SystemMall;
 use ShibuyaKosuke\LaravelNextEngine\Entities\SystemMall\SystemMallCategory;
-use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
-use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
  * Class SystemMallTest
@@ -13,30 +11,6 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  */
 class SystemMallTest extends TestCase
 {
-    private $object;
-
-    /**
-     * @return void
-     * @throws \ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate:fresh');
-
-        $this->getEnvironmentSetUp($this->app);
-
-        $this->nextEngineApi = factory(NextEngineApi::class)->make();
-
-        $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
-        $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
-
-        $response = NextEngine::setAccount($this->nextEngineApi)->getAccessToken();
-
-        $this->object = NextEngine::setAccount($this->nextEngineApi);
-    }
-
     /**
      * モール検索
      */

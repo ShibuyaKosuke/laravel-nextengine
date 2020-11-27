@@ -4,7 +4,6 @@ namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
-use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
  * Class NextEngineTest
@@ -12,29 +11,6 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  */
 class NextEngineTest extends TestCase
 {
-    /**
-     * @var NextEngine
-     */
-    private $object;
-
-    /**
-     * Setup the test environment.
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate:fresh');
-
-        $this->getEnvironmentSetUp($this->app);
-
-        $this->nextEngineApi = factory(NextEngineApi::class)->make();
-
-        $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
-        $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
-    }
-
     /**
      * ログインユーザー取得
      */

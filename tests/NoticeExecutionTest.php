@@ -14,29 +14,6 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  */
 class NoticeExecutionTest extends TestCase
 {
-    private $object;
-
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate:fresh');
-
-        $this->getEnvironmentSetUp($this->app);
-
-        $this->nextEngineApi = factory(NextEngineApi::class)->make();
-
-        $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
-        $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
-
-        $response = NextEngine::setAccount($this->nextEngineApi)->getAccessToken();
-
-        $this->object = NextEngine::setAccount($this->nextEngineApi);
-    }
-
     /**
      * 実行結果お知らせ検索
      */
@@ -68,9 +45,9 @@ class NoticeExecutionTest extends TestCase
     {
         $noticeExecution = new NoticeExecution(
             [
-            'execution_notice_success' => '1',
-            'execution_notice_title' => 'お知らせの件名',
-            'execution_notice_content' => 'お知らせの内容',
+                'execution_notice_success' => '1',
+                'execution_notice_title' => 'お知らせの件名',
+                'execution_notice_content' => 'お知らせの内容',
             ]
         );
 

@@ -6,8 +6,6 @@ use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop as MasterShopBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShopMailAddress;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
-use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
-use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 
 /**
  * 店舗マスタ
@@ -17,29 +15,6 @@ use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
  */
 class MasterShopTest extends TestCase
 {
-    private $object;
-
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate:fresh');
-
-        $this->getEnvironmentSetUp($this->app);
-
-        $this->nextEngineApi = factory(NextEngineApi::class)->make();
-
-        $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
-        $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
-
-        $response = NextEngine::setAccount($this->nextEngineApi)->getAccessToken();
-
-        $this->object = NextEngine::setAccount($this->nextEngineApi);
-    }
-
     /**
      * 店舗マスタ検索
      */

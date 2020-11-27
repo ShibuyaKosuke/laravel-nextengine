@@ -22,10 +22,11 @@ class HttpClient implements HttpClientInterface
 
     /**
      * HttpClient constructor.
+     * @param GuzzleClient $client
      */
-    public function __construct()
+    public function __construct(GuzzleClient $client)
     {
-        $this->client = new GuzzleClient();
+        $this->client = $client;
     }
 
     /**

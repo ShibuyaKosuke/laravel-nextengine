@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShibuyaKosuke\LaravelNextEngine;
 
 use Carbon\Carbon;
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Application;
@@ -174,10 +175,10 @@ abstract class Base
     /**
      * NextEngine constructor.
      * @param Application $app
-     * @param HttpClientInterface $http_client
+     * @param GuzzleClient $http_client
      * @throws NextEngineException
      */
-    public function __construct(Application $app, HttpClientInterface $http_client)
+    public function __construct(Application $app, GuzzleClient $http_client)
     {
         $this->isCli = (PHP_SAPI === 'cli');
 
@@ -329,7 +330,8 @@ abstract class Base
                 ]
             );
 
-            $content = $this->http_client->post(self::API_SERVER_DOMAIN . $path, $params)
+            $content = (new HttpClient($this->http_client))
+                ->post(self::API_SERVER_DOMAIN . $path, $params)
                 ->getBody()
                 ->getContents();
 
