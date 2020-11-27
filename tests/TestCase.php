@@ -46,7 +46,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $response = $nextEngine->setAccount($this->nextEngineApi)->getAccessToken();
 
-        $this->object =$nextEngine->setAccount($this->nextEngineApi);
+        $this->object = $nextEngine->setAccount($this->nextEngineApi);
 
         $this->startSession();
     }
