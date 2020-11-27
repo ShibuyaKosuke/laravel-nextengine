@@ -28,6 +28,7 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Setup the test environment.
      * @return void
+     * @throws \ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException
      */
     protected function setUp(): void
     {
