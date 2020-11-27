@@ -7,6 +7,7 @@ namespace ShibuyaKosuke\LaravelNextEngine\Providers;
 use Illuminate\Support\ServiceProvider as ServiceProviderBase;
 use ShibuyaKosuke\LaravelNextEngine\Console\NextEngineCommand;
 use ShibuyaKosuke\LaravelNextEngine\NextEngine;
+use ShibuyaKosuke\LaravelNextEngine\Services\HttpClient;
 
 /**
  * Class ServiceProvider
@@ -65,7 +66,8 @@ class ServiceProvider extends ServiceProviderBase
         $this->app->singleton(
             'nextengine.client',
             function ($app) {
-                return new NextEngine($app);
+                $httpClient = new HttpClient();
+                return new NextEngine($app, $httpClient);
             }
         );
     }
