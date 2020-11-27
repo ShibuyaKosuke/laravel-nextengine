@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 use ShibuyaKosuke\LaravelNextEngine\Services\HttpClient;
+use ShibuyaKosuke\LaravelNextEngine\Services\HttpClientInterface;
 
 /**
  * Class Base
@@ -55,6 +56,11 @@ abstract class Base
      * 要リダイレクト
      */
     const RESULT_REDIRECT = 'redirect';
+
+    /**
+     * @var HttpClientInterface
+     */
+    protected $http_client;
 
     /**
      * Cli環境かどうか
@@ -168,11 +174,14 @@ abstract class Base
     /**
      * NextEngine constructor.
      * @param Application $app
+     * @param HttpClientInterface $http_client
      * @throws NextEngineException
      */
-    public function __construct(Application $app)
+    public function __construct(Application $app, HttpClientInterface $http_client)
     {
         $this->isCli = (PHP_SAPI === 'cli');
+
+        $this->http_client = $http_client;
 
         $this->config = $app['config'];
         $this->router = $app['router'];
@@ -274,8 +283,7 @@ abstract class Base
      * ログインAPIにリクエストする
      *
      * @param string $path URI
-     * @param array $params
-     * @param string|null $userClass パラメータ
+     * @param array $params パラメータ
      * @param string|null $redirect_uri リダイレクトURI
      * @return array|string
      * @throws NextEngineException
@@ -292,7 +300,6 @@ abstract class Base
      *
      * @param string $path
      * @param array $params
-     * @param string|null $userClass
      * @param string|null $redirect_uri
      * @return array|string
      */
@@ -306,7 +313,6 @@ abstract class Base
      *
      * @param string $path
      * @param array $params
-     * @param string|null $userClass
      * @return array|string|null
      * @throws NextEngineException
      */
@@ -323,7 +329,7 @@ abstract class Base
                 ]
             );
 
-            $content = (new HttpClient())->post(self::API_SERVER_DOMAIN . $path, $params)
+            $content = $this->http_client->post(self::API_SERVER_DOMAIN . $path, $params)
                 ->getBody()
                 ->getContents();
 

@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
  * Class HttpClient
  * @package ShibuyaKosuke\LaravelNextEngine\Services
  */
-class HttpClient
+class HttpClient implements HttpClientInterface
 {
     /**
      * @var GuzzleClient
@@ -33,7 +33,6 @@ class HttpClient
      *
      * @param string $url
      * @param array $params
-     * @param string|null $userClass
      * @return ResponseInterface
      * @throws GuzzleException
      */
@@ -47,7 +46,6 @@ class HttpClient
      *
      * @param string $url
      * @param array $params
-     * @param string|null $userClass
      * @return ResponseInterface
      * @throws GuzzleException
      */
@@ -64,7 +62,6 @@ class HttpClient
      *
      * @param string $url
      * @param array $params
-     * @param string|null $userClass
      * @return PromiseInterface
      */
     public function postAsync(string $url, array $params = []): PromiseInterface
