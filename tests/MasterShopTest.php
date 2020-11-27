@@ -4,7 +4,6 @@ namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop;
 use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShop as MasterShopBase;
-use ShibuyaKosuke\LaravelNextEngine\Entities\MasterShop\MasterShopMailAddress;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 
 /**
@@ -48,7 +47,8 @@ class MasterShopTest extends TestCase
     {
         $apiResultEntity = $this->object->masterShopMailAddress(1);
 
-        self::assertInstanceOf(MasterShopMailAddress::class, $apiResultEntity->data);
+        self::assertArrayHasKey('shop_id', $apiResultEntity->data);
+        self::assertArrayHasKey('receiveorder_mail_address', $apiResultEntity->data);
     }
 
     /**

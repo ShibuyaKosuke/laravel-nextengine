@@ -5,8 +5,8 @@ namespace ShibuyaKosuke\LaravelNextEngine\Tests;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use ShibuyaKosuke\LaravelNextEngine\Facades\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
+use ShibuyaKosuke\LaravelNextEngine\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Providers\ServiceProvider;
 
 /**
@@ -15,6 +15,9 @@ use ShibuyaKosuke\LaravelNextEngine\Providers\ServiceProvider;
  */
 abstract class TestCase extends OrchestraTestCase
 {
+    /**
+     * @var NextEngine
+     */
     protected $object;
 
     /**
@@ -39,7 +42,7 @@ abstract class TestCase extends OrchestraTestCase
         $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
         $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
 
-        $nextEngine = new \ShibuyaKosuke\LaravelNextEngine\NextEngine($this->app, new Client());
+        $nextEngine = new NextEngine($this->app, new Client());
 
         $response = $nextEngine->setAccount($this->nextEngineApi)->getAccessToken();
 

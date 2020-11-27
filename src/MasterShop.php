@@ -74,7 +74,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopBase::$endpoint_check_connect, $params);
-        return $this->entity->set($response, $userClass ?? MasterShopBase::class);
+        return $this->entity->set($response, MasterShopBase::class);
     }
 
     /**
@@ -92,7 +92,7 @@ trait MasterShop
         ];
 
         $response = $this->apiExecute(MasterShopMailAddress::$endpoint_mail_address, $params);
-        return new ApiResultEntity(MasterShopMailAddress::setDataRow($response));
+        return $this->entity->set($response);
     }
 
     /**
