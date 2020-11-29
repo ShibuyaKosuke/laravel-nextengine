@@ -40,12 +40,6 @@ class ReceiveOrderTest extends TestCase
         }
     }
 
-    public function testReceiveOrderBaseBulkUpdate()
-    {
-        $apiResultEntity = $this->object->receiveOrderBaseSearch();
-        $apiResultEntity = $this->object->receiveOrderBaseBulkUpdate($apiResultEntity->data);
-    }
-
     /**
      * 受注伝票件数
      */

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 use ShibuyaKosuke\LaravelNextEngine\Services\HttpClient;
-use ShibuyaKosuke\LaravelNextEngine\Services\HttpClientInterface;
 
 /**
  * Class Base
@@ -59,7 +58,7 @@ abstract class Base
     const RESULT_REDIRECT = 'redirect';
 
     /**
-     * @var HttpClientInterface
+     * @var ClientInterface
      */
     protected $http_client;
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ShibuyaKosuke\LaravelNextEngine\Services;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -22,9 +23,9 @@ class HttpClient implements HttpClientInterface
 
     /**
      * HttpClient constructor.
-     * @param GuzzleClient $client
+     * @param ClientInterface $client
      */
-    public function __construct(GuzzleClient $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
