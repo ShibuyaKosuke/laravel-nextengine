@@ -473,9 +473,7 @@ abstract class Base
     protected function debugLog($message): void
     {
         if ($this->debug) {
-            if (function_exists('\Debugbar')) {
-                \Debugbar::info($message);
-            }
+            \Log::debug($message);
         }
     }
 }
