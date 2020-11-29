@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException;
 use ShibuyaKosuke\LaravelNextEngine\Models\NextEngineApi;
 use ShibuyaKosuke\LaravelNextEngine\NextEngine;
 use ShibuyaKosuke\LaravelNextEngine\Providers\ServiceProvider;
@@ -29,7 +30,7 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Setup the test environment.
      * @return void
-     * @throws \ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException
+     * @throws NextEngineException
      */
     protected function setUp(): void
     {
@@ -40,7 +41,6 @@ abstract class TestCase extends OrchestraTestCase
         $this->getEnvironmentSetUp($this->app);
 
         $this->nextEngineApi = factory(NextEngineApi::class)->make();
-        $this->nextEngineApi->access_token = uniqid('', true);
 
         $this->nextEngineApi->uid = env('NEXT_ENGINE_UID');
         $this->nextEngineApi->state = env('NEXT_ENGINE_STATE');
@@ -52,7 +52,7 @@ abstract class TestCase extends OrchestraTestCase
 
     /**
      * @param ClientInterface $client
-     * @throws \ShibuyaKosuke\LaravelNextEngine\Exceptions\NextEngineException
+     * @throws NextEngineException
      */
     public function setClient(ClientInterface $client)
     {
