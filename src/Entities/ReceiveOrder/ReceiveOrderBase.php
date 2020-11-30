@@ -171,9 +171,9 @@ class ReceiveOrderBase extends EntityCommon
     public $orderRows = [];
 
     /**
-     * @var ReceiveOrderConfirm
+     * @var array|ReceiveOrderConfirm[]
      */
-    public $orderConfirm;
+    public $orderConfirms = [];
 
     /**
      * プロパティのリスト
@@ -326,19 +326,19 @@ class ReceiveOrderBase extends EntityCommon
     ];
 
     /**
-     * @return ReceiveOrderConfirm|null
+     * @return array|ReceiveOrderConfirm[]
      */
-    public function getOrderConfirm(): ?ReceiveOrderConfirm
+    public function getOrderConfirms(): array
     {
-        return $this->orderConfirm;
+        return $this->orderConfirms;
     }
 
     /**
      * @param ReceiveOrderConfirm $orderConfirm
      */
-    public function setOrderConfirm(ReceiveOrderConfirm $orderConfirm): void
+    public function addOrderConfirm(ReceiveOrderConfirm $orderConfirm): void
     {
-        $this->orderConfirm = $orderConfirm;
+        $this->orderConfirms[] = $orderConfirm;
     }
 
     /**

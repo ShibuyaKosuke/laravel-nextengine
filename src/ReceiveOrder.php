@@ -55,14 +55,14 @@ trait ReceiveOrder
         $orders = $temp_response['data'];
 
         // 受注確認内容
-        $confirm_ids = implode(',', Arr::pluck($data, 'receive_order_confirm_ids'));
+        $confirm_ids = str_replace(':', ',', implode(',', Arr::pluck($data, 'receive_order_confirm_ids')));
         if ($confirm_ids) {
             $confirms = $this->receiveOrderConfirmSearch(['confirm_id-in' => $confirm_ids]);
             foreach ($orders as $order) {
                 /** @var ReceiveOrderConfirm $confirm */
                 foreach ($confirms->data as $confirm) {
-                    if ($confirm->confirm_id === $order->receive_order_confirm_ids) {
-                        $order->setOrderConfirm($confirm);
+                    if (in_array($confirm->confirm_id, explode(':', $order->receive_order_confirm_ids), true)) {
+                        $order->addOrderConfirm($confirm);
                     }
                 }
             }
