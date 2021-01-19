@@ -17,7 +17,7 @@
 composer でインストールしてください。
 
 ```bash
-composer require laravel-nextengine
+composer require shibuyakosuke/laravel-nextengine
 ```
 
 Laravel バージョン 8 以上を使う場合は、別途 laravel/legacy-factories をインストールしてください。
