@@ -103,7 +103,9 @@ trait ReceiveOrder
             $temp_goods[$good->goods_id] = $good;
         }
         foreach ($orderRowsData as $orderRow) {
-            $orderRow->setGoods($temp_goods[$orderRow->receive_order_row_goods_id]);
+            if (array_key_exists($orderRow->receive_order_row_goods_id, $temp_goods)) {
+                $orderRow->setGoods($temp_goods[$orderRow->receive_order_row_goods_id]);
+            }
         }
 
         $response['data'] = $orders;
