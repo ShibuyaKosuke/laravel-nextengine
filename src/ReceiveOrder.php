@@ -54,6 +54,10 @@ trait ReceiveOrder
         /** @var $class [] $orders */
         $orders = $temp_response['data'];
 
+        if (empty($data)) {
+            return $this->entity->set($response);
+        }
+
         // 受注確認内容
         $confirm_ids = str_replace(':', ',', implode(',', Arr::pluck($data, 'receive_order_confirm_ids')));
         if ($confirm_ids) {
