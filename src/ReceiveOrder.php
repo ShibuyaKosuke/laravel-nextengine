@@ -5,6 +5,7 @@ namespace ShibuyaKosuke\LaravelNextEngine;
 use Arr;
 use DomDocument;
 use ShibuyaKosuke\LaravelNextEngine\Entities\EntityCommon;
+use ShibuyaKosuke\LaravelNextEngine\Entities\EntityContract;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderBase;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderConfirm;
 use ShibuyaKosuke\LaravelNextEngine\Entities\ReceiveOrder\ReceiveOrderForwardingAgent;
@@ -29,7 +30,7 @@ trait ReceiveOrder
      * @param string|null $userClass
      * @return ApiResultEntity
      */
-    public function receiveOrderBaseSearch(array $params = [], string $userClass = null): ApiResultEntity
+    public function receiveOrderBaseSearch(array $params = [], string $userClass = null)
     {
         /** @var EntityCommon $class */
         $class = ($userClass) ?: ReceiveOrderBase::class;
@@ -44,7 +45,7 @@ trait ReceiveOrder
             $params
         );
 
-        $response = $this->apiExecute($class::$endpoint_search, $params);
+        $response = $this->apiExecute($class::$endpoint_search, $params, null, $this->access_token);
 
         /** @var array $data */
         $data = $response['data'];
@@ -142,12 +143,12 @@ trait ReceiveOrder
     /**
      * 受注伝票更新
      *
-     * @param ReceiveOrderBase $receiveOrderBase
+     * @param EntityContract $receiveOrderBase
      * @param integer $receive_order_shipped_update_flag 1:受注状態が「出荷確定済（完了）」でも更新可 1以外:受注状態が「出荷確定済（完了）」は更新不可
      * @param integer $receive_order_row_cancel_update_flag 1:受注伝票の受注キャンセル区分を0（有効）に変更したときに明細行のキャンセルフラグを有効にする 1以外:受注キャンセル区分を0（有効）に変更しても明細行のキャンセルフラグに影響なし
      * @return ApiResultEntity
      */
-    public function receiveOrderBaseUpdate(ReceiveOrderBase $receiveOrderBase, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0): ApiResultEntity
+    public function receiveOrderBaseUpdate($receiveOrderBase, int $receive_order_shipped_update_flag = 0, int $receive_order_row_cancel_update_flag = 0, $access_token = null): ApiResultEntity
     {
         $dom = new DomDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
@@ -157,6 +158,14 @@ trait ReceiveOrder
             $root->appendChild($receiveOrderBasesXmlObject);
         }
 
+        // XMLに変換
+        if ($receiveOrderBase->getOrderOption()) {
+            $xmlOrderOption = $receiveOrderBase->getOrderOption()->toXmlObject($dom);
+            if ($xmlOrderOption) {
+                $root->appendChild($xmlOrderOption);
+            }
+        }
+
         // 更新内容が存在しないとき
         if (!$root->hasChildNodes()) {
             $dom = null;
@@ -164,8 +173,8 @@ trait ReceiveOrder
 
         $params = [
             'receive_order_id' => $receiveOrderBase->receive_order_id,
-            'receive_order_last_modified_date' => $receiveOrderBase->receive_order_last_modified_date,
-            'data' => $dom->saveXML(),
+            'receive_order_last_modified_date' => $receiveOrderBase->receive_order_last_modified_date->format('Y-m-d H:i:s'),
+            'data' => ($dom) ? $dom->saveXML() : null,
             'receive_order_shipped_update_flag' => $receive_order_shipped_update_flag,
             'receive_order_row_cancel_update_flag' => $receive_order_row_cancel_update_flag,
             'access_token' => $this->access_token,
@@ -173,7 +182,7 @@ trait ReceiveOrder
             'wait_flag' => $this->getWaitFlag(),
         ];
 
-        $response = $this->apiExecute(ReceiveOrderBase::$endpoint_count, $params);
+        $response = $this->apiExecute(ReceiveOrderBase::$endpoint_update, $params, null, $access_token);
         return $this->entity->set($response, ReceiveOrderBase::class);
     }
 
@@ -239,7 +248,7 @@ trait ReceiveOrder
             $params
         );
 
-        $response = $this->apiExecute(ReceiveOrderRow::$endpoint_search, $params);
+        $response = $this->apiExecute(ReceiveOrderRow::$endpoint_search, $params, null, $this->access_token);
         return $this->entity->set($response, $userClass ?? ReceiveOrderRow::class);
     }
 
@@ -284,7 +293,7 @@ trait ReceiveOrder
             $params
         );
 
-        $response = $this->apiExecute(ReceiveOrderOption::$endpoint_search, $params);
+        $response = $this->apiExecute(ReceiveOrderOption::$endpoint_search, $params, null, $this->access_token);
         return $this->entity->set($response, $userClass ?? ReceiveOrderOption::class);
     }
 
@@ -329,7 +338,7 @@ trait ReceiveOrder
             $params
         );
 
-        $response = $this->apiExecute(ReceiveOrderConfirm::$endpoint_search, $params);
+        $response = $this->apiExecute(ReceiveOrderConfirm::$endpoint_search, $params, null, $this->access_token);
         return $this->entity->set($response, $userClass ?? ReceiveOrderConfirm::class);
     }
 

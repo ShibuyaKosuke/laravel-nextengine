@@ -385,14 +385,6 @@ class ReceiveOrderBase extends EntityCommon
             $receiveorder_base->appendChild($domDocument->createElement($key, $value));
         }
 
-        // XMLに変換
-        if ($this->getOrderOption()) {
-            $xmlOrderOption = $this->getOrderOption()->toXmlObject($domDocument);
-            if ($xmlOrderOption) {
-                $receiveorder_base->appendChild($xmlOrderOption);
-            }
-        }
-
         // 各要素をXMLに変換
         $xmlOrderRows = array_map(
             static function (ReceiveOrderRow $orderRow) use ($domDocument) {

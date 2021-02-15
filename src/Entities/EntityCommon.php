@@ -54,7 +54,7 @@ abstract class EntityCommon implements EntityContract, EntityDownloadable
     protected function setAttributes(array $data = []): void
     {
         foreach ($data as $name => $value) {
-            if ($this->isDate($name)) {
+            if ($this->isDate($name) && !is_null($value) && !$value instanceof Carbon) {
                 $value = new Carbon($value);
             }
             $this->original[$name] = $value;
@@ -160,6 +160,11 @@ abstract class EntityCommon implements EntityContract, EntityDownloadable
     public function toArray(): array
     {
         return $this->get();
+    }
+
+    public function getOriginals()
+    {
+        return $this->original;
     }
 
     /**

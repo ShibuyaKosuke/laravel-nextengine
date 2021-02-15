@@ -302,10 +302,15 @@ abstract class Base
      * @param array $params
      * @param string|null $redirect_uri
      * @return array|string
+     * @throws NextEngineException
      */
-    public function apiExecute(string $path, array $params = [], string $redirect_uri = null)
+    public function apiExecute(string $path, array $params = [], string $redirect_uri = null, string $access_token = null)
     {
-        return $this->login()->execute($path, $params, $redirect_uri);
+        if (is_null($access_token)) {
+            return $this->login()->execute($path, $params, $redirect_uri);
+        }
+        $this->access_token = $access_token;
+        return $this->execute($path, $params, $redirect_uri);
     }
 
     /**

@@ -36,7 +36,7 @@ trait MasterGoods
             $params
         );
 
-        $response = $this->apiExecute(MasterGoodsBase::$endpoint_search, $params);
+        $response = $this->apiExecute(MasterGoodsBase::$endpoint_search, $params, null, $this->access_token);
         return $this->entity->set($response, $userClass ?? MasterGoodsBase::class);
     }
 
