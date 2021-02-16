@@ -55,7 +55,10 @@ class NextEngineCommand extends Command
         $this->info('======== START TOKEN REFRESH ========');
 
         /** @var NextEngineApi[]|Collection $nextEngineApis */
-        $nextEngineApis = NextEngineApi::refresh()->get();
+        $nextEngineApis = NextEngineApi::query()
+            ->whereRaw('access_token_end_date <= now()')
+            ->whereRaw('refresh_token_end_date > now()')
+            ->get();
 
         if ($nextEngineApis->count() === 0) {
             $this->info('=   No Account is need to update.   =');
