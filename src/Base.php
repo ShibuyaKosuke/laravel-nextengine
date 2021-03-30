@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShibuyaKosuke\LaravelNextEngine;
 
+use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -207,7 +208,7 @@ abstract class Base
     public function setAccount(NextEngineApi $nextEngineApi = null): self
     {
         if (Auth::check()) {
-            $nextEngineApi = $this->request->user()->nextEngineApi;
+            $nextEngineApi = User::find(1)->nextEngineApi;
         }
         $this->parseConfig($nextEngineApi);
         return $this;

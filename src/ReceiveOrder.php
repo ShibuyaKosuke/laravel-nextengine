@@ -45,6 +45,8 @@ trait ReceiveOrder
             $params
         );
 
+//        $server_name = 'https://' . \Illuminate\Support\Facades\Route::getCurrentRequest()->server('SERVER_NAME') . '?' . http_build_query($params);
+
         $response = $this->apiExecute($class::$endpoint_search, $params, null, $this->access_token);
 
         /** @var array $data */
@@ -115,7 +117,7 @@ trait ReceiveOrder
 
         $response['data'] = $orders;
 
-        return $this->entity->set($response);
+        return $this->entity->set($response, null, 'receiveOrder');
     }
 
     /**

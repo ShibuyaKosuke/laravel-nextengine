@@ -113,9 +113,10 @@ class ApiResultEntity implements SessionResponseContract
     /**
      * @param array $response
      * @param string|null $class_name
+     * @param null $key
      * @return ApiResultEntity
      */
-    public function set(array $response, string $class_name = null): self
+    public function set(array $response, string $class_name = null, $key = null): self
     {
         // クラス
         $this->class_name = $class_name;
@@ -127,7 +128,7 @@ class ApiResultEntity implements SessionResponseContract
         $this->setData($response);
 
         // データをセッションに保存する
-        $this->setSessionData();
+        $this->setSessionData($key);
 
         return $this;
     }
@@ -174,13 +175,13 @@ class ApiResultEntity implements SessionResponseContract
     /**
      * データをセッションに保存する
      */
-    public function setSessionData(): void
+    public function setSessionData($key): void
     {
         // キャッシュ用にレスポンスを保持する
         $this->serialized_object = serialize($this->data);
 
         // session_key を生成
-        $this->session_key = hash('sha256', $this->serialized_object);
+        $this->session_key = $key;
         session()->put($this->session_key, $this->serialized_object);
     }
 

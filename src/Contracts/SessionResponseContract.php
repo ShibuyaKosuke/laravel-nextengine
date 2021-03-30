@@ -9,8 +9,9 @@ interface SessionResponseContract
 {
     /**
      * データをセッションに保存する
+     * @param $key
      */
-    public function setSessionData(): void;
+    public function setSessionData($key): void;
 
     /**
      * セッション保存用のキーを取得
